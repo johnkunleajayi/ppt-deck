@@ -1,0 +1,1940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LeadFlow — Hack the Future Pitch Deck</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #07111f;
+            --bg-deep: #0b1728;
+            --white: #ffffff;
+            --text: #e8eef8;
+            --muted: #a7b5c9;
+            --blue: #5b8cff;
+            --cyan: #35d6d0;
+            --purple: #9b7cff;
+            --green: #35d39a;
+            --orange: #ffb454;
+            --border: rgba(255, 255, 255, 0.12);
+            --glass: rgba(7, 17, 31, 0.78);
+            --glass-light: rgba(255, 255, 255, 0.08);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 0;
+            background:
+                radial-gradient(circle at 15% 10%, rgba(91, 140, 255, 0.12), transparent 30%),
+                radial-gradient(circle at 85% 80%, rgba(53, 214, 208, 0.10), transparent 30%),
+                #020811;
+            display: grid;
+            gap: 40px;
+            place-items: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            border-radius: 18px;
+            color: var(--white);
+            background-color: var(--bg-dark);
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.45),
+                0 0 0 1px rgba(255, 255, 255, 0.06);
+            isolation: isolate;
+        }
+
+        /*
+         * Background image treatment
+         *
+         * Slide 1:
+         * wide_cinematic_futuristic_event_tech_marketing_h.png
+         *
+         * Slides 2-8:
+         * wide_cinematic_futuristic_conference_event_theme.png
+         */
+
+        .slide-container::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -3;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .slide-container::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(4, 12, 24, 0.97) 0%,
+                    rgba(4, 12, 24, 0.88) 38%,
+                    rgba(4, 12, 24, 0.63) 68%,
+                    rgba(4, 12, 24, 0.72) 100%
+                );
+        }
+
+        #slide1::before {
+            background-image: url("wide_cinematic_futuristic_event_tech_marketing_h.png");
+            background-position: center;
+        }
+
+        #slide2::before,
+        #slide3::before,
+        #slide4::before,
+        #slide5::before,
+        #slide6::before,
+        #slide7::before,
+        #slide8::before {
+            background-image: url("wide_cinematic_futuristic_conference_event_theme.png");
+            background-position: center;
+        }
+
+        #slide1::after {
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(3, 10, 20, 0.96) 0%,
+                    rgba(3, 10, 20, 0.83) 40%,
+                    rgba(3, 10, 20, 0.34) 74%,
+                    rgba(3, 10, 20, 0.60) 100%
+                );
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            padding: 52px 72px;
+        }
+
+        .content.centered {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .top-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .brand-mark {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, var(--blue), var(--cyan));
+            box-shadow: 0 8px 24px rgba(53, 214, 208, 0.20);
+        }
+
+        .slide-number {
+            color: rgba(255, 255, 255, 0.48);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 76px;
+            line-height: 0.98;
+            letter-spacing: -3px;
+            font-weight: 800;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 39px;
+            line-height: 1.1;
+            letter-spacing: -1.4px;
+            font-weight: 700;
+        }
+
+        h3 {
+            margin: 0;
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--cyan);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            margin-bottom: 17px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 26px;
+            height: 2px;
+            background: var(--cyan);
+            border-radius: 99px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #ffffff 0%, #8eb2ff 48%, #57e6df 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 20px;
+            line-height: 1.55;
+        }
+
+        .small {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 14px;
+            border-radius: 999px;
+            background: rgba(91, 140, 255, 0.12);
+            border: 1px solid rgba(91, 140, 255, 0.35);
+            color: #bcd0ff;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .hero-copy {
+            width: 680px;
+        }
+
+        .hero-copy .subtitle {
+            max-width: 610px;
+            margin-top: 24px;
+        }
+
+        .hero-tagline {
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #dce8ff;
+        }
+
+        .hero-tagline span {
+            color: var(--cyan);
+        }
+
+        .event-tag {
+            margin-top: 38px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(3, 10, 20, 0.54);
+            backdrop-filter: blur(12px);
+            color: #c8d4e7;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 34px;
+        }
+
+        .section-heading .support {
+            width: 360px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.5;
+            text-align: right;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .glass-card {
+            position: relative;
+            padding: 25px;
+            border-radius: 17px;
+            background: linear-gradient(
+                145deg,
+                rgba(12, 28, 49, 0.86),
+                rgba(6, 17, 31, 0.72)
+            );
+            border: 1px solid var(--border);
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.20);
+            backdrop-filter: blur(15px);
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 22px;
+            right: 22px;
+            height: 3px;
+            border-radius: 0 0 8px 8px;
+            background: var(--accent, var(--blue));
+        }
+
+        .icon-box {
+            width: 46px;
+            height: 46px;
+            border-radius: 13px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 20px;
+            background: rgba(91, 140, 255, 0.12);
+            color: var(--blue);
+            font-size: 19px;
+        }
+
+        .glass-card h3 {
+            margin-bottom: 11px;
+        }
+
+        .card-text {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+        .quote-bar {
+            margin-top: 28px;
+            padding: 17px 20px;
+            border-left: 3px solid var(--cyan);
+            border-radius: 0 12px 12px 0;
+            background: rgba(53, 214, 208, 0.07);
+            color: #dceef0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 17px;
+            line-height: 1.5;
+        }
+
+        /* Slide 1 */
+
+        #slide1 .content {
+            padding-left: 82px;
+            padding-top: 70px;
+        }
+
+        .hero-logo {
+            width: 62px;
+            height: 62px;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 28px;
+            background: linear-gradient(135deg, var(--blue), var(--cyan));
+            box-shadow:
+                0 16px 35px rgba(53, 214, 208, 0.22),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.20);
+            font-size: 27px;
+        }
+
+        .hero-bottom {
+            position: absolute;
+            left: 82px;
+            bottom: 48px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: rgba(255, 255, 255, 0.62);
+            font-size: 12px;
+        }
+
+        .hero-bottom-line {
+            width: 45px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        /* Slide 2 */
+
+        .problem-stat {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .problem-stat .number {
+            font-family: 'Poppins', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--blue);
+        }
+
+        .problem-stat .label {
+            color: #dce5f2;
+            font-size: 14px;
+            line-height: 1.45;
+        }
+
+        /* Slide 3 */
+
+        .flow {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+            gap: 12px;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .flow-card {
+            min-height: 190px;
+            padding: 22px;
+            border-radius: 17px;
+            background: rgba(7, 18, 32, 0.84);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(15px);
+        }
+
+        .flow-step {
+            color: var(--cyan);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-bottom: 18px;
+        }
+
+        .flow-card h3 {
+            margin-bottom: 11px;
+        }
+
+        .flow-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .flow-arrow {
+            color: rgba(255, 255, 255, 0.38);
+            font-size: 18px;
+        }
+
+        /* Slide 4 */
+
+        .product-frame {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 25px;
+            margin-top: 15px;
+        }
+
+        .mock-device {
+            min-height: 365px;
+            border-radius: 19px;
+            background: #f8fafc;
+            color: #0f172a;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.30);
+        }
+
+        .mock-top {
+            height: 46px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 0 16px;
+            background: #eef2f7;
+            border-bottom: 1px solid #dbe2ea;
+        }
+
+        .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #cbd5e1;
+        }
+
+        .mock-title {
+            margin-left: 9px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+        }
+
+        .mock-content {
+            padding: 25px;
+        }
+
+        .mock-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #315fd6;
+            font-family: 'Poppins', sans-serif;
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 25px;
+        }
+
+        .mock-person {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .avatar {
+            width: 53px;
+            height: 53px;
+            border-radius: 15px;
+            display: grid;
+            place-items: center;
+            background: #dbeafe;
+            color: #315fd6;
+            font-size: 19px;
+        }
+
+        .person-name {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 17px;
+        }
+
+        .person-company {
+            color: #64748b;
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        .mock-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-top: 1px solid #e2e8f0;
+            font-size: 11px;
+        }
+
+        .mock-row span:first-child {
+            color: #64748b;
+        }
+
+        .mock-row strong {
+            color: #0f172a;
+        }
+
+        .badge-hot {
+            display: inline-flex;
+            padding: 5px 9px;
+            border-radius: 999px;
+            background: #dcfce7;
+            color: #166534;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .feature-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .feature {
+            display: flex;
+            gap: 15px;
+            padding: 18px;
+            border-radius: 14px;
+            background: rgba(7, 18, 32, 0.76);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+        }
+
+        .feature i {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 34px;
+            border-radius: 10px;
+            background: rgba(53, 214, 208, 0.10);
+            color: var(--cyan);
+        }
+
+        .feature h3 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .feature p {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        /* Slide 5 */
+
+        .mvp-grid {
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 20px;
+        }
+
+        .mvp-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 13px;
+        }
+
+        .mvp-item {
+            padding: 17px;
+            border-radius: 14px;
+            background: rgba(7, 18, 32, 0.76);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+        }
+
+        .mvp-item i {
+            color: var(--cyan);
+            font-size: 17px;
+            margin-bottom: 12px;
+        }
+
+        .mvp-item h3 {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .mvp-item p {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.45;
+        }
+
+        .scope-card {
+            padding: 23px;
+            border-radius: 17px;
+            background: linear-gradient(
+                150deg,
+                rgba(91, 140, 255, 0.15),
+                rgba(53, 214, 208, 0.07)
+            );
+            border: 1px solid rgba(91, 140, 255, 0.28);
+        }
+
+        .scope-card h3 {
+            margin-bottom: 16px;
+            color: #dce7ff;
+        }
+
+        .scope-list {
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+        }
+
+        .scope-list div {
+            display: flex;
+            gap: 9px;
+            align-items: flex-start;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .scope-list i {
+            color: var(--green);
+            margin-top: 2px;
+        }
+
+        .scope-note {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.10);
+            color: #8191a7;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        /* Slide 6 */
+
+        .architecture {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .architecture-node {
+            min-height: 125px;
+            padding: 18px;
+            border-radius: 15px;
+            background: rgba(7, 18, 32, 0.82);
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            text-align: center;
+        }
+
+        .architecture-node i {
+            font-size: 23px;
+            margin-bottom: 13px;
+            color: var(--accent);
+        }
+
+        .architecture-node h3 {
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .architecture-node p {
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        .architecture-note {
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 13px;
+        }
+
+        .tech-pill {
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.055);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+        }
+
+        .tech-pill strong {
+            display: block;
+            color: #dce7f8;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .tech-pill span {
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        /* Slide 7 */
+
+        .business-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .business-card {
+            padding: 22px;
+            border-radius: 17px;
+            background: rgba(7, 18, 32, 0.80);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+        }
+
+        .business-card .business-icon {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: rgba(91, 140, 255, 0.12);
+            color: var(--blue);
+            margin-bottom: 17px;
+        }
+
+        .business-card h3 {
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .business-card p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.55;
+        }
+
+        .gtm {
+            margin-top: 18px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 13px;
+        }
+
+        .gtm-item {
+            padding: 15px 17px;
+            border-radius: 12px;
+            background: rgba(53, 214, 208, 0.06);
+            border: 1px solid rgba(53, 214, 208, 0.14);
+        }
+
+        .gtm-item strong {
+            display: block;
+            font-size: 11px;
+            color: #dceef0;
+            margin-bottom: 4px;
+        }
+
+        .gtm-item span {
+            font-size: 10px;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+
+        /* Slide 8 */
+
+        #slide8::after {
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(3, 10, 20, 0.95) 0%,
+                    rgba(3, 10, 20, 0.78) 46%,
+                    rgba(3, 10, 20, 0.58) 100%
+                );
+        }
+
+        .closing {
+            max-width: 750px;
+        }
+
+        .closing h2 {
+            font-size: 55px;
+            margin-bottom: 20px;
+        }
+
+        .closing .subtitle {
+            font-size: 21px;
+            max-width: 650px;
+        }
+
+        .closing-flow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 34px;
+            flex-wrap: wrap;
+        }
+
+        .closing-flow span {
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.13);
+            color: #dce7f8;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .closing-flow i {
+            color: var(--cyan);
+            font-size: 11px;
+        }
+
+        .closing-event {
+            margin-top: 43px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 19px;
+            border-radius: 999px;
+            border: 1px solid rgba(53, 214, 208, 0.28);
+            background: rgba(53, 214, 208, 0.07);
+            color: #b9eeee;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 25px;
+            left: 72px;
+            right: 72px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.38);
+            font-size: 10px;
+            z-index: 3;
+        }
+
+        @media print {
+            body {
+                display: block;
+                padding: 0;
+                background: transparent;
+            }
+
+            .slide-container {
+                width: 1280px;
+                height: 720px;
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+                page-break-after: always;
+                break-after: page;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ========================================================= -->
+    <!-- SLIDE 1 — COVER -->
+    <!-- ========================================================= -->
+
+    <section class="slide-container" id="slide1">
+
+        <div class="content">
+
+            <div class="hero-copy">
+
+                <div class="hero-logo">
+                    <i class="fa-solid fa-qrcode"></i>
+                </div>
+
+                <div class="eyebrow">
+                    Universal Lead Scan & Contact Capture
+                </div>
+
+                <h1>
+                    <span class="gradient-text">LeadFlow</span>
+                </h1>
+
+                <p class="subtitle">
+                    Turn event interactions into qualified,
+                    contextualised leads — from the first scan
+                    to the next action.
+                </p>
+
+                <div class="hero-tagline">
+                    <span>Scan.</span>
+                    <span>Capture.</span>
+                    <span>Qualify.</span>
+                    <span>Connect.</span>
+                </div>
+
+                <div class="event-tag">
+                    <i class="fa-solid fa-bolt"></i>
+                    Hack the Future · SparkSmiths × Flock
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="footer">
+            <span>LEADFLOW</span>
+            <span>01 / 08</span>
+        </div>
+
+    </section>
+
+
+    <!-- ========================================================= -->
+    <!-- SLIDE 2 — PROBLEM -->
+    <!-- ========================================================= -->
+
+    <section class="slide-container" id="slide2">
+
+        <div class="content">
+
+            <div class="top-line">
+                <div class="brand">
+                    <div class="brand-mark">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    LeadFlow
+                </div>
+
+                <div class="slide-number">
+                    02 / 08
+                </div>
+            </div>
+
+            <div class="section-heading">
+
+                <div>
+                    <div class="eyebrow">
+                        The problem
+                    </div>
+
+                    <h2>
+                        A scan captures a contact.<br>
+                        <span class="gradient-text">
+                            It doesn't capture the relationship.
+                        </span>
+                    </h2>
+                </div>
+
+
+            </div>
+
+            <div class="grid-3">
+
+                <div
+                    class="glass-card"
+                    style="--accent:#5b8cff;"
+                >
+                    <div class="icon-box">
+                        <i class="fa-solid fa-address-card"></i>
+                    </div>
+
+                    <h3>
+                        Contacts without context
+                    </h3>
+
+                    <p class="card-text">
+                        A badge or business card tells us who someone is —
+                        not why the conversation mattered.
+                    </p>
+                </div>
+
+                <div
+                    class="glass-card"
+                    style="--accent:#9b7cff;"
+                >
+                    <div class="icon-box">
+                        <i class="fa-solid fa-file-circle-xmark"></i>
+                    </div>
+
+                    <h3>
+                        Leads trapped in silos
+                    </h3>
+
+                    <p class="card-text">
+                        Event interactions can end up as disconnected
+                        spreadsheets, notes or individual contacts.
+                    </p>
+                </div>
+
+                <div
+                    class="glass-card"
+                    style="--accent:#35d6d0;"
+                >
+                    <div class="icon-box">
+                        <i class="fa-solid fa-arrow-trend-down"></i>
+                    </div>
+
+                    <h3>
+                        Follow-up loses momentum
+                    </h3>
+
+                    <p class="card-text">
+                        Without qualification and next-step context,
+                        valuable event conversations are harder to act on.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="quote-bar">
+                The real value of an event lead isn't the contact record.
+                <strong>It's the context behind the connection.</strong>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <span>LEADFLOW</span>
+            <span>02 / 08</span>
+        </div>
+
+    </section>
+
+
+    <!-- ========================================================= -->
+    <!-- SLIDE 3 — SOLUTION -->
+    <!-- ========================================================= -->
+
+    <section class="slide-container" id="slide3">
+
+        <div class="content">
+
+            <div class="top-line">
+                <div class="brand">
+                    <div class="brand-mark">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    LeadFlow
+                </div>
+
+                <div class="slide-number">
+                    03 / 08
+                </div>
+            </div>
+
+            <div class="eyebrow">
+                The solution
+            </div>
+
+            <h2>
+                One interaction.<br>
+                <span class="gradient-text">
+                    A complete lead journey.
+                </span>
+            </h2>
+
+            <p
+                class="subtitle"
+                style="max-width:700px;margin-top:14px;font-size:16px;"
+            >
+                LeadFlow connects capture, context and qualification
+                into one reusable event lead workflow.
+            </p>
+
+            <div class="flow">
+
+                <div class="flow-card">
+                    <div class="flow-step">01 · SCAN</div>
+
+                    <h3>
+                        Capture
+                    </h3>
+
+                    <p>
+                        Scan a QR code, badge or capture a business-card
+                        contact.
+                    </p>
+                </div>
+
+                <div class="flow-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+
+                <div class="flow-card">
+                    <div class="flow-step">02 · CONTEXT</div>
+
+                    <h3>
+                        Remember
+                    </h3>
+
+                    <p>
+                        Attach the event, conversation and useful notes
+                        to the contact.
+                    </p>
+                </div>
+
+                <div class="flow-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+
+                <div class="flow-card">
+                    <div class="flow-step">03 · QUALIFY</div>
+
+                    <h3>
+                        Prioritise
+                    </h3>
+
+                    <p>
+                        Mark the lead status and identify the most useful
+                        next step.
+                    </p>
+                </div>
+
+                <div class="flow-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+
+                <div class="flow-card">
+                    <div class="flow-step">04 · CONNECT</div>
+
+                    <h3>
+                        Act
+                    </h3>
+
+                    <p>
+                        Export or move the structured lead into the next
+                        stage of the sales process.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="quote-bar" style="margin-top:25px;">
+                <strong>LeadFlow's core promise:</strong>
+                don't just capture who you met — capture why they matter.
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <span>LEADFLOW</span>
+            <span>03 / 08</span>
+        </div>
+
+    </section>
+
+
+    <!-- ========================================================= -->
+    <!-- SLIDE 4 — PRODUCT EXPERIENCE -->
+    <!-- ========================================================= -->
+
+    <section class="slide-container" id="slide4">
+
+        <div class="content">
+
+            <div class="top-line">
+                <div class="brand">
+                    <div class="brand-mark">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    LeadFlow
+                </div>
+
+                <div class="slide-number">
+                    04 / 08
+                </div>
+            </div>
+
+            <div class="section-heading">
+
+                <div>
+                    <div class="eyebrow">
+                        Product experience
+                    </div>
+
+                    <h2>
+                        From a scan to a<br>
+                        <span class="gradient-text">
+                            useful lead record.
+                        </span>
+                    </h2>
+                </div>
+
+
+            </div>
+
+            <div class="product-frame">
+
+                <div class="mock-device">
+
+                    <div class="mock-top">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+
+                        <span class="mock-title">
+                            LeadFlow · Lead Record
+                        </span>
+                    </div>
+
+                    <div class="mock-content">
+
+                        <div class="mock-brand">
+                            <i class="fa-solid fa-bolt"></i>
+                            LeadFlow
+                        </div>
+
+                        <div class="mock-person">
+
+                            <div class="avatar">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+
+                            <div>
+                                <div class="person-name">
+                                    Sarah Williams
+                                </div>
+
+                                <div class="person-company">
+                                    Acme Technologies
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="mock-row">
+                            <span>Event</span>
+                            <strong>Hack the Future</strong>
+                        </div>
+
+                        <div class="mock-row">
+                            <span>Source</span>
+                            <strong>Badge Scan</strong>
+                        </div>
+
+                        <div class="mock-row">
+                            <span>Interest</span>
+                            <strong>Salesforce AI</strong>
+                        </div>
+
+                        <div class="mock-row">
+                            <span>Lead status</span>
+                            <span class="badge-hot">
+                                HOT
+                            </span>
+                        </div>
+
+                        <div class="mock-row">
+                            <span>Next action</span>
+                            <strong>Send product demo</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="feature-stack">
+
+                    <div class="feature">
+
+                        <i class="fa-solid fa-qrcode"></i>
+
+                        <div>
+                            <h3>
+                                Scan & identify
+                            </h3>
+
+                            <p>
+                                Capture the attendee or lead without
+                                manually retyping contact details.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="feature">
+
+                        <i class="fa-solid fa-note-sticky"></i>
+
+                        <div>
+                            <h3>
+                                Add conversation context
+                            </h3>
+
+                            <p>
+                                Record what was discussed and what makes
+                                the connection valuable.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="feature">
+
+                        <i class="fa-solid fa-fire"></i>
+
+                        <div>
+                            <h3>
+                                Qualify the lead
+                            </h3>
+
+                            <p>
+                                Give the team a simple way to distinguish
+                                priority opportunities.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="feature">
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                        <div>
+                            <h3>
+                                Define the next action
+                            </h3>
+
+                            <p>
+                                Turn the captured interaction into an
+                                actionable follow-up.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <span>LEADFLOW</span>
+            <span>04 / 08</span>
+        </div>
+
+    </section>
+
+
+    <!-- ========================================================= -->
+    <!-- SLIDE 5 — MVP -->
+    <!-- ========================================================= -->
+
+    <section class="slide-container" id="slide5">
+
+        <div class="content">
+
+            <div class="top-line">
+                <div class="brand">
+                    <div class="brand-mark">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    LeadFlow
+                </div>
+
+                <div class="slide-number">
+                    05 / 08
+                </div>
+            </div>
+
+            <div class="eyebrow">
+                MVP scope
+            </div>
+
+            <h2>
+                Small enough to build.<br>
+                <span class="gradient-text">
+                    Useful enough to demo.
+                </span>
+            </h2>
+
+            
+
+            <div class="mvp-grid" style="margin-top:25px;">
+
+                <div class="mvp-main">
+
+                    <div class="mvp-item">
+                        <i class="fa-solid fa-qrcode"></i>
+
+                        <h3>
+                            Check-in & scan
+                        </h3>
+
+                        <p>
+                            Capture attendees and leads through QR/badge
+                            based interactions.
+                        </p>
+                    </div>
+
+                    <div class="mvp-item">
+                        <i class="fa-solid fa-address-card"></i>
+
+                        <h3>
+                            Contact capture
+                        </h3>
+
+                        <p>
+                            Create a structured contact record from the
+                            captured interaction.
+                        </p>
+                    </div>
+
+                    <div class="mvp-item">
+                        <i class="fa-solid fa-link"></i>
+
+                        <h3>
+                            Contact linking
+                        </h3>
+
+                        <p>
+                            Connect the person to the event and the
+                            captured interaction.
+                        </p>
+                    </div>
+
+                    <div class="mvp-item">
+                        <i class="fa-solid fa-message"></i>
+
+                        <h3>
+                            Context & notes
+                        </h3>
+
+                        <p>
+                            Preserve the conversation and reason the lead
+                            matters.
+                        </p>
+                    </div>
+
+                    <div class="mvp-item">
+                        <i class="fa-solid fa-filter"></i>
+
+                        <h3>
+                            Lead qualification
+                        </h3>
+
+                        <p>
+                            Give teams a simple way to prioritise leads
+                            after capture.
+                        </p>
+                    </div>
+
+                    <div class="mvp-item">
+                        <i class="fa-solid fa-file-export"></i>
+
+                        <h3>
+                            CSV export
+                        </h3>
+
+                        <p>
+                            Make captured leads usable outside the MVP
+                            through structured export.
+                        </p>
+                    </div>
+
+                </div>
+
+                
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <span>LEADFLOW</span>
+            <span>05 / 08</span>
+        </div>
+
+    </section>
+
+
+    <!-- ========================================================= -->
+    <!-- SLIDE 6 — ARCHITECTURE -->
+    <!-- ========================================================= -->
+
+    <section class="slide-container" id="slide6">
+
+        <div class="content">
+
+            <div class="top-line">
+                <div class="brand">
+                    <div class="brand-mark">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    LeadFlow
+                </div>
+
+                <div class="slide-number">
+                    06 / 08
+                </div>
+            </div>
+
+            <div class="eyebrow">
+                Architecture
+            </div>
+
+            <h2>
+                Built as a reusable<br>
+                <span class="gradient-text">
+                    event lead layer.
+                </span>
+            </h2>
+
+            <p
+                class="subtitle"
+                style="max-width:760px;margin-top:13px;font-size:15px;"
+            >
+                API-first, platform-agnostic and structured so the
+                captured data can move into future CRM and event workflows.
+            </p>
+
+            <div class="architecture">
+
+                <div
+                    class="architecture-node"
+                    style="--accent:#5b8cff;"
+                >
+                    <i class="fa-solid fa-mobile-screen"></i>
+
+                    <h3>
+                        Capture
+                    </h3>
+
+                    <p>
+                        QR, badge or contact input
+                    </p>
+                </div>
+
+                <div
+                    class="architecture-node"
+                    style="--accent:#9b7cff;"
+                >
+                    <i class="fa-solid fa-database"></i>
+
+                    <h3>
+                        Lead Data
+                    </h3>
+
+                    <p>
+                        Contact + event + context
+                    </p>
+                </div>
+
+                <div
+                    class="architecture-node"
+                    style="--accent:#35d6d0;"
+                >
+                    <i class="fa-solid fa-brain"></i>
+
+                    <h3>
+                        Intelligence
+                    </h3>
+
+                    <p>
+                        Qualification and useful context
+                    </p>
+                </div>
+
+                <div
+                    class="architecture-node"
+                    style="--accent:#35d39a;"
+                >
+                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+
+                    <h3>
+                        Integration
+                    </h3>
+
+                    <p>
+                        API / CSV / future CRM
+                    </p>
+                </div>
+
+                <div
+                    class="architecture-node"
+                    style="--accent:#ffb454;"
+                >
+                    <i class="fa-solid fa-chart-column"></i>
+
+                    <h3>
+                        Reporting
+                    </h3>
+
+                    <p>
+                        Leads, status and outcomes
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="architecture-note">
+
+                <div class="tech-pill">
+                    <strong>Frontend</strong>
+                    <span>
+                        React-based event experience
+                    </span>
+                </div>
+
+                <div class="tech-pill">
+                    <strong>Backend</strong>
+                    <span>
+                        API-first services and structured lead data
+                    </span>
+                </div>
+
+                <div class="tech-pill">
+                    <strong>AI-ready</strong>
+                    <span>
+                        Intelligence can be added where it creates
+                        measurable value
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="quote-bar" style="margin-top:21px;">
+                <strong>Design principle:</strong>
+                capture once, structure the data, make it reusable.
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <span>LEADFLOW</span>
+            <span>06 / 08</span>
+        </div>
+
+    </section>
+
+
+    <!-- ========================================================= -->
+    <!-- SLIDE 7 — BUSINESS VALUE -->
+    <!-- ========================================================= -->
+
+    <section class="slide-container" id="slide7">
+
+        <div class="content">
+
+            <div class="top-line">
+                <div class="brand">
+                    <div class="brand-mark">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    LeadFlow
+                </div>
+
+                <div class="slide-number">
+                    07 / 08
+                </div>
+            </div>
+
+            <div class="section-heading">
+
+                <div>
+                    <div class="eyebrow">
+                        Product & business value
+                    </div>
+
+                    <h2>
+                        Better lead capture.<br>
+                        <span class="gradient-text">
+                            Better event ROI.
+                        </span>
+                    </h2>
+                </div>
+
+
+            </div>
+
+            <div class="business-grid">
+
+                <div class="business-card">
+
+                    <div class="business-icon">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+
+                    <h3>
+                        Exhibitors
+                    </h3>
+
+                    <p>
+                        Capture better-quality leads with the context
+                        needed for meaningful follow-up.
+                    </p>
+
+                </div>
+
+                <div class="business-card">
+
+                    <div
+                        class="business-icon"
+                        style="background:rgba(53,214,208,.10);color:#35d6d0;"
+                    >
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+
+                    <h3>
+                        Sponsors
+                    </h3>
+
+                    <p>
+                        Turn event interactions into more structured,
+                        measurable opportunities.
+                    </p>
+
+                </div>
+
+                <div class="business-card">
+
+                    <div
+                        class="business-icon"
+                        style="background:rgba(155,124,255,.10);color:#9b7cff;"
+                    >
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+
+                    <h3>
+                        Organisers
+                    </h3>
+
+                    <p>
+                        Provide a reusable capture capability that can
+                        work across events and platforms.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="gtm">
+
+                <div class="gtm-item">
+                    <strong>Start</strong>
+                    <span>
+                        Demonstrate the capability at live events.
+                    </span>
+                </div>
+
+                <div class="gtm-item">
+                    <strong>Expand</strong>
+                    <span>
+                        Connect structured lead data to existing workflows.
+                    </span>
+                </div>
+
+                <div class="gtm-item">
+                    <strong>Scale</strong>
+                    <span>
+                        Extend the same lead layer across event platforms.
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="quote-bar" style="margin-top:22px;">
+                LeadFlow isn't another event app.
+                It's the lead-capture layer that connects the event
+                interaction to what happens next.
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <span>LEADFLOW</span>
+            <span>07 / 08</span>
+        </div>
+
+    </section>
+
+
+    <!-- ========================================================= -->
+    <!-- SLIDE 8 — CLOSING -->
+    <!-- ========================================================= -->
+
+    <section class="slide-container" id="slide8">
+
+        <div class="content centered">
+
+            <div class="closing">
+
+                <div class="eyebrow">
+                    The future of event lead capture
+                </div>
+
+                <h2>
+                    Don't just scan<br>
+                    <span class="gradient-text">
+                        the contact.
+                    </span>
+                </h2>
+
+                <p class="subtitle">
+                    Capture the connection, preserve the context,
+                    qualify the opportunity — and make the next step easier.
+                </p>
+
+                <div class="closing-flow">
+
+                    <span>
+                        Scan
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                    <span>
+                        Capture
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                    <span>
+                        Qualify
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                    <span>
+                        Connect
+                    </span>
+
+                </div>
+
+                <div class="closing-event">
+                    <i class="fa-solid fa-bolt"></i>
+                    LeadFlow · Hack the Future · SparkSmiths × Flock
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <span>LEADFLOW</span>
+            <span>08 / 08</span>
+        </div>
+
+    </section>
+
+</body>
+</html>
