@@ -1,0 +1,2618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicPulse Lagos — Hackathon Pitch Deck</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #031b33;
+            --blue: #0284c7;
+            --sky: #38bdf8;
+            --teal: #14b8a6;
+            --green: #10b981;
+            --amber: #f59e0b;
+            --purple: #8b5cf6;
+            --white: #ffffff;
+            --slate-900: #0f172a;
+            --slate-700: #334155;
+            --slate-600: #475569;
+            --slate-500: #64748b;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 0;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            place-items: center;
+
+            background:
+                radial-gradient(
+                    circle at 15% 15%,
+                    rgba(14, 165, 233, .15),
+                    transparent 30%
+                ),
+                #0f172a;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            border-radius: 14px;
+
+            font-family: "Inter", sans-serif;
+
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, .30);
+
+            isolation: isolate;
+        }
+
+        /* =====================================================
+           UNIVERSAL LAGOS BACKGROUND
+        ===================================================== */
+
+        .lagos-background {
+            position: absolute;
+            inset: 0;
+            z-index: -3;
+
+            background-image: url("civic-bg.png");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .lagos-background::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+        }
+
+        .dark-overlay {
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(2, 20, 38, .94) 0%,
+                    rgba(2, 20, 38, .78) 38%,
+                    rgba(2, 20, 38, .38) 72%,
+                    rgba(2, 20, 38, .22) 100%
+                );
+        }
+
+        .soft-overlay {
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(255,255,255,.86),
+                    rgba(240,249,255,.72)
+                );
+        }
+
+        .dark-blue-overlay {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(3,27,51,.95),
+                    rgba(3,27,51,.78)
+                );
+        }
+
+        .teal-overlay {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(4,47,46,.94),
+                    rgba(3,48,66,.78)
+                );
+        }
+
+        .purple-overlay {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(30,27,75,.95),
+                    rgba(49,31,92,.80)
+                );
+        }
+
+        /* =====================================================
+           GLOBAL ELEMENTS
+        ===================================================== */
+
+        h1,
+        h2,
+        h3 {
+            font-family: "Poppins", sans-serif;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 52px;
+            line-height: 1.08;
+            font-weight: 800;
+        }
+
+        h2 {
+            margin: 0;
+        }
+
+        h3 {
+            margin: 0 0 10px;
+            font-size: 20px;
+        }
+
+        p {
+            margin: 0 0 12px;
+            line-height: 1.5;
+        }
+
+        .content {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            height: 100%;
+            padding: 55px 75px;
+        }
+
+        .slide-title {
+            position: relative;
+            z-index: 5;
+
+            margin: 0 0 30px;
+            padding-left: 20px;
+
+            border-left: 8px solid var(--sky);
+
+            font-family: "Poppins", sans-serif;
+            font-size: 34px;
+            font-weight: 700;
+            line-height: 1.15;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--sky);
+            box-shadow: 0 0 15px rgba(56,189,248,.7);
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .four-column {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 35px;
+        }
+
+        .glass {
+            border: 1px solid rgba(255,255,255,.16);
+            background: rgba(255,255,255,.08);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .white-glass {
+            border: 1px solid rgba(255,255,255,.65);
+            background: rgba(255,255,255,.82);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 15px 35px rgba(15,23,42,.10);
+        }
+
+        .dark-glass {
+            border: 1px solid rgba(255,255,255,.13);
+            background: rgba(2,20,38,.64);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 13px;
+            margin-bottom: 18px;
+            font-size: 20px;
+        }
+
+        .blue-icon {
+            background: rgba(14,165,233,.12);
+            color: #0284c7;
+        }
+
+        .green-icon {
+            background: rgba(16,185,129,.12);
+            color: #059669;
+        }
+
+        .amber-icon {
+            background: rgba(245,158,11,.12);
+            color: #d97706;
+        }
+
+        .purple-icon {
+            background: rgba(139,92,246,.12);
+            color: #7c3aed;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 8px 14px;
+            border-radius: 999px;
+
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .06em;
+        }
+
+        .blue-pill {
+            color: #e0f2fe;
+            background: rgba(14,165,233,.14);
+            border: 1px solid rgba(56,189,248,.25);
+        }
+
+        .green-pill {
+            color: #d1fae5;
+            background: rgba(16,185,129,.14);
+            border: 1px solid rgba(52,211,153,.25);
+        }
+
+        .highlight {
+            border-left: 5px solid var(--sky);
+            padding: 17px 20px;
+            border-radius: 12px;
+            background: rgba(14,165,233,.08);
+        }
+
+        .stat {
+            font-family: "Poppins";
+            font-size: 34px;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        /* =====================================================
+           SLIDE 1 — FULL BLEED LAGOS HERO
+        ===================================================== */
+
+        .hero {
+            color: white;
+        }
+
+        .hero .lagos-background {
+            background-position: center center;
+        }
+
+        .hero .lagos-background::after {
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(1,18,35,.94) 0%,
+                    rgba(1,18,35,.78) 34%,
+                    rgba(1,18,35,.34) 67%,
+                    rgba(1,18,35,.08) 100%
+                ),
+                linear-gradient(
+                    0deg,
+                    rgba(1,18,35,.45),
+                    transparent 50%
+                );
+        }
+
+        .hero-content {
+            position: absolute;
+            left: 75px;
+            top: 82px;
+            z-index: 5;
+            width: 680px;
+        }
+
+        .hero-logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 8px 18px rgba(0,0,0,.45));
+        }
+
+        .hero h1 {
+            font-size: 70px;
+            letter-spacing: -.045em;
+        }
+
+        .hero h1 span {
+            color: #7dd3fc;
+        }
+
+        .hero-tagline {
+            margin-top: 22px;
+
+            font-family: "Poppins";
+            font-size: 29px;
+            font-weight: 600;
+
+            color: #e0f2fe;
+        }
+
+        .hero-description {
+            max-width: 610px;
+            margin-top: 13px;
+
+            color: #cbd5e1;
+            font-size: 18px;
+            line-height: 1.65;
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .hero-badge {
+            padding: 10px 16px;
+            border: 1px solid rgba(255,255,255,.20);
+            border-radius: 999px;
+
+            background: rgba(255,255,255,.08);
+            backdrop-filter: blur(10px);
+
+            color: #e0f2fe;
+
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .05em;
+        }
+
+        .hero-location {
+            position: absolute;
+            right: 52px;
+            bottom: 42px;
+            z-index: 5;
+
+            text-align: right;
+        }
+
+        .hero-location .city {
+            font-family: "Poppins";
+            font-size: 17px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .hero-location .sub {
+            margin-top: 4px;
+            color: #bae6fd;
+            font-size: 9px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+
+        .hero-line {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+
+            background: linear-gradient(
+                180deg,
+                #38bdf8,
+                #14b8a6,
+                #8b5cf6
+            );
+
+            z-index: 8;
+        }
+
+        /* =====================================================
+           SLIDES WITH IMAGE
+        ===================================================== */
+
+        .image-light {
+            color: var(--slate-900);
+        }
+
+        .image-light .lagos-background::after {
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(248,250,252,.94),
+                    rgba(248,250,252,.78)
+                );
+        }
+
+        .image-dark {
+            color: white;
+        }
+
+        .image-dark .lagos-background::after {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(3,27,51,.94),
+                    rgba(3,27,51,.74)
+                );
+        }
+
+        .image-teal {
+            color: white;
+        }
+
+        .image-teal .lagos-background::after {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(4,47,46,.95),
+                    rgba(3,48,66,.75)
+                );
+        }
+
+        .image-purple {
+            color: white;
+        }
+
+        .image-purple .lagos-background::after {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(30,27,75,.95),
+                    rgba(49,31,92,.77)
+                );
+        }
+
+        /* =====================================================
+           MOCK PRODUCT WINDOW
+        ===================================================== */
+
+        .mock-window {
+            overflow: hidden;
+
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,.7);
+
+            background: white;
+
+            box-shadow:
+                0 25px 50px rgba(15,23,42,.22);
+        }
+
+        .mock-top {
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            padding: 0 14px;
+
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .mock-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #cbd5e1;
+        }
+
+        .mock-body {
+            padding: 22px;
+            color: #0f172a;
+        }
+
+        .mock-search {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+
+            padding: 12px 14px;
+
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+
+            background: #f8fafc;
+
+            font-size: 11px;
+            color: #475569;
+        }
+
+        .mock-button {
+            padding: 8px 12px;
+            border-radius: 8px;
+
+            background: #031b33;
+            color: white;
+
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .mock-answer {
+            margin-top: 14px;
+            padding: 15px;
+
+            border-radius: 11px;
+            border: 1px solid #bbf7d0;
+
+            background: #f0fdf4;
+        }
+
+        .mock-label {
+            color: #059669;
+
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .mock-answer-text {
+            margin-top: 7px;
+
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.45;
+        }
+
+        .mock-evidence {
+            margin-top: 12px;
+            padding: 13px;
+
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+
+            background: #f8fafc;
+        }
+
+        .mock-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .mock-stat {
+            padding: 10px;
+
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+
+            background: white;
+        }
+
+        .mock-stat-label {
+            color: #94a3b8;
+
+            font-size: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .mock-stat-value {
+            margin-top: 3px;
+
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        /* =====================================================
+           PRINT
+        ===================================================== */
+
+        @media print {
+
+            @page {
+                size: 1280px 720px;
+                margin: 0;
+            }
+
+            body {
+                display: block !important;
+                padding: 0 !important;
+                background: transparent !important;
+            }
+
+            .slide-container {
+                width: 1280px !important;
+                height: 720px !important;
+
+                margin: 0 !important;
+
+                border-radius: 0 !important;
+                box-shadow: none !important;
+
+                page-break-after: always !important;
+                page-break-inside: avoid !important;
+
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 1 — HERO -->
+<!-- ========================================================= -->
+
+<div class="slide-container hero">
+
+    <div class="lagos-background"></div>
+
+    <div class="hero-line"></div>
+
+    <div class="hero-content">
+
+        <!--
+        <img
+            src="civic-logo.png"
+            alt="CivicPulse Lagos"
+            class="hero-logo"
+        >
+-->
+        <div class="eyebrow" style="color:#bae6fd;">
+            <span class="eyebrow-dot"></span>
+            OSF × Andela Hackathon
+        </div>
+
+        <h1 style="margin-top:15px;">
+            CivicPulse
+            <span>Lagos</span>
+        </h1>
+
+        <div class="hero-tagline">
+            Know. Verify. Act.
+        </div>
+
+        <p class="hero-description">
+            An AI-powered civic information platform that helps Lagos
+            residents understand public budgets, projects, and spending —
+            while connecting answers back to official government evidence.
+        </p>
+
+        <div class="hero-badges">
+
+            <div class="hero-badge">
+                Transparency & Accountability
+            </div>
+
+            <div class="hero-badge">
+                2026 Lagos Civic Data
+            </div>
+
+            <div class="hero-badge">
+                Information You Can Trust
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="hero-location">
+        <div class="city">
+            LAGOS
+        </div>
+
+        <div class="sub">
+            Civic information · Reimagined
+        </div>
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 2 — PROBLEM -->
+<!-- ========================================================= -->
+
+<div class="slide-container image-light">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            01 <span style="color:#0284c7;">The Problem</span>
+        </div>
+
+        <div style="
+            display:grid;
+            grid-template-columns:.9fr 1.1fr;
+            gap:45px;
+            align-items:center;
+        ">
+
+            <div>
+
+                <div class="eyebrow"
+                     style="color:#0284c7;">
+                    <span class="eyebrow-dot"
+                          style="background:#0284c7;">
+                    </span>
+                    The information exists
+                </div>
+
+                <h1 style="
+                    margin-top:16px;
+                    font-size:46px;
+                ">
+                    But understanding it shouldn't require an insider.
+                </h1>
+
+                <p style="
+                    margin-top:20px;
+                    max-width:500px;
+                    color:#475569;
+                    font-size:16px;
+                ">
+                    Lagos publishes budgets, project information, and
+                    performance reports. The challenge is turning those
+                    documents into information ordinary citizens can
+                    actually understand and use.
+                </p>
+
+            </div>
+
+            <div style="
+                display:flex;
+                flex-direction:column;
+                gap:15px;
+            ">
+
+                <div class="white-glass"
+                     style="
+                        display:flex;
+                        gap:18px;
+                        align-items:flex-start;
+                     ">
+
+                    <div class="icon blue-icon"
+                         style="margin:0;">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+
+                    <div>
+                        <h3>Complex public documents</h3>
+
+                        <p style="
+                            font-size:13px;
+                            color:#64748b;
+                        ">
+                            Budgets and reports can be long, technical,
+                            and difficult to navigate.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="white-glass"
+                     style="
+                        display:flex;
+                        gap:18px;
+                        align-items:flex-start;
+                     ">
+
+                    <div class="icon purple-icon"
+                         style="margin:0;">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+
+                    <div>
+                        <h3>AI without evidence</h3>
+
+                        <p style="
+                            font-size:13px;
+                            color:#64748b;
+                        ">
+                            A fluent AI answer is not automatically a
+                            verified answer.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="white-glass"
+                     style="
+                        display:flex;
+                        gap:18px;
+                        align-items:flex-start;
+                     ">
+
+                    <div class="icon green-icon"
+                         style="margin:0;">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+
+                    <div>
+                        <h3>The trust gap</h3>
+
+                        <p style="
+                            font-size:13px;
+                            color:#64748b;
+                        ">
+                            Citizens need information they can understand
+                            and independently verify.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="highlight"
+             style="
+                margin-top:35px;
+                background:rgba(255,255,255,.82);
+             ">
+
+            <p style="
+                margin:0;
+                color:#075985;
+                font-family:'Poppins';
+                font-size:20px;
+                font-weight:600;
+            ">
+                “Public information shouldn't require a government insider
+                to understand.”
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 3 — SOLUTION -->
+<!-- ========================================================= -->
+
+<div class="slide-container image-dark">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            02 <span>The Solution</span>
+        </div>
+
+        <div style="
+            max-width:760px;
+            margin-bottom:38px;
+        ">
+
+            <div class="eyebrow"
+                 style="color:#7dd3fc;">
+                <span class="eyebrow-dot"></span>
+                Civic information, redesigned
+            </div>
+
+            <h1 style="
+                margin-top:15px;
+                font-size:46px;
+            ">
+                Ask a question.
+                <span style="color:#38bdf8;">
+                    Get the evidence.
+                </span>
+            </h1>
+
+            <p style="
+                margin-top:16px;
+                color:#cbd5e1;
+                font-size:17px;
+            ">
+                CivicPulse turns official Lagos public data into
+                understandable, evidence-backed answers.
+            </p>
+
+        </div>
+
+        <div class="three-column">
+
+            <div class="glass">
+
+                <div class="icon"
+                     style="
+                        background:rgba(56,189,248,.12);
+                        color:#38bdf8;
+                     ">
+                    <i class="fa-solid fa-comments"></i>
+                </div>
+
+                <div class="stat" style="color:#38bdf8;">
+                    01
+                </div>
+
+                <h3 style="margin-top:12px;">
+                    Ask
+                </h3>
+
+                <p style="
+                    font-size:13px;
+                    color:#cbd5e1;
+                ">
+                    Ask natural-language questions about Lagos budgets,
+                    spending, and projects.
+                </p>
+
+            </div>
+
+            <div class="glass">
+
+                <div class="icon"
+                     style="
+                        background:rgba(45,212,191,.12);
+                        color:#2dd4bf;
+                     ">
+                    <i class="fa-solid fa-check-double"></i>
+                </div>
+
+                <div class="stat" style="color:#2dd4bf;">
+                    02
+                </div>
+
+                <h3 style="margin-top:12px;">
+                    Verify
+                </h3>
+
+                <p style="
+                    font-size:13px;
+                    color:#cbd5e1;
+                ">
+                    Match the question to structured information from
+                    official Lagos State publications.
+                </p>
+
+            </div>
+
+            <div class="glass">
+
+                <div class="icon"
+                     style="
+                        background:rgba(167,139,250,.12);
+                        color:#a78bfa;
+                     ">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </div>
+
+                <div class="stat" style="color:#a78bfa;">
+                    03
+                </div>
+
+                <h3 style="margin-top:12px;">
+                    Act
+                </h3>
+
+                <p style="
+                    font-size:13px;
+                    color:#cbd5e1;
+                ">
+                    See the source, reporting period, page, and official
+                    document so you can check it yourself.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div style="
+            margin-top:32px;
+            text-align:center;
+            color:#7dd3fc;
+            font-family:'Poppins';
+            font-size:17px;
+            font-weight:600;
+        ">
+            AI explains evidence. It does not invent evidence.
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 4 — TRUST -->
+<!-- ========================================================= -->
+
+<div class="slide-container image-teal">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            03 <span>How CivicPulse Builds Trust</span>
+        </div>
+
+        <div style="
+            display:flex;
+            align-items:stretch;
+            gap:10px;
+            margin-top:30px;
+        ">
+
+            <div class="glass" style="flex:1;">
+                <div style="
+                    color:#38bdf8;
+                    font-size:11px;
+                    font-weight:800;
+                    letter-spacing:.12em;
+                ">
+                    STEP 01
+                </div>
+
+                <div class="stat"
+                     style="
+                        margin-top:14px;
+                        color:#38bdf8;
+                     ">
+                    Retrieve
+                </div>
+
+                <p style="
+                    margin-top:12px;
+                    font-size:13px;
+                    color:#cbd5e1;
+                ">
+                    Find relevant information from official government
+                    sources.
+                </p>
+            </div>
+
+            <div style="
+                display:flex;
+                align-items:center;
+                color:#5eead4;
+                font-size:22px;
+            ">
+                →
+            </div>
+
+            <div class="glass" style="flex:1;">
+                <div style="
+                    color:#a78bfa;
+                    font-size:11px;
+                    font-weight:800;
+                    letter-spacing:.12em;
+                ">
+                    STEP 02
+                </div>
+
+                <div class="stat"
+                     style="
+                        margin-top:14px;
+                        color:#a78bfa;
+                     ">
+                    Match
+                </div>
+
+                <p style="
+                    margin-top:12px;
+                    font-size:13px;
+                    color:#cbd5e1;
+                ">
+                    Connect the citizen's question to relevant records.
+                </p>
+            </div>
+
+            <div style="
+                display:flex;
+                align-items:center;
+                color:#5eead4;
+                font-size:22px;
+            ">
+                →
+            </div>
+
+            <div class="glass" style="flex:1;">
+                <div style="
+                    color:#2dd4bf;
+                    font-size:11px;
+                    font-weight:800;
+                    letter-spacing:.12em;
+                ">
+                    STEP 03
+                </div>
+
+                <div class="stat"
+                     style="
+                        margin-top:14px;
+                        color:#2dd4bf;
+                     ">
+                    Explain
+                </div>
+
+                <p style="
+                    margin-top:12px;
+                    font-size:13px;
+                    color:#cbd5e1;
+                ">
+                    Turn retrieved information into plain language.
+                </p>
+            </div>
+
+            <div style="
+                display:flex;
+                align-items:center;
+                color:#5eead4;
+                font-size:22px;
+            ">
+                →
+            </div>
+
+            <div class="glass" style="flex:1;">
+                <div style="
+                    color:#fbbf24;
+                    font-size:11px;
+                    font-weight:800;
+                    letter-spacing:.12em;
+                ">
+                    STEP 04
+                </div>
+
+                <div class="stat"
+                     style="
+                        margin-top:14px;
+                        color:#fbbf24;
+                     ">
+                    Show Proof
+                </div>
+
+                <p style="
+                    margin-top:12px;
+                    font-size:13px;
+                    color:#cbd5e1;
+                ">
+                    Expose the source, page, reporting period, and document.
+                </p>
+            </div>
+
+        </div>
+
+        <div style="
+            margin:45px auto 0;
+            max-width:800px;
+            text-align:center;
+        ">
+
+            <div class="pill blue-pill">
+                <i class="fa-solid fa-shield-check"></i>
+                EVIDENCE-FIRST DESIGN
+            </div>
+
+            <div style="
+                margin-top:18px;
+                font-family:'Poppins';
+                font-size:28px;
+                font-weight:700;
+                color:#ccfbf1;
+            ">
+                The LLM is not the source of truth.
+            </div>
+
+            <div style="
+                margin-top:4px;
+                font-size:20px;
+                color:#5eead4;
+            ">
+                The evidence layer is.
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 5 — PRODUCT -->
+<!-- ========================================================= -->
+
+<div class="slide-container image-light">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            04 <span style="color:#0284c7;">The Product in Action</span>
+        </div>
+
+        <div style="
+            display:grid;
+            grid-template-columns:.9fr 1.1fr;
+            gap:45px;
+            align-items:center;
+            height:535px;
+        ">
+
+            <div>
+
+                <div class="eyebrow"
+                     style="color:#0284c7;">
+                    <span class="eyebrow-dot"
+                          style="background:#0284c7;">
+                    </span>
+                    Natural-language civic search
+                </div>
+
+                <h1 style="
+                    margin-top:16px;
+                    font-size:45px;
+                ">
+                    Ask Lagos
+                    <span style="color:#0284c7;">
+                        a question.
+                    </span>
+                </h1>
+
+                <div style="
+                    margin-top:24px;
+                    padding:19px 20px;
+
+                    border:1px solid #bfdbfe;
+                    border-radius:14px;
+
+                    background:rgba(239,246,255,.88);
+
+                    color:#1e3a8a;
+
+                    font-family:'Poppins';
+                    font-size:17px;
+                    font-weight:600;
+                ">
+                    “How much has Lagos spent on waterways?”
+                </div>
+
+                <p style="
+                    margin-top:18px;
+                    max-width:490px;
+                    color:#64748b;
+                    font-size:14px;
+                ">
+                    CivicPulse identifies the relevant verified projects
+                    and returns expenditure information in a form that
+                    is easy to understand.
+                </p>
+
+            </div>
+
+            <div class="mock-window">
+
+                <div class="mock-top">
+                    <span class="mock-dot"></span>
+                    <span class="mock-dot"></span>
+                    <span class="mock-dot"></span>
+                </div>
+
+                <div class="mock-body">
+
+                    <div class="mock-search">
+
+                        <span>
+                            How much has Lagos spent on waterways?
+                        </span>
+
+                        <span class="mock-button">
+                            Ask
+                        </span>
+
+                    </div>
+
+                    <div class="mock-answer">
+
+                        <div class="mock-label">
+                            ✓ Verified Answer
+                        </div>
+
+                        <div class="mock-answer-text">
+                            Lagos State recorded ₦6.04B in year-to-date
+                            expenditure across verified waterways projects
+                            through Q2 2026.
+                        </div>
+
+                    </div>
+
+                    <div class="mock-evidence">
+
+                        <div style="
+                            font-size:9px;
+                            font-weight:800;
+                            color:#64748b;
+                            text-transform:uppercase;
+                        ">
+                            Evidence
+                        </div>
+
+                        <div class="mock-grid">
+
+                            <div class="mock-stat">
+
+                                <div class="mock-stat-label">
+                                    2026 Budget
+                                </div>
+
+                                <div class="mock-stat-value">
+                                    Verified
+                                </div>
+
+                            </div>
+
+                            <div class="mock-stat">
+
+                                <div class="mock-stat-label">
+                                    YTD Expenditure
+                                </div>
+
+                                <div class="mock-stat-value">
+                                    ₦6.04B
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div style="
+                            margin-top:10px;
+                            font-size:9px;
+                            color:#64748b;
+                        ">
+                            Q2 2026 · Official Lagos State source ·
+                            Page reference
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 6 — EVIDENCE -->
+<!-- ========================================================= -->
+
+<div class="slide-container image-purple">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            05 <span>The Answer Is Only Half the Product</span>
+        </div>
+
+        <div style="
+            display:grid;
+            grid-template-columns:.75fr 1.25fr;
+            gap:45px;
+            align-items:center;
+            height:535px;
+        ">
+
+            <div>
+
+                <div class="pill green-pill">
+                    <i class="fa-solid fa-circle-check"></i>
+                    VERIFIED INFORMATION
+                </div>
+
+                <h1 style="
+                    margin-top:20px;
+                    font-size:46px;
+                ">
+                    Don't just trust
+                    the answer.
+                </h1>
+
+                <div style="
+                    margin-top:14px;
+                    color:#c4b5fd;
+                    font-family:'Poppins';
+                    font-size:25px;
+                    font-weight:600;
+                ">
+                    Check the evidence.
+                </div>
+
+                <p style="
+                    margin-top:20px;
+                    max-width:430px;
+                    color:#cbd5e1;
+                    font-size:14px;
+                ">
+                    CivicPulse makes the path from public data to the final
+                    answer visible to the citizen.
+                </p>
+
+            </div>
+
+            <div class="dark-glass">
+
+                <div style="
+                    display:flex;
+                    align-items:center;
+                    justify-content:space-between;
+                    gap:20px;
+                ">
+
+                    <div>
+
+                        <div style="
+                            color:#34d399;
+                            font-size:9px;
+                            font-weight:800;
+                            letter-spacing:.12em;
+                            text-transform:uppercase;
+                        ">
+                            Official evidence
+                        </div>
+
+                        <div style="
+                            margin-top:5px;
+                            font-family:'Poppins';
+                            font-size:19px;
+                            font-weight:700;
+                        ">
+                            Development of Lagos waterways
+                        </div>
+
+                    </div>
+
+                    <div class="pill blue-pill">
+                        Q2 2026
+                    </div>
+
+                </div>
+
+                <div class="two-column"
+                     style="margin-top:22px;gap:14px;">
+
+                    <div style="
+                        padding:18px;
+                        border-radius:12px;
+                        background:rgba(255,255,255,.06);
+                    ">
+
+                        <div style="
+                            color:#94a3b8;
+                            font-size:9px;
+                            text-transform:uppercase;
+                        ">
+                            2026 Budget
+                        </div>
+
+                        <div style="
+                            margin-top:7px;
+                            color:#7dd3fc;
+                            font-family:'Poppins';
+                            font-size:25px;
+                            font-weight:800;
+                        ">
+                            ₦148.8B
+                        </div>
+
+                    </div>
+
+                    <div style="
+                        padding:18px;
+                        border-radius:12px;
+                        background:rgba(255,255,255,.06);
+                    ">
+
+                        <div style="
+                            color:#94a3b8;
+                            font-size:9px;
+                            text-transform:uppercase;
+                        ">
+                            YTD Expenditure
+                        </div>
+
+                        <div style="
+                            margin-top:7px;
+                            color:#5eead4;
+                            font-family:'Poppins';
+                            font-size:25px;
+                            font-weight:800;
+                        ">
+                            ₦6.04B
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div style="
+                    margin-top:20px;
+                    padding-top:16px;
+                    border-top:1px solid rgba(255,255,255,.10);
+
+                    display:grid;
+                    grid-template-columns:1fr 1fr 1fr;
+                    gap:15px;
+                ">
+
+                    <div>
+                        <div style="
+                            color:#64748b;
+                            font-size:8px;
+                            text-transform:uppercase;
+                        ">
+                            Publisher
+                        </div>
+
+                        <div style="
+                            margin-top:4px;
+                            font-size:11px;
+                        ">
+                            Lagos State
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="
+                            color:#64748b;
+                            font-size:8px;
+                            text-transform:uppercase;
+                        ">
+                            Reporting
+                        </div>
+
+                        <div style="
+                            margin-top:4px;
+                            font-size:11px;
+                        ">
+                            Q2 2026
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="
+                            color:#64748b;
+                            font-size:8px;
+                            text-transform:uppercase;
+                        ">
+                            Source page
+                        </div>
+
+                        <div style="
+                            margin-top:4px;
+                            font-size:11px;
+                        ">
+                            Page 62
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="
+                    margin-top:20px;
+                    display:inline-flex;
+                    align-items:center;
+                    gap:8px;
+
+                    padding:9px 14px;
+                    border-radius:9px;
+
+                    background:#0ea5e9;
+                    color:white;
+
+                    font-size:10px;
+                    font-weight:700;
+                ">
+                    <i class="fa-solid fa-file-circle-check"></i>
+                    View official source
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 7 — SCOPE -->
+<!-- ========================================================= -->
+
+<div class="slide-container image-light">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            06 <span style="color:#0284c7;">A Deliberately Bounded Scope</span>
+        </div>
+
+        <div style="
+            text-align:center;
+            max-width:760px;
+            margin:0 auto 38px;
+        ">
+
+            <div class="eyebrow"
+                 style="
+                    color:#0284c7;
+                    justify-content:center;
+                 ">
+                <span class="eyebrow-dot"
+                      style="background:#0284c7;">
+                </span>
+                Transparency includes knowing the limits
+            </div>
+
+            <p style="
+                margin-top:14px;
+                color:#475569;
+                font-size:18px;
+            ">
+                CivicPulse is explicit about what its verified data
+                currently covers.
+            </p>
+
+        </div>
+
+        <div class="four-column">
+
+            <div class="white-glass"
+                 style="
+                    text-align:center;
+                    border-top:5px solid #0284c7;
+                 ">
+
+                <div class="icon blue-icon"
+                     style="margin:0 auto 15px;">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+
+                <h3>Lagos State</h3>
+
+                <p style="
+                    margin:0;
+                    color:#64748b;
+                    font-size:12px;
+                ">
+                    Geographic scope
+                </p>
+
+            </div>
+
+            <div class="white-glass"
+                 style="
+                    text-align:center;
+                    border-top:5px solid #10b981;
+                 ">
+
+                <div class="icon green-icon"
+                     style="margin:0 auto 15px;">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+
+                <h3>2026</h3>
+
+                <p style="
+                    margin:0;
+                    color:#64748b;
+                    font-size:12px;
+                ">
+                    Current data year
+                </p>
+
+            </div>
+
+            <div class="white-glass"
+                 style="
+                    text-align:center;
+                    border-top:5px solid #f59e0b;
+                 ">
+
+                <div class="icon amber-icon"
+                     style="margin:0 auto 15px;">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+
+                <h3>Q2 2026</h3>
+
+                <p style="
+                    margin:0;
+                    color:#64748b;
+                    font-size:12px;
+                ">
+                    Latest performance coverage
+                </p>
+
+            </div>
+
+            <div class="white-glass"
+                 style="
+                    text-align:center;
+                    border-top:5px solid #8b5cf6;
+                 ">
+
+                <div class="icon purple-icon"
+                     style="margin:0 auto 15px;">
+                    <i class="fa-solid fa-building-columns"></i>
+                </div>
+
+                <h3>Official</h3>
+
+                <p style="
+                    margin:0;
+                    color:#64748b;
+                    font-size:12px;
+                ">
+                    Government sources
+                </p>
+
+            </div>
+
+        </div>
+
+        <div style="
+            width:max-content;
+            max-width:100%;
+            margin:35px auto 0;
+
+            padding:13px 22px;
+
+            border-radius:999px;
+            border:1px solid #a7f3d0;
+
+            background:rgba(236,253,245,.90);
+
+            color:#047857;
+
+            font-size:12px;
+            font-weight:600;
+        ">
+            <i class="fa-solid fa-shield-check"></i>
+            CivicPulse does not imply coverage beyond its verified evidence.
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 8 — USE CASES -->
+<!-- ========================================================= -->
+
+<div class="slide-container image-purple">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            07 <span>One Interface. Different Civic Questions.</span>
+        </div>
+
+        <div style="
+            margin-top:45px;
+        ">
+
+            <div class="three-column">
+
+                <div class="glass">
+
+                    <div class="icon"
+                         style="
+                            background:rgba(56,189,248,.12);
+                            color:#38bdf8;
+                         ">
+                        <i class="fa-solid fa-water"></i>
+                    </div>
+
+                    <div class="pill blue-pill">
+                        SPENDING
+                    </div>
+
+                    <h3 style="margin-top:16px;">
+                        “How much has Lagos spent on waterways?”
+                    </h3>
+
+                    <p style="
+                        font-size:13px;
+                        color:#cbd5e1;
+                    ">
+                        Returns verified expenditure for relevant waterways
+                        projects.
+                    </p>
+
+                </div>
+
+                <div class="glass">
+
+                    <div class="icon"
+                         style="
+                            background:rgba(45,212,191,.12);
+                            color:#2dd4bf;
+                         ">
+                        <i class="fa-solid fa-ranking-star"></i>
+                    </div>
+
+                    <div class="pill green-pill">
+                        RANKING
+                    </div>
+
+                    <h3 style="margin-top:16px;">
+                        “What are the largest Lagos State projects by
+                        2026 budget?”
+                    </h3>
+
+                    <p style="
+                        font-size:13px;
+                        color:#cbd5e1;
+                    ">
+                        Ranks projects using verified 2026 budget records.
+                    </p>
+
+                </div>
+
+                <div class="glass">
+
+                    <div class="icon"
+                         style="
+                            background:rgba(251,191,36,.12);
+                            color:#fbbf24;
+                         ">
+                        <i class="fa-solid fa-circle-question"></i>
+                    </div>
+
+                    <div class="pill"
+                         style="
+                            color:#fef3c7;
+                            background:rgba(251,191,36,.12);
+                         ">
+                        CLARIFICATION
+                    </div>
+
+                    <h3 style="margin-top:16px;">
+                        “Tell me about Lagos budget.”
+                    </h3>
+
+                    <p style="
+                        font-size:13px;
+                        color:#cbd5e1;
+                    ">
+                        Instead of guessing, CivicPulse asks the user for
+                        more detail.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div style="
+                margin:45px auto 0;
+                max-width:850px;
+                text-align:center;
+            ">
+
+                <p style="
+                    font-family:'Poppins';
+                    font-size:22px;
+                    font-weight:600;
+                    color:#ddd6fe;
+                ">
+                    When the question is unclear,
+                    <span style="color:#a78bfa;">
+                        clarify instead of guess.
+                    </span>
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 9 — ARCHITECTURE -->
+<!-- ========================================================= -->
+
+<div class="slide-container image-dark">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            08 <span>Product Architecture</span>
+        </div>
+
+        <div style="
+            display:grid;
+            grid-template-columns:.8fr 1.2fr;
+            gap:50px;
+            align-items:center;
+            height:530px;
+        ">
+
+            <div>
+
+                <div class="eyebrow"
+                     style="color:#7dd3fc;">
+                    <span class="eyebrow-dot"></span>
+                    Evidence-first pipeline
+                </div>
+
+                <h1 style="
+                    margin-top:16px;
+                    font-size:44px;
+                ">
+                    From citizen question
+                    <span style="color:#38bdf8;">
+                        to verified answer.
+                    </span>
+                </h1>
+
+                <p style="
+                    margin-top:18px;
+                    color:#cbd5e1;
+                    font-size:15px;
+                ">
+                    Each stage exists to keep the final answer grounded
+                    in structured, traceable information.
+                </p>
+
+            </div>
+
+            <div style="
+                display:flex;
+                flex-direction:column;
+                gap:8px;
+            ">
+
+                <div class="glass"
+                     style="
+                        padding:15px 18px;
+                        display:flex;
+                        align-items:center;
+                        gap:16px;
+                     ">
+
+                    <div style="
+                        width:36px;
+                        height:36px;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        border-radius:10px;
+                        background:rgba(56,189,248,.12);
+                        color:#38bdf8;
+                        font-size:11px;
+                        font-weight:800;
+                     ">
+                        01
+                    </div>
+
+                    <div>
+                        <div style="font-weight:700;">
+                            Citizen Question
+                        </div>
+
+                        <div style="
+                            margin-top:2px;
+                            color:#94a3b8;
+                            font-size:11px;
+                        ">
+                            Natural-language input
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="text-align:center;color:#64748b;">
+                    ↓
+                </div>
+
+                <div class="glass"
+                     style="
+                        padding:15px 18px;
+                        display:flex;
+                        align-items:center;
+                        gap:16px;
+                     ">
+
+                    <div style="
+                        width:36px;
+                        height:36px;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        border-radius:10px;
+                        background:rgba(167,139,250,.12);
+                        color:#a78bfa;
+                        font-size:11px;
+                        font-weight:800;
+                     ">
+                        02
+                    </div>
+
+                    <div>
+                        <div style="font-weight:700;">
+                            Intent & Scope
+                        </div>
+
+                        <div style="
+                            margin-top:2px;
+                            color:#94a3b8;
+                            font-size:11px;
+                        ">
+                            Understand what the user is asking
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="text-align:center;color:#64748b;">
+                    ↓
+                </div>
+
+                <div class="glass"
+                     style="
+                        padding:15px 18px;
+                        display:flex;
+                        align-items:center;
+                        gap:16px;
+                     ">
+
+                    <div style="
+                        width:36px;
+                        height:36px;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        border-radius:10px;
+                        background:rgba(45,212,191,.12);
+                        color:#2dd4bf;
+                        font-size:11px;
+                        font-weight:800;
+                     ">
+                        03
+                    </div>
+
+                    <div>
+                        <div style="font-weight:700;">
+                            Structured Retrieval
+                        </div>
+
+                        <div style="
+                            margin-top:2px;
+                            color:#94a3b8;
+                            font-size:11px;
+                        ">
+                            Find relevant budget and project records
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="text-align:center;color:#64748b;">
+                    ↓
+                </div>
+
+                <div class="glass"
+                     style="
+                        padding:15px 18px;
+                        display:flex;
+                        align-items:center;
+                        gap:16px;
+                     ">
+
+                    <div style="
+                        width:36px;
+                        height:36px;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        border-radius:10px;
+                        background:rgba(251,191,36,.12);
+                        color:#fbbf24;
+                        font-size:11px;
+                        font-weight:800;
+                     ">
+                        04
+                    </div>
+
+                    <div>
+                        <div style="font-weight:700;">
+                            Evidence + Explanation
+                        </div>
+
+                        <div style="
+                            margin-top:2px;
+                            color:#94a3b8;
+                            font-size:11px;
+                        ">
+                            Answer with source metadata attached
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 10 — TECHNOLOGY -->
+<!-- ========================================================= -->
+
+<div class="slide-container image-light">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            09 <span style="color:#0284c7;">Technology & AI</span>
+        </div>
+
+        <div style="
+            display:grid;
+            grid-template-columns:.75fr 1.25fr;
+            gap:45px;
+            align-items:center;
+            height:530px;
+        ">
+
+            <div>
+
+                <div class="eyebrow"
+                     style="color:#0284c7;">
+                    <span class="eyebrow-dot"
+                          style="background:#0284c7;">
+                    </span>
+                    Built for the hackathon
+                </div>
+
+                <h1 style="
+                    margin-top:16px;
+                    font-size:44px;
+                ">
+                    Practical technology.
+                    <span style="color:#0284c7;">
+                        Purposeful AI.
+                    </span>
+                </h1>
+
+                <p style="
+                    margin-top:18px;
+                    color:#64748b;
+                    font-size:15px;
+                ">
+                    The stack is designed around a simple principle:
+                    retrieve reliable information first, then use AI
+                    to help explain it.
+                </p>
+
+            </div>
+
+            <div class="four-column">
+
+                <div class="white-glass">
+
+                    <div class="icon blue-icon">
+                        <i class="fa-brands fa-react"></i>
+                    </div>
+
+                    <h3>React</h3>
+
+                    <p style="
+                        font-size:12px;
+                        color:#64748b;
+                    ">
+                        Interactive civic interface
+                    </p>
+
+                </div>
+
+                <div class="white-glass">
+
+                    <div class="icon green-icon">
+                        <i class="fa-solid fa-server"></i>
+                    </div>
+
+                    <h3>FastAPI</h3>
+
+                    <p style="
+                        font-size:12px;
+                        color:#64748b;
+                    ">
+                        API and question handling
+                    </p>
+
+                </div>
+
+                <div class="white-glass">
+
+                    <div class="icon purple-icon">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+
+                    <h3>SQLAlchemy</h3>
+
+                    <p style="
+                        font-size:12px;
+                        color:#64748b;
+                    ">
+                        Structured civic data
+                    </p>
+
+                </div>
+
+                <div class="white-glass">
+
+                    <div class="icon amber-icon">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+
+                    <h3>AI</h3>
+
+                    <p style="
+                        font-size:12px;
+                        color:#64748b;
+                    ">
+                        Development, testing, iteration, explanation
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="highlight"
+             style="
+                margin-top:20px;
+                background:rgba(255,255,255,.82);
+             ">
+
+            <p style="
+                margin:0;
+                text-align:center;
+                color:#075985;
+                font-family:'Poppins';
+                font-size:17px;
+                font-weight:600;
+            ">
+                Retrieval and evidence precede explanation.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 11 — IMPACT -->
+<!-- ========================================================= -->
+
+<div class="slide-container image-teal">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            10 <span>Why This Matters</span>
+        </div>
+
+        <div style="
+            text-align:center;
+            max-width:850px;
+            margin:65px auto 45px;
+        ">
+
+            <div class="eyebrow"
+                 style="
+                    color:#99f6e4;
+                    justify-content:center;
+                 ">
+                <span class="eyebrow-dot"
+                      style="background:#2dd4bf;">
+                </span>
+                From information to participation
+            </div>
+
+            <h1 style="
+                margin-top:18px;
+                font-size:48px;
+            ">
+                Transparency starts with
+                <span style="color:#5eead4;">
+                    understanding.
+                </span>
+            </h1>
+
+        </div>
+
+        <div class="three-column">
+
+            <div class="glass">
+
+                <div class="stat"
+                     style="color:#38bdf8;">
+                    01
+                </div>
+
+                <h3 style="margin-top:15px;">
+                    Understand
+                </h3>
+
+                <p style="
+                    font-size:13px;
+                    color:#cbd5e1;
+                ">
+                    Make complex public information easier for citizens
+                    to understand.
+                </p>
+
+            </div>
+
+            <div class="glass">
+
+                <div class="stat"
+                     style="color:#2dd4bf;">
+                    02
+                </div>
+
+                <h3 style="margin-top:15px;">
+                    Verify
+                </h3>
+
+                <p style="
+                    font-size:13px;
+                    color:#cbd5e1;
+                ">
+                    Make the evidence visible so citizens can independently
+                    check the information.
+                </p>
+
+            </div>
+
+            <div class="glass">
+
+                <div class="stat"
+                     style="color:#fbbf24;">
+                    03
+                </div>
+
+                <h3 style="margin-top:15px;">
+                    Act
+                </h3>
+
+                <p style="
+                    font-size:13px;
+                    color:#cbd5e1;
+                ">
+                    Give citizens information they can use to ask better
+                    questions and participate more meaningfully.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 12 — FINAL HERO -->
+<!-- ========================================================= -->
+
+<div class="slide-container hero">
+
+    <div class="lagos-background"></div>
+
+    <div class="hero-line"></div>
+
+    <div style="
+        position:absolute;
+        inset:0;
+        z-index:4;
+
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        text-align:center;
+    ">
+
+        <div style="
+            max-width:850px;
+            padding:40px;
+        ">
+<!--
+            <img
+                src="civic-logo.png"
+                alt="CivicPulse Lagos"
+                style="
+                    width:145px;
+                    height:auto;
+                    margin-bottom:25px;
+                    filter:drop-shadow(0 8px 18px rgba(0,0,0,.45));
+                "
+            >
+-->
+            <div class="eyebrow"
+                 style="
+                    color:#bae6fd;
+                    justify-content:center;
+                 ">
+                <span class="eyebrow-dot"></span>
+                Information you can trust
+            </div>
+
+            <h1 style="
+                margin-top:16px;
+                font-size:62px;
+            ">
+                CivicPulse
+                <span>Lagos</span>
+            </h1>
+
+            <div style="
+                margin-top:18px;
+                color:#e0f2fe;
+                font-family:'Poppins';
+                font-size:28px;
+                font-weight:600;
+            ">
+                Know. Verify. Act.
+            </div>
+
+            <p style="
+                max-width:700px;
+                margin:22px auto 0;
+
+                color:#cbd5e1;
+                font-size:17px;
+                line-height:1.65;
+            ">
+                Making Lagos public information easier to understand,
+                easier to verify, and easier to trust.
+            </p>
+
+            <div style="
+                display:inline-flex;
+                align-items:center;
+                gap:10px;
+
+                margin-top:30px;
+                padding:12px 22px;
+
+                border:1px solid rgba(255,255,255,.22);
+                border-radius:999px;
+
+                background:rgba(255,255,255,.08);
+                backdrop-filter:blur(10px);
+
+                color:#e0f2fe;
+
+                font-size:10px;
+                font-weight:700;
+                letter-spacing:.07em;
+            ">
+                <i class="fa-solid fa-shield-check"></i>
+                LAGOS STATE · 2026 CIVIC DATA · Q2 PERFORMANCE
+            </div>
+
+        </div>
+
+    </div>
+
+    <div style="
+        position:absolute;
+        left:0;
+        right:0;
+        bottom:30px;
+        z-index:6;
+
+        text-align:center;
+
+        color:#bae6fd;
+
+        font-size:10px;
+        font-weight:700;
+        letter-spacing:.14em;
+        text-transform:uppercase;
+    ">
+        OSF × Andela Hackathon · Transparency & Accountability
+    </div>
+
+</div>
+
+
+</body>
+</html>

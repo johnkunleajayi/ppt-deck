@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoftCode Salesforce Flow Masterclass - Class 2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* 1. RESET & CORE ARCHITECTURE */
+* { box-sizing: border-box; }
+p { margin: 0; margin-bottom: 12px; }
+body {
+  background-color: #cbd5e1;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 1fr;
+  margin: 0;
+  min-height: 100vh;
+  padding: 40px 0;
+  place-items: center;
+}
+
+.slide-container {
+  align-items: center;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+  height: 720px;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding: 50px 80px;
+  position: relative;
+  width: 1280px;
+}
+
+/* LOGO POSITIONING */
+.slide-logo {
+  position: absolute;
+  top: 35px;
+  right: 50px;
+  height: 205px;
+  width: auto;
+  z-index: 10;
+  object-fit: contain;
+}
+
+/* 2. BACKGROUND DECORATIONS */
+.decor-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.15; z-index: 0; }
+
+/* 3. TYPOGRAPHY */
+h1 { font-family: 'Poppins', sans-serif; font-size: 48px; font-weight: 700; line-height: 1.1; margin: 0; text-align: center; }
+.slide-title { font-family: 'Poppins', sans-serif; font-size: 34px; font-weight: 700; margin-bottom: 25px; text-align: left; width: 100%; border-left: 10px solid currentColor; padding-left: 20px; }
+h3 { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+p, li { font-size: 17px; line-height: 1.5; }
+
+/* 4. CONTENT WRAPPERS */
+.content-area { display: flex; flex-direction: column; flex-grow: 1; width: 100%; justify-content: center; z-index: 2; position: relative; }
+.two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; width: 100%; }
+.tile-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 100%; }
+.tile-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
+.tile-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; width: 100%; }
+.tile { border-radius: 12px; padding: 22px; border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.05); }
+
+/* 5. COMPONENTS */
+.bullet-list { list-style: none; padding: 0; margin: 0; }
+.bullet-list li { position: relative; padding-left: 32px; margin-bottom: 10px; }
+.bullet-list i { position: absolute; left: 0; top: 4px; font-size: 18px; }
+
+.table-layout table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+.table-layout th { background: rgba(255, 255, 255, 0.1); color: #fff; padding: 12px; text-align: left; font-family: 'Poppins', sans-serif; border-bottom: 3px solid #00a1e0; }
+.table-layout td { padding: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+
+.flow-layout { display: flex; align-items: center; justify-content: space-around; width: 100%; margin: 15px 0; }
+.flow-node { background: #00a1e0; color: #fff; font-weight: 700; padding: 10px 18px; border-radius: 8px; font-family: 'Poppins'; text-align: center; font-size: 15px; }
+.flow-arrow { font-size: 18px; color: #94a3b8; }
+
+.highlight-box { background: rgba(0, 161, 224, 0.1); border-radius: 12px; border-left: 6px solid #00a1e0; padding: 18px; margin: 15px 0; }
+
+.code-badge { font-family: 'Courier New', monospace; background: rgba(0,0,0,0.15); padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+
+/* 6. THEMES (5 DISTINCT VARIATIONS) */
+.theme-sf-blue { background: #031b33; color: #f1f5f9; }
+.theme-sf-blue .slide-title { color: #38bdf8; border-left-color: #00a1e0; }
+.theme-sf-blue h3 { color: #38bdf8; }
+.theme-sf-blue .bullet-list i { color: #38bdf8; }
+
+.theme-sf-light { background: #f0f9ff; color: #0c4a6e; }
+.theme-sf-light .slide-title { color: #0284c7; border-left-color: #00a1e0; }
+.theme-sf-light h3 { color: #0284c7; }
+.theme-sf-light .tile { background: #ffffff; border-color: #bae6fd; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+.theme-sf-light .bullet-list i { color: #0284c7; }
+
+.theme-flow-teal { background: #042f2e; color: #f0fdfa; }
+.theme-flow-teal .slide-title { color: #2dd4bf; border-left-color: #14b8a6; }
+.theme-flow-teal h3 { color: #2dd4bf; }
+.theme-flow-teal .bullet-list i { color: #2dd4bf; }
+
+.theme-purple-dark { background: #1e1b4b; color: #f5f3ff; }
+.theme-purple-dark .slide-title { color: #a78bfa; border-left-color: #8b5cf6; }
+.theme-purple-dark h3 { color: #a78bfa; }
+.theme-purple-dark .tile { background: rgba(255,255,255,0.05); border-color: #4c1d95; }
+.theme-purple-dark .bullet-list i { color: #a78bfa; }
+
+.theme-clean-slate { background: #f8fafc; color: #0f172a; }
+.theme-clean-slate .slide-title { color: #334155; border-left-color: #00a1e0; }
+.theme-clean-slate h3 { color: #0f172a; }
+.theme-clean-slate .tile { background: #ffffff; border-color: #e2e8f0; }
+.theme-clean-slate .bullet-list i { color: #00a1e0; }
+
+/* 7. Preserving The Print Styles */
+@media print {
+  body {
+    background-color: transparent !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+
+  .slide-container {
+    page-break-after: always !important;
+    page-break-inside: avoid !important;
+    margin: 0 auto 0 auto !important;
+    box-shadow: none !important;
+    border: none !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+    </style>
+</head>
+<body>
+
+<!-- SLIDE 1: TITLE SLIDE -->
+<div class="slide-container theme-sf-blue" id="slide1">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <div class="decor-blob" style="width: 600px; height: 600px; background: #00a1e0; top: -200px; right: -200px;"></div>
+    <div class="decor-blob" style="width: 500px; height: 500px; background: #14b8a6; bottom: -200px; left: -200px;"></div>
+    <div class="content-area" style="align-items: center;">
+        <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 25px;">
+            <i class="fa-solid fa-brain" style="font-size: 70px; color: #38bdf8;"></i>
+            <i class="fa-solid fa-code-branch" style="font-size: 50px; color: #2dd4bf;"></i>
+            <i class="fa-solid fa-arrows-spin" style="font-size: 70px; color: #38bdf8;"></i>
+        </div>
+        <h1 style="color: #ffffff;">SoftCode Salesforce Flow Masterclass</h1>
+        <p style="font-size: 24px; color: #cbd5e1; font-family: 'Poppins'; margin-top: 20px;">Class 2 — Flow Logic: Decisions, Conditions & Updating Records</p>
+        <div style="margin-top: 40px; border: 2px solid #38bdf8; padding: 12px 35px; border-radius: 50px; color: #38bdf8; font-weight: 600;">
+            Format: Theory + Hands-on | Duration: 1 Hour | Level: Beginner &rarr; Intermediate
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 2: LEARNING OBJECTIVES -->
+<div class="slide-container theme-sf-light" id="slide2">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">1. Learning Objectives</h2>
+    <div class="content-area">
+        <div class="tile-grid">
+            <div class="tile">
+                <h3>Theoretical Competencies</h3>
+                <ul class="bullet-list">
+                    <li><i class="fa-solid fa-bullseye"></i> Explain why business decision logic is essential in Flow.</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Master the distinction between Start Conditions & Decisions.</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Leverage the <span class="code-badge">$Record</span> global variable dynamically.</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Diagram business logic prior to opening Flow Builder.</li>
+                </ul>
+            </div>
+            <div class="tile">
+                <h3>Practical Flow Builder Skills</h3>
+                <ul class="bullet-list">
+                    <li><i class="fa-solid fa-bullseye"></i> Configure multi-branch outcomes inside Decision Elements.</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Perform conditional same-record field updates.</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Evaluate null/existential checks (e.g., Email Is Null).</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Test each branch path systematically.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 3: RECAP & INTRODUCING FLOW LOGIC -->
+<div class="slide-container theme-sf-blue" id="slide3">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">2 & 3. Evolution: From Static to Dynamic Logic</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile" style="background: rgba(255,255,255,0.05);">
+                <h3>Class 1 Pattern: Linear</h3>
+                <div class="flow-layout" style="flex-direction: column; gap: 10px;">
+                    <div class="flow-node" style="width: 100%;">Trigger: Record Created</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow"></i>
+                    <div class="flow-node" style="width: 100%; background: #0284c7;">Action: Create Task</div>
+                </div>
+                <p style="font-size: 13px; color: #cbd5e1; margin-top: 10px;">Single-path automation—operates identically regardless of data values.</p>
+            </div>
+            <div class="tile" style="background: rgba(255,255,255,0.05); border-color: #38bdf8;">
+                <h3>Class 2 Pattern: Evaluative</h3>
+                <div style="text-align: center; margin-top: 10px;">
+                    <div class="flow-node" style="background: #a78bfa;">Lead Created</div>
+                    <div style="font-size: 12px; margin: 5px 0;">&darr; Is High Priority?</div>
+                    <div style="display: flex; justify-content: space-between; gap: 10px;">
+                        <div style="flex: 1; background: #0284c7; padding: 8px; border-radius: 6px; font-size: 12px; font-weight: bold;">YES &rarr; Priority Process</div>
+                        <div style="flex: 1; background: #0d9488; padding: 8px; border-radius: 6px; font-size: 12px; font-weight: bold;">NO &rarr; Normal Process</div>
+                    </div>
+                </div>
+                <p style="font-size: 13px; color: #cbd5e1; margin-top: 15px;">Smart automation—evaluates record state and selects the appropriate path.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 4: THE DECISION ELEMENT & STRUCTURE -->
+<div class="slide-container theme-purple-dark" id="slide4">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">4. The Decision Element</h2>
+    <div class="content-area">
+        <p style="margin-bottom: 15px;">The Decision element asks Salesforce: <em>"Which situation are we dealing with?"</em> and routes execution accordingly.</p>
+        <div class="flow-layout" style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px;">
+            <div class="flow-node" style="background: #8b5cf6;">Lead Created</div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div class="flow-node" style="background: #a78bfa; color: #1e1b4b;"><i class="fa-solid fa-code-branch"></i> DECISION</div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+                <div style="background: #ef4444; color: #fff; padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: bold;">High Priority Path</div>
+                <div style="background: #f59e0b; color: #fff; padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: bold;">Medium Priority Path</div>
+                <div style="background: #3b82f6; color: #fff; padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: bold;">Low Priority Path</div>
+                <div style="background: #64748b; color: #fff; padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: bold;">Default Outcome</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 5: START CONDITIONS VS DECISION ELEMENT -->
+<div class="slide-container theme-sf-light" id="slide5">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">5. Start Conditions vs. Decision Elements</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile" style="border-top: 6px solid #0284c7;">
+                <h3>Start Conditions</h3>
+                <p style="font-size: 14px; font-weight: 600; color: #0284c7;">"Should the Flow run at all?"</p>
+                <p style="font-size: 13px;">Gates entry into the Flow. Non-matching records are filtered out instantly at zero computational cost.</p>
+                <div class="code-badge" style="display: inline-block; margin-top: 10px;">LeadSource = 'Website'</div>
+            </div>
+            <div class="tile" style="border-top: 6px solid #0d9488;">
+                <h3>Decision Element</h3>
+                <p style="font-size: 14px; font-weight: 600; color: #0d9488;">"What path should the Flow take?"</p>
+                <p style="font-size: 13px;">Evaluates records <em>inside</em> the Flow to choose between multiple downstream outcomes.</p>
+                <div class="code-badge" style="display: inline-block; margin-top: 10px;">High vs. Med vs. Low</div>
+            </div>
+        </div>
+        <div class="highlight-box" style="background: rgba(2, 132, 199, 0.1); border-left-color: #0284c7; margin-top: 20px;">
+            <p style="margin: 0; font-size: 14px;"><strong>Simple Rule:</strong> Start conditions = <em>Should it run?</em> | Decision = <em>What should it do?</em></p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 6: UNDERSTANDING $RECORD -->
+<div class="slide-container theme-clean-slate" id="slide6">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">6. Understanding $Record</h2>
+    <div class="content-area">
+        <p style="margin-bottom: 15px;"><span class="code-badge" style="background: #e2e8f0; color: #00a1e0;">$Record</span> represents the exact record currently being processed by the Flow.</p>
+        <div class="two-column">
+            <div class="tile">
+                <h3><i class="fa-solid fa-user-tie" style="color: #00a1e0;"></i> Lead Object Context</h3>
+                <ul class="bullet-list" style="font-size: 13px;">
+                    <li><code style="color: #0284c7;">$Record.FirstName</code> &rarr; First Name</li>
+                    <li><code style="color: #0284c7;">$Record.Company</code> &rarr; Company Name</li>
+                    <li><code style="color: #0284c7;">$Record.AnnualRevenue</code> &rarr; Annual Revenue</li>
+                    <li><code style="color: #0284c7;">$Record.LeadSource</code> &rarr; Lead Source</li>
+                </ul>
+            </div>
+            <div class="tile">
+                <h3><i class="fa-solid fa-headset" style="color: #0284c7;"></i> Case Object Context</h3>
+                <ul class="bullet-list" style="font-size: 13px;">
+                    <li><code style="color: #0284c7;">$Record.Subject</code> &rarr; Case Subject</li>
+                    <li><code style="color: #0284c7;">$Record.Status</code> &rarr; Case Status</li>
+                    <li><code style="color: #0284c7;">$Record.Priority</code> &rarr; Priority Picklist</li>
+                    <li><code style="color: #0284c7;">$Record.Origin</code> &rarr; Case Channel Origin</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 7: HANDS-ON 1 - LEAD PRIORITY CLASSIFICATION -->
+<div class="slide-container theme-sf-blue" id="slide7">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">7 & 8. Hands-on #1: Lead Value Classification</h2>
+    <div class="content-area">
+        <div class="highlight-box" style="background: rgba(56, 189, 248, 0.1); border-left-color: #38bdf8;">
+            <p style="margin: 0; font-weight: 600; color: #38bdf8;">Requirement:</p>
+            <p style="margin: 0; font-size: 15px;">When a Lead is created: If Annual Revenue &ge; ₦50M &rarr; Set Rating = "Hot". Otherwise &rarr; Set Rating = "Warm".</p>
+        </div>
+        <div class="table-layout" style="margin-top: 10px;">
+            <table>
+                <thead>
+                    <tr style="background: #0284c7; color: #fff;">
+                        <th>Element</th>
+                        <th>Condition / Rule</th>
+                        <th>Action Performed</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size: 13px; color: #f8fafc;">
+                    <tr><td>Decision</td><td><span class="code-badge">$Record.AnnualRevenue >= 50000000</span></td><td>Route to "High Value" Path</td></tr>
+                    <tr><td>Update Record (Path 1)</td><td>High Value Outcome</td><td>Set <span class="code-badge">Rating = Hot</span></td></tr>
+                    <tr><td>Update Record (Path 2)</td><td>Default Outcome ("Standard")</td><td>Set <span class="code-badge">Rating = Warm</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 8: HANDS-ON 2 - CASE ESCALATION LOGIC -->
+<div class="slide-container theme-flow-teal" id="slide8">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">9, 10 & 11. Hands-on #2: Case Escalation Logic</h2>
+    <div class="content-area">
+        <div class="highlight-box" style="background: rgba(45, 212, 191, 0.1); border-left-color: #2dd4bf;">
+            <p style="margin: 0; font-weight: 600; color: #2dd4bf;">Requirement:</p>
+            <p style="margin: 0; font-size: 15px;">When a Case is created: Priority = High &rarr; Set Status = "Escalated" | Priority = Medium / Low &rarr; Keep Status = "New".</p>
+        </div>
+        <div class="tile-grid-3" style="margin-top: 15px;">
+            <div class="tile" style="background: rgba(255,255,255,0.05); border-left: 4px solid #ef4444;">
+                <h3>Outcome 1: High</h3>
+                <p style="font-size: 12px;"><span class="code-badge">$Record.Priority = High</span></p>
+                <p style="font-size: 13px; color: #2dd4bf;"><strong>Action:</strong> Update Status = Escalated</p>
+            </div>
+            <div class="tile" style="background: rgba(255,255,255,0.05); border-left: 4px solid #f59e0b;">
+                <h3>Outcome 2: Medium</h3>
+                <p style="font-size: 12px;"><span class="code-badge">$Record.Priority = Medium</span></p>
+                <p style="font-size: 13px;"><strong>Action:</strong> Connect directly to End</p>
+            </div>
+            <div class="tile" style="background: rgba(255,255,255,0.05); border-left: 4px solid #3b82f6;">
+                <h3>Default: Low / Other</h3>
+                <p style="font-size: 12px;">Default Path</p>
+                <p style="font-size: 13px;"><strong>Action:</strong> Connect directly to End</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 9: HANDS-ON 3 - CONTACT DATA QUALITY -->
+<div class="slide-container theme-purple-dark" id="slide9">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">12, 13, 14 & 15. Hands-on #3: Existential Logic</h2>
+    <div class="content-area">
+        <div class="highlight-box" style="background: rgba(167, 139, 250, 0.1); border-left-color: #a78bfa;">
+            <p style="margin: 0; font-weight: 600; color: #a78bfa;">Requirement:</p>
+            <p style="margin: 0; font-size: 15px;">When a Contact is created: Has Email &rarr; Set Email Opt Out = False | No Email &rarr; Set Email Opt Out = True.</p>
+        </div>
+        <div class="two-column" style="margin-top: 15px;">
+            <div class="tile">
+                <h3>Outcome 1: Email Provided</h3>
+                <p style="font-size: 13px;"><strong>Condition:</strong> <span class="code-badge">$Record.Email Is Null = False</span></p>
+                <p style="font-size: 13px;"><strong>Update:</strong> Set <span class="code-badge">HasOptedOutOfEmail = False</span></p>
+            </div>
+            <div class="tile">
+                <h3>Default Outcome: No Email</h3>
+                <p style="font-size: 13px;"><strong>Condition:</strong> Email address is blank/null</p>
+                <p style="font-size: 13px;"><strong>Update:</strong> Set <span class="code-badge">HasOptedOutOfEmail = True</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 10: COMPARISON OF THREE AUTOMATIONS -->
+<div class="slide-container theme-clean-slate" id="slide10">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">16. Cross-Business Comparison</h2>
+    <div class="content-area">
+        <div class="table-layout">
+            <table>
+                <thead>
+                    <tr style="background: #00a1e0; color: #fff;">
+                        <th>Exercise</th>
+                        <th>Evaluation Field</th>
+                        <th>Decision Logic Type</th>
+                        <th>Action Taken</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size: 13px;">
+                    <tr><td><strong>Lab 1: Lead</strong></td><td>Annual Revenue</td><td>Numeric Comparison (<span class="code-badge">&ge; ₦50M</span>)</td><td>Update Rating Field</td></tr>
+                    <tr><td><strong>Lab 2: Case</strong></td><td>Priority Picklist</td><td>Picklist Matching (<span class="code-badge">= High</span>)</td><td>Update Status Field</td></tr>
+                    <tr><td><strong>Lab 3: Contact</strong></td><td>Email Address</td><td>Existential Check (<span class="code-badge">Is Null</span>)</td><td>Update Email Opt Out</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 11: FLOW DESIGN HABIT -->
+<div class="slide-container theme-sf-blue" id="slide11">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">17. Critical Flow Design Habit</h2>
+    <div class="content-area">
+        <p style="margin-bottom: 20px;">Never open Flow Builder immediately! Translate business requirements into logical pseudo-code first:</p>
+        <div class="two-column">
+            <div class="tile" style="background: rgba(255,255,255,0.05); border-left: 6px solid #38bdf8;">
+                <h3 style="color: #38bdf8;">1. Written Logic Formula</h3>
+                <div style="font-family: monospace; font-size: 13px; line-height: 1.8; color: #cbd5e1;">
+                    <strong>WHEN:</strong> Case is created<br>
+                    <strong>CHECK:</strong> Priority field value<br>
+                    <strong>IF:</strong> Priority = High<br>
+                    <strong>THEN:</strong> Update Status = Escalated
+                </div>
+            </div>
+            <div class="tile" style="background: rgba(255,255,255,0.05); border-left: 6px solid #2dd4bf;">
+                <h3 style="color: #2dd4bf;">2. Flow Builder Mapping</h3>
+                <div style="font-family: monospace; font-size: 13px; line-height: 1.8; color: #cbd5e1;">
+                    <strong>Trigger:</strong> Case Created<br>
+                    <strong>Decision:</strong> Evaluate $Record.Priority<br>
+                    <strong>Outcome:</strong> High Priority<br>
+                    <strong>Action:</strong> Update Records Element
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 12: COMMON MISTAKES & DEBUGGING MINDSET -->
+<div class="slide-container theme-sf-light" id="slide12">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">18 & 19. Pitfalls & Debugging Framework</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile" style="border-left: 6px solid #ef4444;">
+                <h3 style="color: #dc2626;">4 Beginner Mistakes</h3>
+                <ul class="bullet-list" style="font-size: 12px;">
+                    <li><i class="fa-solid fa-xmark"></i> Putting multi-branch rules into Start Conditions.</li>
+                    <li><i class="fa-solid fa-xmark"></i> Neglecting to handle the Default Outcome path.</li>
+                    <li><i class="fa-solid fa-xmark"></i> Testing only 1 outcome branch instead of all.</li>
+                    <li><i class="fa-solid fa-xmark"></i> Building in canvas without understanding data.</li>
+                </ul>
+            </div>
+            <div class="tile" style="border-left: 6px solid #0284c7;">
+                <h3>Systematic Debugging Questions</h3>
+                <ol style="margin: 0; padding-left: 20px; font-size: 12px; line-height: 1.8;">
+                    <li>Did the Flow trigger?</li>
+                    <li>What values were passed into <span class="code-badge">$Record</span>?</li>
+                    <li>Which Decision outcome path was selected?</li>
+                    <li>Did the update action execute correctly?</li>
+                    <li>Was the target record updated in database?</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 13: CLASS 2 REVIEW -->
+<div class="slide-container theme-purple-dark" id="slide13">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">20. Architectural Evolution Review</h2>
+    <div class="content-area">
+        <p style="margin-bottom: 20px;">How our automation architecture expanded in Class 2:</p>
+        <div class="two-column">
+            <div class="tile">
+                <h3>Class 1 Architecture</h3>
+                <div class="flow-layout" style="flex-direction: column; gap: 8px;">
+                    <div class="flow-node" style="width: 100%; font-size: 12px;">Trigger</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size: 12px;"></i>
+                    <div class="flow-node" style="width: 100%; font-size: 12px; background: #8b5cf6;">Action</div>
+                </div>
+            </div>
+            <div class="tile" style="border-color: #a78bfa;">
+                <h3>Class 2 Architecture</h3>
+                <div class="flow-layout" style="flex-direction: column; gap: 8px;">
+                    <div class="flow-node" style="width: 100%; font-size: 12px;">Trigger</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size: 12px;"></i>
+                    <div class="flow-node" style="width: 100%; font-size: 12px; background: #a78bfa; color: #1e1b4b;">Decision ($Record)</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size: 12px;"></i>
+                    <div class="flow-node" style="width: 100%; font-size: 12px; background: #10b981;">Outcome &rarr; Action</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 14: PRACTICAL CHALLENGE -->
+<div class="slide-container theme-flow-teal" id="slide14">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">21. Practical Challenge</h2>
+    <div class="content-area">
+        <div class="highlight-box" style="background: rgba(45, 212, 191, 0.1); border-left-color: #2dd4bf;">
+            <p style="margin: 0; font-weight: 600; color: #2dd4bf;">Requirement:</p>
+            <p style="margin: 0; font-size: 15px;">Automatically classify new Cases based on Case Origin upon creation.</p>
+        </div>
+        <div class="tile-grid-3" style="margin-top: 15px;">
+            <div class="tile" style="background: rgba(255,255,255,0.05);">
+                <h3>Origin = Phone</h3>
+                <p style="font-size: 13px;">Set Priority = <span class="code-badge">High</span></p>
+            </div>
+            <div class="tile" style="background: rgba(255,255,255,0.05);">
+                <h3>Origin = Email</h3>
+                <p style="font-size: 13px;">Set Priority = <span class="code-badge">Medium</span></p>
+            </div>
+            <div class="tile" style="background: rgba(255,255,255,0.05);">
+                <h3>Origin = Web</h3>
+                <p style="font-size: 13px;">Set Priority = <span class="code-badge">Low</span></p>
+            </div>
+        </div>
+        <div class="highlight-box" style="background: rgba(255, 255, 255, 0.05); border-left-color: #38bdf8; margin-top: 15px; padding: 10px;">
+            <p style="margin: 0; font-size: 12px; color: #38bdf8;"><strong>Bonus Challenge:</strong> Only perform this automation if the Case Priority is currently blank!</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 15: FINAL TAKEAWAY -->
+<div class="slide-container theme-sf-blue" id="slide15">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">22. Final Takeaway</h2>
+    <div class="content-area" style="align-items: center; text-align: center;">
+        <i class="fa-solid fa-lightbulb" style="font-size: 60px; color: #38bdf8; margin-bottom: 20px;"></i>
+        <h3 style="font-size: 28px; color: #ffffff; max-width: 900px; line-height: 1.4;">
+            The core engine of Flow is: <br>
+            <span style="color: #38bdf8;">Trigger &rarr; Evaluate &rarr; Decide &rarr; Act</span>
+        </h3>
+        <p style="font-size: 18px; color: #cbd5e1; max-width: 800px; margin-top: 20px;">
+            Mastering Flow is not about memorizing buttons—it is learning to structure questions about your business data before executing actions.
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

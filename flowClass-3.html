@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoftCode Salesforce Flow Masterclass - Class 3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* 1. RESET & CORE ARCHITECTURE */
+* { box-sizing: border-box; }
+p { margin: 0; margin-bottom: 12px; }
+body {
+  background-color: #cbd5e1;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 1fr;
+  margin: 0;
+  min-height: 100vh;
+  padding: 40px 0;
+  place-items: center;
+}
+
+.slide-container {
+  align-items: center;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+  height: 720px;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding: 50px 80px;
+  position: relative;
+  width: 1280px;
+}
+
+/* LOGO POSITIONING */
+.slide-logo {
+  position: absolute;
+  top: 35px;
+  right: 50px;
+  height: 105px;
+  width: auto;
+  z-index: 10;
+  object-fit: contain;
+}
+
+/* 2. BACKGROUND DECORATIONS */
+.decor-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.15; z-index: 0; }
+
+/* 3. TYPOGRAPHY */
+h1 { font-family: 'Poppins', sans-serif; font-size: 48px; font-weight: 700; line-height: 1.1; margin: 0; text-align: center; }
+.slide-title { font-family: 'Poppins', sans-serif; font-size: 34px; font-weight: 700; margin-bottom: 25px; text-align: left; width: 100%; border-left: 10px solid currentColor; padding-left: 20px; }
+h3 { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+p, li { font-size: 17px; line-height: 1.5; }
+
+/* 4. CONTENT WRAPPERS */
+.content-area { display: flex; flex-direction: column; flex-grow: 1; width: 100%; justify-content: center; z-index: 2; position: relative; }
+.two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; width: 100%; }
+.tile-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 100%; }
+.tile-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
+.tile-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; width: 100%; }
+.tile { border-radius: 12px; padding: 22px; border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.05); }
+
+/* 5. COMPONENTS */
+.bullet-list { list-style: none; padding: 0; margin: 0; }
+.bullet-list li { position: relative; padding-left: 32px; margin-bottom: 10px; }
+.bullet-list i { position: absolute; left: 0; top: 4px; font-size: 18px; }
+
+.table-layout table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+.table-layout th { background: rgba(255, 255, 255, 0.1); color: #fff; padding: 12px; text-align: left; font-family: 'Poppins', sans-serif; border-bottom: 3px solid #00a1e0; }
+.table-layout td { padding: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+
+.flow-layout { display: flex; align-items: center; justify-content: space-around; width: 100%; margin: 15px 0; }
+.flow-node { background: #00a1e0; color: #fff; font-weight: 700; padding: 10px 18px; border-radius: 8px; font-family: 'Poppins'; text-align: center; font-size: 15px; }
+.flow-arrow { font-size: 18px; color: #94a3b8; }
+
+.highlight-box { background: rgba(0, 161, 224, 0.1); border-radius: 12px; border-left: 6px solid #00a1e0; padding: 18px; margin: 15px 0; }
+
+.code-badge { font-family: 'Courier New', monospace; background: rgba(0,0,0,0.15); padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+
+/* 6. THEMES */
+.theme-sf-blue { background: #031b33; color: #f1f5f9; }
+.theme-sf-blue .slide-title { color: #38bdf8; border-left-color: #00a1e0; }
+.theme-sf-blue h3 { color: #38bdf8; }
+.theme-sf-blue .bullet-list i { color: #38bdf8; }
+
+.theme-sf-light { background: #f0f9ff; color: #0c4a6e; }
+.theme-sf-light .slide-title { color: #0284c7; border-left-color: #00a1e0; }
+.theme-sf-light h3 { color: #0284c7; }
+.theme-sf-light .tile { background: #ffffff; border-color: #bae6fd; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+.theme-sf-light .bullet-list i { color: #0284c7; }
+
+.theme-flow-teal { background: #042f2e; color: #f0fdfa; }
+.theme-flow-teal .slide-title { color: #2dd4bf; border-left-color: #14b8a6; }
+.theme-flow-teal h3 { color: #2dd4bf; }
+.theme-flow-teal .bullet-list i { color: #2dd4bf; }
+
+.theme-purple-dark { background: #1e1b4b; color: #f5f3ff; }
+.theme-purple-dark .slide-title { color: #a78bfa; border-left-color: #8b5cf6; }
+.theme-purple-dark h3 { color: #a78bfa; }
+.theme-purple-dark .tile { background: rgba(255,255,255,0.05); border-color: #4c1d95; }
+.theme-purple-dark .bullet-list i { color: #a78bfa; }
+
+.theme-clean-slate { background: #f8fafc; color: #0f172a; }
+.theme-clean-slate .slide-title { color: #334155; border-left-color: #00a1e0; }
+.theme-clean-slate h3 { color: #0f172a; }
+.theme-clean-slate .tile { background: #ffffff; border-color: #e2e8f0; }
+.theme-clean-slate .bullet-list i { color: #00a1e0; }
+
+/* 7. PRINT STYLES */
+@media print {
+  body {
+    background-color: transparent !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+
+  .slide-container {
+    page-break-after: always !important;
+    page-break-inside: avoid !important;
+    margin: 0 auto 0 auto !important;
+    box-shadow: none !important;
+    border: none !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+    </style>
+</head>
+<body>
+
+<!-- SLIDE 1: TITLE SLIDE -->
+<div class="slide-container theme-sf-blue" id="slide1">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <div class="decor-blob" style="width: 600px; height: 600px; background: #00a1e0; top: -200px; right: -200px;"></div>
+    <div class="decor-blob" style="width: 500px; height: 500px; background: #8b5cf6; bottom: -200px; left: -200px;"></div>
+    <div class="content-area" style="align-items: center;">
+        <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 25px;">
+            <i class="fa-solid fa-box-archive" style="font-size: 70px; color: #38bdf8;"></i>
+            <i class="fa-solid fa-calculator" style="font-size: 50px; color: #a78bfa;"></i>
+            <i class="fa-solid fa-pen-to-square" style="font-size: 70px; color: #2dd4bf;"></i>
+        </div>
+        <h1 style="color: #ffffff;">SoftCode Salesforce Flow Masterclass</h1>
+        <p style="font-size: 24px; color: #cbd5e1; font-family: 'Poppins'; margin-top: 20px;">Class 3 — Assignment Element, Variables & Working with Values</p>
+        <div style="margin-top: 40px; border: 2px solid #38bdf8; padding: 12px 35px; border-radius: 50px; color: #38bdf8; font-weight: 600;">
+            Format: Theory + 3 Hands-On Exercises | Duration: 1 Hour | Level: Beginner &rarr; Intermediate
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 2: CLASS OVERVIEW & RECAP -->
+<div class="slide-container theme-sf-light" id="slide2">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">1 & 3. Masterclass Progression Overview</h2>
+    <div class="content-area">
+        <div class="tile-grid-3">
+            <div class="tile" style="border-top: 6px solid #00a1e0;">
+                <h3>Class 1: Linear</h3>
+                <p style="font-size: 13px; font-weight: bold; color: #00a1e0;">Trigger &rarr; Action</p>
+                <p style="font-size: 12px;">Simple, direct automation. Example: New Account creates a Follow-Up Task.</p>
+            </div>
+            <div class="tile" style="border-top: 6px solid #8b5cf6;">
+                <h3>Class 2: Evaluative</h3>
+                <p style="font-size: 13px; font-weight: bold; color: #8b5cf6;">Trigger &rarr; Decision &rarr; Action</p>
+                <p style="font-size: 12px;">Branching decision logic. Example: Lead Revenue decides Rating value.</p>
+            </div>
+            <div class="tile" style="border-top: 6px solid #0d9488;">
+                <h3>Class 3: Stateful</h3>
+                <p style="font-size: 13px; font-weight: bold; color: #0d9488;">Trigger &rarr; Assignment &rarr; Action</p>
+                <p style="font-size: 12px;">Holds, changes, and calculates data temporarily prior to taking downstream actions.</p>
+            </div>
+        </div>
+        <div class="highlight-box" style="margin-top: 20px; background: rgba(2, 132, 199, 0.08);">
+            <p style="margin: 0; font-size: 14px;"><strong>Core Objective Today:</strong> Learn how Flow holds and manipulates dynamic values in memory before those values are used or saved.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 3: LEARNING OBJECTIVES -->
+<div class="slide-container theme-clean-slate" id="slide3">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">2. Learning Objectives</h2>
+    <div class="content-area">
+        <div class="tile-grid">
+            <div class="tile">
+                <h3>Theoretical Competencies</h3>
+                <ul class="bullet-list" style="font-size: 13px;">
+                    <li><i class="fa-solid fa-bullseye"></i> Define a Flow variable & state its operational purpose.</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Differentiate clearly between Record Fields vs. Variables.</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Explain the mechanics of the Assignment element.</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Understand why variable staging precedes Loop structures.</li>
+                </ul>
+            </div>
+            <div class="tile">
+                <h3>Practical Flow Builder Skills</h3>
+                <ul class="bullet-list" style="font-size: 13px;">
+                    <li><i class="fa-solid fa-bullseye"></i> Create Number, Currency, and Text variable resources.</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Use Assignment operators (Equals, Add, Subtract).</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Combine Decision outcomes with dynamic Assignment.</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Construct calculated dynamic expressions ($Record.Amount * 0.10).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 4: WHAT IS A VARIABLE? -->
+<div class="slide-container theme-sf-blue" id="slide4">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">4 & 5. What is a Variable & Why Do We Need It?</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile" style="background: rgba(255,255,255,0.05);">
+                <h3><i class="fa-solid fa-box" style="color: #38bdf8;"></i> The Container Analogy</h3>
+                <p style="font-size: 14px;">A variable is a named temporary container in memory.</p>
+                <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; font-family: monospace; font-size: 13px; color: #38bdf8; margin-top: 10px;">
+                    [ Variable: TotalAmount ]<br>
+                    Initial State &rarr; ₦100,000<br>
+                    Add ₦20,000   &rarr; ₦120,000<br>
+                    Subtract ₦5,000 &rarr; ₦115,000
+                </div>
+                <p style="font-size: 12px; color: #cbd5e1; margin-top: 10px;">The container stays identical, but the stored value inside changes dynamically.</p>
+            </div>
+            <div class="tile" style="background: rgba(255,255,255,0.05); border-color: #38bdf8;">
+                <h3><i class="fa-solid fa-gears" style="color: #38bdf8;"></i> The Execution Pipeline</h3>
+                <div class="flow-layout" style="flex-direction: column; gap: 8px; margin: 10px 0;">
+                    <div class="flow-node" style="width: 100%; font-size: 12px; background: #0284c7;">Initial Source Value</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size: 12px;"></i>
+                    <div class="flow-node" style="width: 100%; font-size: 12px; background: #8b5cf6;">Store in Variable</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size: 12px;"></i>
+                    <div class="flow-node" style="width: 100%; font-size: 12px; background: #0d9488;">Assignment (Modify / Calculate)</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size: 12px;"></i>
+                    <div class="flow-node" style="width: 100%; font-size: 12px; background: #0284c7;">Use Value Downstream</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 5: RECORD FIELDS VS FLOW VARIABLES -->
+<div class="slide-container theme-sf-light" id="slide5">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">6. Salesforce Fields vs. Flow Variables</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile" style="border-top: 6px solid #0284c7;">
+                <h3>Salesforce Record Field</h3>
+                <p style="font-size: 13px; font-weight: 600; color: #0284c7;">Database Layer (Permanent)</p>
+                <ul class="bullet-list" style="font-size: 12px;">
+                    <li><i class="fa-solid fa-database"></i> Stored permanently inside the Salesforce database.</li>
+                    <li><i class="fa-solid fa-database"></i> Belongs directly to a record (e.g., <span class="code-badge">Contact.Email</span>).</li>
+                    <li><i class="fa-solid fa-database"></i> Visible on Page Layouts and in Reports.</li>
+                </ul>
+            </div>
+            <div class="tile" style="border-top: 6px solid #8b5cf6;">
+                <h3>Flow Variable</h3>
+                <p style="font-size: 13px; font-weight: 600; color: #8b5cf6;">RAM / Execution Layer (Temporary)</p>
+                <ul class="bullet-list" style="font-size: 12px;">
+                    <li><i class="fa-solid fa-memory"></i> Exists only while the Flow is actively executing.</li>
+                    <li><i class="fa-solid fa-memory"></i> Created in Flow Manager (e.g., <span class="code-badge">TotalAmount</span>).</li>
+                    <li><i class="fa-solid fa-memory"></i> Invisible on UI layouts until explicitly saved to a field.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="highlight-box" style="background: rgba(2, 132, 199, 0.1); border-left-color: #0284c7; margin-top: 15px; text-align: center;">
+            <p style="margin: 0; font-size: 15px;"><strong>Golden Rule:</strong> Field = Record Data in Database | Variable = Temporary Data in Flow Memory</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 6: THE ASSIGNMENT ELEMENT & OPERATIONS -->
+<div class="slide-container theme-purple-dark" id="slide6">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">7 & 8. The Assignment Element & Operations</h2>
+    <div class="content-area">
+        <p style="margin-bottom: 15px;">The Assignment element sets or alters the internal value stored within a variable.</p>
+        <div class="table-layout">
+            <table>
+                <thead>
+                    <tr style="background: #8b5cf6; color: #fff;">
+                        <th>Operator</th>
+                        <th>Syntax Example</th>
+                        <th>Operational Result</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size: 13px; color: #f5f3ff;">
+                    <tr><td><strong>Equals</strong></td><td><span class="code-badge">Total = 100</span></td><td>Overwrites existing value completely with 100</td></tr>
+                    <tr><td><strong>Add</strong></td><td><span class="code-badge">Total Add 50</span></td><td>Increments numerical value by 50 (Total becomes 150)</td></tr>
+                    <tr><td><strong>Subtract</strong></td><td><span class="code-badge">Total Subtract 20</span></td><td>Decrements numerical value by 20 (Total becomes 130)</td></tr>
+                    <tr><td><strong>Add (Text)</strong></td><td><span class="code-badge">Message Add " Thank you"</span></td><td>Appends text string onto the existing string value</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 7: HANDS-ON 1 - LOYALTY POINTS -->
+<div class="slide-container theme-sf-blue" id="slide7">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">9, 10, 11, 12 & 13. Hands-on #1: Initialize Loyalty Points</h2>
+    <div class="content-area">
+        <div class="highlight-box" style="background: rgba(56, 189, 248, 0.1); border-left-color: #38bdf8;">
+            <p style="margin: 0; font-weight: 600; color: #38bdf8;">Requirement:</p>
+            <p style="margin: 0; font-size: 15px;">When a Contact is created, initialize a Flow variable <span class="code-badge">LoyaltyPoints</span> with a starting value of 100.</p>
+        </div>
+        <div class="two-column" style="margin-top: 15px;">
+            <div class="tile" style="background: rgba(255,255,255,0.05);">
+                <h3>Step 1: Resource Configuration</h3>
+                <ul class="bullet-list" style="font-size: 12px;">
+                    <li><strong>Resource Type:</strong> Variable</li>
+                    <li><strong>API Name:</strong> <span class="code-badge">LoyaltyPoints</span></li>
+                    <li><strong>Data Type:</strong> Number</li>
+                    <li><strong>Decimal Places:</strong> 0</li>
+                </ul>
+            </div>
+            <div class="tile" style="background: rgba(255,255,255,0.05);">
+                <h3>Step 2: Assignment Setup</h3>
+                <ul class="bullet-list" style="font-size: 12px;">
+                    <li><strong>Label:</strong> Set Initial Loyalty Points</li>
+                    <li><strong>Variable:</strong> <span class="code-badge">LoyaltyPoints</span></li>
+                    <li><strong>Operator:</strong> Equals</li>
+                    <li><strong>Value:</strong> <span class="code-badge">100</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 8: HANDS-ON 1 KEY TAKEAWAY -->
+<div class="slide-container theme-flow-teal" id="slide8">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">14 & 15. Key Insight: Flow Staging vs Database</h2>
+    <div class="content-area" style="align-items: center; text-align: center;">
+        <i class="fa-solid fa-network-wired" style="font-size: 55px; color: #2dd4bf; margin-bottom: 20px;"></i>
+        <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 12px; border: 1px solid #2dd4bf; max-width: 900px;">
+            <h3 style="color: #2dd4bf; margin-bottom: 10px;">What Just Happened in Memory?</h3>
+            <p style="font-size: 18px; color: #f0fdfa;">
+                <span class="code-badge">Contact Created</span> &rarr; <span class="code-badge">LoyaltyPoints = 100</span>
+            </p>
+            <p style="font-size: 15px; color: #cbd5e1; margin-top: 15px;">
+                Notice that the Contact record on Salesforce is <strong>NOT</strong> updated yet! The value of 100 currently lives purely inside the Flow's temporary memory. Assignment prepares information for downstream processing or collection operations.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 9: HANDS-ON 2 - DISCOUNT CALCULATION -->
+<div class="slide-container theme-sf-light" id="slide9">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">16, 17, 18, 19, 20 & 21. Hands-on #2: Calculated Discount</h2>
+    <div class="content-area">
+        <div class="highlight-box" style="background: rgba(2, 132, 199, 0.1); border-left-color: #0284c7;">
+            <p style="margin: 0; font-weight: 600; color: #0284c7;">Requirement:</p>
+            <p style="margin: 0; font-size: 15px;">When an Opportunity is created, calculate a promotional discount value equal to 10% of the Opportunity Amount.</p>
+        </div>
+        <div class="tile-grid-3" style="margin-top: 15px;">
+            <div class="tile">
+                <h3>1. Variable Setup</h3>
+                <p style="font-size: 12px;"><strong>API Name:</strong> <span class="code-badge">DiscountAmount</span></p>
+                <p style="font-size: 12px;"><strong>Data Type:</strong> Currency</p>
+            </div>
+            <div class="tile">
+                <h3>2. Calculation Syntax</h3>
+                <p style="font-size: 12px;"><strong>Variable:</strong> <span class="code-badge">DiscountAmount</span></p>
+                <p style="font-size: 12px;"><strong>Operator:</strong> Equals</p>
+                <p style="font-size: 12px;"><strong>Value:</strong> <span class="code-badge">$Record.Amount * 0.10</span></p>
+            </div>
+            <div class="tile">
+                <h3>3. Value Result Example</h3>
+                <p style="font-size: 12px;">If Opportunity Amount = <strong>₦5,000,000</strong></p>
+                <p style="font-size: 12px; color: #0284c7;"><strong>DiscountAmount = ₦500,000</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 10: HANDS-ON 3 - DYNAMIC SERVICE MESSAGE -->
+<div class="slide-container theme-purple-dark" id="slide10">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">22, 23 & 24. Hands-on #3: Dynamic Service Message</h2>
+    <div class="content-area">
+        <div class="highlight-box" style="background: rgba(167, 139, 250, 0.1); border-left-color: #a78bfa;">
+            <p style="margin: 0; font-weight: 600; color: #a78bfa;">Requirement:</p>
+            <p style="margin: 0; font-size: 15px;">Prepare a personalized service string stored in a Text variable <span class="code-badge">ServiceMessage</span> based on Case Origin.</p>
+        </div>
+        <div class="flow-layout" style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; margin-top: 10px;">
+            <div class="flow-node" style="background: #8b5cf6; font-size: 12px;">Case Created</div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div class="flow-node" style="background: #a78bfa; color: #1e1b4b; font-size: 12px;">Decision: Origin?</div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+                <div style="background: #0284c7; color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 11px;">Phone &rarr; Set Phone Msg</div>
+                <div style="background: #0d9488; color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 11px;">Email &rarr; Set Email Msg</div>
+                <div style="background: #64748b; color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 11px;">Other &rarr; Set Default Msg</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 11: HANDS-ON 3 CONFIGURATION DETAILS -->
+<div class="slide-container theme-sf-blue" id="slide11">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">25, 26, 27, 28 & 29. Hands-on #3: Path Assignments</h2>
+    <div class="content-area">
+        <div class="tile-grid-3">
+            <div class="tile" style="background: rgba(255,255,255,0.05); border-top: 4px solid #38bdf8;">
+                <h3>Phone Branch</h3>
+                <p style="font-size: 11px;"><span class="code-badge">$Record.Origin = Phone</span></p>
+                <div style="background: rgba(0,0,0,0.2); padding: 8px; border-radius: 6px; font-size: 11px; margin-top: 8px; color: #38bdf8;">
+                    ServiceMessage = "Thank you for calling our support team."
+                </div>
+            </div>
+            <div class="tile" style="background: rgba(255,255,255,0.05); border-top: 4px solid #2dd4bf;">
+                <h3>Email Branch</h3>
+                <p style="font-size: 11px;"><span class="code-badge">$Record.Origin = Email</span></p>
+                <div style="background: rgba(0,0,0,0.2); padding: 8px; border-radius: 6px; font-size: 11px; margin-top: 8px; color: #2dd4bf;">
+                    ServiceMessage = "Thank you for contacting us by email."
+                </div>
+            </div>
+            <div class="tile" style="background: rgba(255,255,255,0.05); border-top: 4px solid #94a3b8;">
+                <h3>Default Branch</h3>
+                <p style="font-size: 11px;"><span class="code-badge">Other / Web</span></p>
+                <div style="background: rgba(0,0,0,0.2); padding: 8px; border-radius: 6px; font-size: 11px; margin-top: 8px; color: #cbd5e1;">
+                    ServiceMessage = "Thank you for contacting our support team."
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 12: TESTING HANDS-ON 3 & CORE CONCEPT -->
+<div class="slide-container theme-clean-slate" id="slide12">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">30, 31 & 32. Decision + Assignment Pattern</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile">
+                <h3>Execution Test Results</h3>
+                <div class="table-layout">
+                    <table style="font-size: 12px;">
+                        <thead>
+                            <tr style="background: #334155; color: #fff;">
+                                <th>Test Case</th>
+                                <th>Origin Input</th>
+                                <th>Variable Output Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Test 1</td><td>Phone</td><td>"Thank you for calling..."</td></tr>
+                            <tr><td>Test 2</td><td>Email</td><td>"Thank you for contacting us by email."</td></tr>
+                            <tr><td>Test 3</td><td>Web</td><td>"Thank you for contacting our..."</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tile" style="border-left: 6px solid #00a1e0;">
+                <h3>Architectural Synergy</h3>
+                <p style="font-size: 13px;"><strong>Class 2 (Decision):</strong> Selects execution path.</p>
+                <p style="font-size: 13px;"><strong>Class 3 (Assignment):</strong> Prepares path-specific data.</p>
+                <div class="highlight-box" style="margin-top: 10px; padding: 10px; background: rgba(0,161,224,0.08);">
+                    <p style="margin: 0; font-size: 12px; color: #00a1e0;"><strong>Key Concept:</strong> ServiceMessage is held in Flow memory; it is not saved on the Case record unless assigned to a field via Update Records.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 13: ACCUMULATION & WHY ASSIGNMENT PRECEDES LOOPS -->
+<div class="slide-container theme-sf-blue" id="slide13">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">33 & 34. Accumulation & Loop Preparation</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile" style="background: rgba(255,255,255,0.05);">
+                <h3 style="color: #38bdf8;">Variable Accumulation</h3>
+                <div style="font-family: monospace; font-size: 12px; line-height: 1.8; color: #cbd5e1;">
+                    Points = 100<br>
+                    Points <span style="color: #38bdf8;">Add 50</span>   &rarr; Result: 150<br>
+                    Points <span style="color: #ef4444;">Subtract 20</span> &rarr; Result: 130
+                </div>
+                <p style="font-size: 12px; margin-top: 10px;">Variables maintain running state across multiple steps.</p>
+            </div>
+            <div class="tile" style="background: rgba(255,255,255,0.05); border-color: #2dd4bf;">
+                <h3 style="color: #2dd4bf;">Looking Ahead to Class 4: Loops</h3>
+                <p style="font-size: 12px;">Loops process multi-record collections item-by-item.</p>
+                <div class="flow-layout" style="flex-direction: column; gap: 4px; margin-top: 5px;">
+                    <div class="flow-node" style="font-size: 10px; padding: 4px 8px; width: 100%;">Record 1 &rarr; Assignment (Add Value)</div>
+                    <div class="flow-node" style="font-size: 10px; padding: 4px 8px; width: 100%;">Record 2 &rarr; Assignment (Add Value)</div>
+                    <div class="flow-node" style="font-size: 10px; padding: 4px 8px; width: 100%;">Record N &rarr; Assignment (Accumulate)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 14: COMMON BEGINNER MISTAKES -->
+<div class="slide-container theme-sf-light" id="slide14">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">35. Common Beginner Pitfalls</h2>
+    <div class="content-area">
+        <div class="tile-grid">
+            <div class="tile" style="border-left: 6px solid #ef4444;">
+                <h3 style="color: #dc2626;">❌ Mistake 1 & 2</h3>
+                <p style="font-size: 12px;"><strong>Confusing Variable with Field:</strong> Expecting a Flow variable to show up automatically on a Salesforce page layout.</p>
+                <p style="font-size: 12px; margin-top: 8px;"><strong>Expecting Auto-Save:</strong> Assuming Assignment updates database records without an Update Records step.</p>
+            </div>
+            <div class="tile" style="border-left: 6px solid #ef4444;">
+                <h3 style="color: #dc2626;">❌ Mistake 3 & 4</h3>
+                <p style="font-size: 12px;"><strong>Over-Creating Variables:</strong> Creating variables for static values that do not change or get re-used.</p>
+                <p style="font-size: 12px; margin-top: 8px;"><strong>Hard-Coding Values:</strong> Writing fixed values like ₦500,000 instead of dynamic expressions like <span class="code-badge">$Record.Amount * 0.10</span>.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 15: DEBUGGING ASSIGNMENTS -->
+<div class="slide-container theme-purple-dark" id="slide15">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">36. Debugging Assignment Checklist</h2>
+    <div class="content-area">
+        <div class="tile" style="background: rgba(255,255,255,0.05); border-color: #a78bfa;">
+            <ol style="margin: 0; padding-left: 25px; font-size: 15px; line-height: 2;">
+                <li>Does the target variable resource exist in the Flow Manager?</li>
+                <li>Is the variable's Data Type correct (Text, Number, Currency, Boolean)?</li>
+                <li>Is the Assignment element placed on the correct execution path?</li>
+                <li>Are you using the correct Operator (Equals vs. Add vs. Subtract)?</li>
+                <li>Is the variable referenced downstream in an Action or Update element?</li>
+                <li>If database persistent, did you execute an Update Records step?</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 16: CLASS 3 SUMMARY & ARCHITECTURE -->
+<div class="slide-container theme-clean-slate" id="slide16">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">37 & 38. Flow Architecture Evolution</h2>
+    <div class="content-area">
+        <div class="flow-layout" style="background: #ffffff; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
+            <div class="flow-node" style="background: #00a1e0; font-size: 12px;">1. TRIGGER</div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div class="flow-node" style="background: #8b5cf6; font-size: 12px;">2. DECISION</div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div class="flow-node" style="background: #0d9488; font-size: 12px;">3. ASSIGNMENT</div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div class="flow-node" style="background: #0284c7; font-size: 12px;">4. ACTION / UPDATE</div>
+        </div>
+        <div class="tile-grid-3" style="margin-top: 20px;">
+            <div class="tile"><p style="font-size: 12px;"><strong>Variables:</strong> Temporary memory containers.</p></div>
+            <div class="tile"><p style="font-size: 12px;"><strong>Assignment:</strong> Sets or modifies internal values.</p></div>
+            <div class="tile"><p style="font-size: 12px;"><strong>Calculations:</strong> Evaluates dynamic expressions.</p></div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 17: PRACTICAL CHALLENGE -->
+<div class="slide-container theme-flow-teal" id="slide17">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">39. Practical Challenge: Lead Scoring</h2>
+    <div class="content-area">
+        <div class="highlight-box" style="background: rgba(45, 212, 191, 0.1); border-left-color: #2dd4bf;">
+            <p style="margin: 0; font-weight: 600; color: #2dd4bf;">Requirement:</p>
+            <p style="margin: 0; font-size: 14px;">Calculate a Customer Engagement Score variable for new Leads using cumulative score logic.</p>
+        </div>
+        <div class="tile-grid-4" style="margin-top: 10px;">
+            <div class="tile" style="background: rgba(255,255,255,0.05); padding: 12px;"><p style="font-size: 11px;">1. Initialize Score = 0</p></div>
+            <div class="tile" style="background: rgba(255,255,255,0.05); padding: 12px;"><p style="font-size: 11px;">2. Has Email? Add +20</p></div>
+            <div class="tile" style="background: rgba(255,255,255,0.05); padding: 12px;"><p style="font-size: 11px;">3. Has Phone? Add +30</p></div>
+            <div class="tile" style="background: rgba(255,255,255,0.05); padding: 12px;"><p style="font-size: 11px;">4. Source = Web? Add +50</p></div>
+        </div>
+        <div class="highlight-box" style="background: rgba(255, 255, 255, 0.05); border-left-color: #38bdf8; margin-top: 15px; padding: 10px;">
+            <p style="margin: 0; font-size: 12px; color: #38bdf8;"><strong>Bonus Question:</strong> How would we save this final score permanently onto the Lead record in Salesforce?</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 18: LOOKING AHEAD TO CLASS 4 -->
+<div class="slide-container theme-sf-blue" id="slide18">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">40 & Final Takeaway: Looking Ahead to Class 4</h2>
+    <div class="content-area" style="align-items: center; text-align: center;">
+        <i class="fa-solid fa-arrows-spin" style="font-size: 55px; color: #38bdf8; margin-bottom: 15px;"></i>
+        <h3 style="font-size: 24px; color: #ffffff; max-width: 900px;">Next Major Milestone: LOOPS 🔄</h3>
+        <p style="font-size: 14px; color: #cbd5e1; max-width: 800px; margin-top: 10px;">
+            Moving from processing single records to looping through collections item-by-item:
+        </p>
+        <div style="font-family: monospace; font-size: 13px; color: #38bdf8; margin-top: 10px;">
+            Record &rarr; Get Records &rarr; Collection &rarr; Loop &rarr; Current Item &rarr; Decision/Assignment &rarr; Next Item
+        </div>
+        <div style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; max-width: 850px;">
+            <p style="font-size: 16px; color: #2dd4bf; font-weight: 600;">
+                "Don't memorize elements—understand why they exist. Ask: Do I need to temporarily store, modify, or calculate a value for later use?"
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

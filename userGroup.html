@@ -1,0 +1,2914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Beyond the Certification — Innovate. Be Better.</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #031b33;
+            --blue: #0284c7;
+            --sky: #38bdf8;
+            --teal: #14b8a6;
+            --green: #10b981;
+            --amber: #f59e0b;
+            --purple: #8b5cf6;
+            --pink: #ec4899;
+
+            --white: #ffffff;
+            --slate-900: #0f172a;
+            --slate-700: #334155;
+            --slate-600: #475569;
+            --slate-500: #64748b;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 0;
+            min-height: 100vh;
+
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            place-items: center;
+
+            background:
+                radial-gradient(
+                    circle at 15% 15%,
+                    rgba(14, 165, 233, .15),
+                    transparent 30%
+                ),
+                #0f172a;
+        }
+
+        /* =====================================================
+           SLIDE
+        ===================================================== */
+
+        .slide-container {
+            position: relative;
+
+            width: 1280px;
+            height: 720px;
+
+            overflow: hidden;
+
+            border-radius: 14px;
+
+            font-family: "Inter", sans-serif;
+
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, .30);
+
+            isolation: isolate;
+        }
+
+        /* =====================================================
+           LAGOS BACKGROUND
+        ===================================================== */
+
+        .lagos-background {
+            position: absolute;
+            inset: 0;
+
+            z-index: -3;
+
+            background-image: url("civic-bg.png");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .hero .lagos-background::after {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(1, 18, 35, .94) 0%,
+                    rgba(1, 18, 35, .76) 36%,
+                    rgba(1, 18, 35, .32) 68%,
+                    rgba(1, 18, 35, .08) 100%
+                ),
+                linear-gradient(
+                    0deg,
+                    rgba(1, 18, 35, .42),
+                    transparent 55%
+                );
+        }
+
+        .dark-overlay .lagos-background::after {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(3, 27, 51, .95),
+                    rgba(3, 27, 51, .72)
+                );
+        }
+
+        .teal-overlay .lagos-background::after {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(4, 47, 46, .94),
+                    rgba(3, 48, 66, .74)
+                );
+        }
+
+        .purple-overlay .lagos-background::after {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(30, 27, 75, .95),
+                    rgba(49, 31, 92, .76)
+                );
+        }
+
+        .light-overlay .lagos-background::after {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(248, 250, 252, .95),
+                    rgba(248, 250, 252, .80)
+                );
+        }
+
+        /* =====================================================
+           CONTENT
+        ===================================================== */
+
+        .content {
+            position: relative;
+            z-index: 5;
+
+            width: 100%;
+            height: 100%;
+
+            padding: 55px 75px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: "Poppins", sans-serif;
+        }
+
+        h1 {
+            margin: 0;
+
+            font-size: 52px;
+            line-height: 1.08;
+            font-weight: 800;
+        }
+
+        h3 {
+            margin: 0 0 10px;
+
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        p {
+            margin: 0 0 12px;
+
+            line-height: 1.5;
+        }
+
+        .slide-title {
+            position: relative;
+            z-index: 5;
+
+            margin: 0 0 30px;
+            padding-left: 20px;
+
+            border-left: 8px solid var(--sky);
+
+            font-family: "Poppins", sans-serif;
+            font-size: 34px;
+            font-weight: 700;
+            line-height: 1.15;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            letter-spacing: .15em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: var(--sky);
+
+            box-shadow:
+                0 0 15px rgba(56, 189, 248, .7);
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 35px;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .four-column {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        /* =====================================================
+           GLASS CARDS
+        ===================================================== */
+
+        .glass {
+            border: 1px solid rgba(255, 255, 255, .15);
+
+            background:
+                rgba(255, 255, 255, .08);
+
+            backdrop-filter: blur(12px);
+
+            border-radius: 16px;
+
+            padding: 24px;
+        }
+
+        .white-glass {
+            border: 1px solid rgba(255, 255, 255, .70);
+
+            background:
+                rgba(255, 255, 255, .86);
+
+            backdrop-filter: blur(12px);
+
+            border-radius: 16px;
+
+            padding: 24px;
+
+            box-shadow:
+                0 15px 35px rgba(15, 23, 42, .10);
+        }
+
+        .dark-glass {
+            border: 1px solid rgba(255, 255, 255, .14);
+
+            background:
+                rgba(2, 20, 38, .65);
+
+            backdrop-filter: blur(15px);
+
+            border-radius: 16px;
+
+            padding: 24px;
+        }
+
+        /* =====================================================
+           ICONS
+        ===================================================== */
+
+        .icon {
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            margin-bottom: 18px;
+
+            font-size: 20px;
+        }
+
+        .blue-icon {
+            background: rgba(14, 165, 233, .12);
+            color: #0284c7;
+        }
+
+        .green-icon {
+            background: rgba(16, 185, 129, .12);
+            color: #059669;
+        }
+
+        .purple-icon {
+            background: rgba(139, 92, 246, .12);
+            color: #7c3aed;
+        }
+
+        .amber-icon {
+            background: rgba(245, 158, 11, .12);
+            color: #d97706;
+        }
+
+        .pink-icon {
+            background: rgba(236, 72, 153, .12);
+            color: #db2777;
+        }
+
+        /* =====================================================
+           PILL
+        ===================================================== */
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 8px 14px;
+
+            border-radius: 999px;
+
+            font-size: 10px;
+            font-weight: 700;
+
+            letter-spacing: .06em;
+        }
+
+        .blue-pill {
+            color: #e0f2fe;
+
+            background:
+                rgba(14, 165, 233, .14);
+
+            border:
+                1px solid rgba(56, 189, 248, .25);
+        }
+
+        .green-pill {
+            color: #d1fae5;
+
+            background:
+                rgba(16, 185, 129, .14);
+
+            border:
+                1px solid rgba(52, 211, 153, .25);
+        }
+
+        .purple-pill {
+            color: #ede9fe;
+
+            background:
+                rgba(139, 92, 246, .14);
+
+            border:
+                1px solid rgba(167, 139, 250, .25);
+        }
+
+        /* =====================================================
+           TEXT
+        ===================================================== */
+
+        .big-quote {
+            font-family: "Poppins";
+
+            font-size: 30px;
+            font-weight: 600;
+
+            line-height: 1.28;
+        }
+
+        .big-word {
+            font-family: "Poppins";
+
+            font-size: 66px;
+            font-weight: 800;
+
+            line-height: 1;
+        }
+
+        .number {
+            font-family: "Poppins";
+
+            font-size: 42px;
+            font-weight: 800;
+
+            line-height: 1;
+        }
+
+        .muted {
+            color: #64748b;
+        }
+
+        .kicker {
+            font-family: "Poppins";
+
+            font-size: 11px;
+            font-weight: 700;
+
+            letter-spacing: .16em;
+
+            text-transform: uppercase;
+        }
+
+        .quote-mark {
+            font-size: 76px;
+            line-height: .6;
+
+            color: #0284c7;
+
+            font-family: Georgia, serif;
+        }
+
+        /* =====================================================
+           HIGHLIGHT
+        ===================================================== */
+
+        .highlight {
+            padding: 18px 22px;
+
+            border-radius: 12px;
+
+            border-left:
+                6px solid #38bdf8;
+
+            background:
+                rgba(56, 189, 248, .09);
+        }
+
+        .dark-highlight {
+            padding: 20px 24px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(255, 255, 255, .08);
+
+            border:
+                1px solid rgba(255, 255, 255, .14);
+
+            backdrop-filter: blur(10px);
+        }
+
+        /* =====================================================
+           FLOW
+        ===================================================== */
+
+        .flow {
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+        .flow-node {
+            min-width: 145px;
+
+            padding: 13px 18px;
+
+            border-radius: 10px;
+
+            color: white;
+
+            font-family: "Poppins";
+
+            font-size: 14px;
+            font-weight: 600;
+
+            text-align: center;
+        }
+
+        .arrow {
+            color: #94a3b8;
+
+            font-size: 20px;
+        }
+
+        /* =====================================================
+           BULLETS
+        ===================================================== */
+
+        .bullet-list {
+            list-style: none;
+
+            padding: 0;
+            margin: 0;
+        }
+
+        .bullet-list li {
+            display: flex;
+
+            gap: 10px;
+
+            align-items: flex-start;
+
+            margin: 10px 0;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+        .bullet-list i {
+            margin-top: 5px;
+
+            color: #38bdf8;
+        }
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+            color: white;
+        }
+
+        .hero-content {
+            position: absolute;
+
+            left: 75px;
+            top: 72px;
+
+            z-index: 5;
+
+            width: 710px;
+        }
+
+        .hero-logo {
+            width: 165px;
+            height: auto;
+
+            margin-bottom: 30px;
+
+            filter:
+                drop-shadow(
+                    0 8px 18px rgba(0, 0, 0, .45)
+                );
+        }
+
+        .hero h1 {
+            font-size: 66px;
+
+            letter-spacing: -.045em;
+        }
+
+        .hero h1 span {
+            color: #7dd3fc;
+        }
+
+        .hero-subtitle {
+            margin-top: 22px;
+
+            color: #e0f2fe;
+
+            font-family: "Poppins";
+
+            font-size: 27px;
+            font-weight: 600;
+        }
+
+        .hero-description {
+            max-width: 650px;
+
+            margin-top: 13px;
+
+            color: #cbd5e1;
+
+            font-size: 17px;
+
+            line-height: 1.65;
+        }
+
+        .hero-badges {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            margin-top: 30px;
+        }
+
+        .hero-badge {
+            padding: 10px 16px;
+
+            border:
+                1px solid rgba(255, 255, 255, .20);
+
+            border-radius: 999px;
+
+            background:
+                rgba(255, 255, 255, .08);
+
+            backdrop-filter: blur(10px);
+
+            color: #e0f2fe;
+
+            font-size: 10px;
+            font-weight: 700;
+
+            letter-spacing: .05em;
+        }
+
+        .hero-location {
+            position: absolute;
+
+            right: 52px;
+            bottom: 42px;
+
+            z-index: 5;
+
+            text-align: right;
+        }
+
+        .hero-location .city {
+            font-family: "Poppins";
+
+            font-size: 17px;
+            font-weight: 700;
+
+            color: white;
+        }
+
+        .hero-location .sub {
+            margin-top: 4px;
+
+            color: #bae6fd;
+
+            font-size: 9px;
+
+            letter-spacing: .18em;
+
+            text-transform: uppercase;
+        }
+
+        .hero-line {
+            position: absolute;
+
+            right: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 5px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #38bdf8,
+                    #14b8a6,
+                    #8b5cf6
+                );
+
+            z-index: 8;
+        }
+
+        /* =====================================================
+           CENTER
+        ===================================================== */
+
+        .center {
+            text-align: center;
+        }
+
+        /* =====================================================
+           PRINT
+        ===================================================== */
+
+        @media print {
+
+            @page {
+                size: 1280px 720px;
+                margin: 0;
+            }
+
+            body {
+                display: block !important;
+
+                padding: 0 !important;
+
+                background: transparent !important;
+            }
+
+            .slide-container {
+                width: 1280px !important;
+                height: 720px !important;
+
+                margin: 0 !important;
+
+                border-radius: 0 !important;
+
+                box-shadow: none !important;
+
+                page-break-after: always !important;
+                page-break-inside: avoid !important;
+
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 1 — HERO -->
+<!-- ========================================================= -->
+
+<div class="slide-container hero">
+
+    <div class="lagos-background"></div>
+
+    <div class="hero-line"></div>
+
+    <div class="hero-content">
+
+        <img
+            src="SoftCode Logo.png"
+            alt="SoftCode Logo"
+            class="hero-logo"
+        >
+
+        <div
+            class="eyebrow"
+            style="color:#bae6fd;"
+        >
+            <span class="eyebrow-dot"></span>
+
+            Salesforce User Group Lagos
+        </div>
+
+        <h1 style="margin-top:15px;">
+            Beyond the
+            <span>Certification</span>
+        </h1>
+
+        <div class="hero-subtitle">
+            Innovate. Be Better.
+        </div>
+
+        <p class="hero-description">
+            A conversation about what happens after the certification —
+            turning knowledge into value, creating opportunities, giving
+            back to community, and building a better future of innovation.
+        </p>
+
+        <div class="hero-badges">
+
+            <div class="hero-badge">
+                Annual Community Conference
+            </div>
+
+            <div class="hero-badge">
+                More Than Technology
+            </div>
+
+            <div class="hero-badge">
+                People · Community · Innovation
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="hero-location">
+
+        <div class="city">
+            JOHN AJAYI
+        </div>
+
+        <div class="sub">
+            Innovate · Contribute · Be Better
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 2 — COMMUNITY -->
+<!-- ========================================================= -->
+
+<div class="slide-container light-overlay">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            01
+            <span style="color:#0284c7;">
+                I Am a Product of Community
+            </span>
+        </div>
+
+        <div
+            style="
+                display:grid;
+                grid-template-columns:.9fr 1.1fr;
+                gap:45px;
+                align-items:center;
+                height:540px;
+            "
+        >
+
+            <div>
+
+                <div
+                    class="quote-mark"
+                >
+                    “
+                </div>
+
+                <div class="big-quote">
+                    I am a product of community.
+                </div>
+
+                <p
+                    style="
+                        margin-top:22px;
+                        color:#475569;
+                        font-size:16px;
+                    "
+                >
+                    Not just someone who participates in community.
+                    Not just someone who attends events.
+                </p>
+
+                <p
+                    style="
+                        color:#0f172a;
+                        font-size:18px;
+                    "
+                >
+                    <strong>
+                        I am genuinely a product of the Salesforce community.
+                    </strong>
+                </p>
+
+            </div>
+
+
+            <div class="white-glass">
+
+                <div
+                    class="eyebrow"
+                    style="color:#0284c7;"
+                >
+                    <span
+                        class="eyebrow-dot"
+                        style="background:#0284c7;"
+                    ></span>
+
+                    My Story
+                </div>
+
+                <h3
+                    style="
+                        margin-top:15px;
+                        font-size:25px;
+                    "
+                >
+                    Someone opened the door.
+                </h3>
+
+                <ul class="bullet-list">
+
+                    <li>
+                        <i class="fa-solid fa-certificate"></i>
+
+                        <span>
+                            My first Salesforce certification was paid
+                            for through community support.
+                        </span>
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-people-group"></i>
+
+                        <span>
+                            People invested in me before they knew
+                            where the journey would lead.
+                        </span>
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-briefcase"></i>
+
+                        <span>
+                            Many career opportunities came directly
+                            or indirectly through community.
+                        </span>
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-door-open"></i>
+
+                        <span>
+                            <strong>
+                                Community opened doors for me.
+                            </strong>
+                        </span>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 3 — THE DOOR -->
+<!-- ========================================================= -->
+
+<div class="slide-container dark-overlay">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            02
+            <span>
+                But What Happens After the Door Opens?
+            </span>
+        </div>
+
+        <div
+            style="
+                height:540px;
+                display:flex;
+                flex-direction:column;
+                align-items:center;
+                justify-content:center;
+                text-align:center;
+            "
+        >
+
+            <div
+                class="eyebrow"
+                style="color:#7dd3fc;"
+            >
+                <span class="eyebrow-dot"></span>
+                The opportunity
+            </div>
+
+            <div
+                class="big-word"
+                style="
+                    margin-top:15px;
+                    color:#38bdf8;
+                    font-size:75px;
+                "
+            >
+                THE DOOR
+            </div>
+
+            <p
+                style="
+                    margin-top:18px;
+                    color:#cbd5e1;
+                    font-size:22px;
+                "
+            >
+                Certification.
+                Connection.
+                Opportunity.
+                Visibility.
+            </p>
+
+            <div
+                class="flow"
+                style="margin-top:35px;"
+            >
+
+                <div
+                    class="flow-node"
+                    style="background:#0284c7;"
+                >
+                    Certification
+                </div>
+
+                <div class="arrow" style="color:#38bdf8;">
+                    →
+                </div>
+
+                <div
+                    class="flow-node"
+                    style="background:#8b5cf6;"
+                >
+                    Community
+                </div>
+
+                <div class="arrow" style="color:#38bdf8;">
+                    →
+                </div>
+
+                <div
+                    class="flow-node"
+                    style="background:#14b8a6;"
+                >
+                    Opportunity
+                </div>
+
+                <div class="arrow" style="color:#38bdf8;">
+                    →
+                </div>
+
+                <div
+                    class="flow-node"
+                    style="background:#f59e0b;"
+                >
+                    Impact?
+                </div>
+
+            </div>
+
+            <div
+                class="dark-highlight"
+                style="
+                    margin-top:45px;
+                    max-width:850px;
+                "
+            >
+
+                <p
+                    style="
+                        font-family:'Poppins';
+                        font-size:25px;
+                        margin:0;
+                    "
+                >
+                    <strong>
+                        Getting through the door is one thing.
+                    </strong>
+                    <br>
+
+                    <span style="color:#38bdf8;">
+                        What you do after the door opens is another.
+                    </span>
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 4 — SAME BADGE -->
+<!-- ========================================================= -->
+
+<div class="slide-container light-overlay">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            03
+            <span style="color:#0284c7;">
+                When Everyone Has the Same Badge
+            </span>
+        </div>
+
+        <div
+            style="
+                height:535px;
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+            "
+        >
+
+            <div class="four-column">
+
+                <div class="white-glass center">
+
+                    <div
+                        class="number"
+                        style="color:#0284c7;"
+                    >
+                        100
+                    </div>
+
+                    <p style="font-size:14px;">
+                        people with certifications
+                    </p>
+
+                </div>
+
+                <div class="white-glass center">
+
+                    <div
+                        class="number"
+                        style="color:#8b5cf6;"
+                    >
+                        100
+                    </div>
+
+                    <p style="font-size:14px;">
+                        people completing Trailhead
+                    </p>
+
+                </div>
+
+                <div class="white-glass center">
+
+                    <div
+                        class="number"
+                        style="color:#14b8a6;"
+                    >
+                        100
+                    </div>
+
+                    <p style="font-size:14px;">
+                        people applying for jobs
+                    </p>
+
+                </div>
+
+                <div class="white-glass center">
+
+                    <div
+                        class="number"
+                        style="color:#f59e0b;"
+                    >
+                        100
+                    </div>
+
+                    <p style="font-size:14px;">
+                        people posting on LinkedIn
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div
+                class="highlight"
+                style="
+                    margin-top:40px;
+                    text-align:center;
+                    background:rgba(255,255,255,.86);
+                "
+            >
+
+                <p
+                    style="
+                        font-family:'Poppins';
+                        font-size:27px;
+                        margin:0;
+                    "
+                >
+                    <strong>
+                        What makes one person stand out?
+                    </strong>
+                </p>
+
+                <p
+                    style="
+                        font-size:18px;
+                        margin:8px 0 0;
+                        color:#475569;
+                    "
+                >
+                    You don't necessarily have to do something
+                    completely different.
+                </p>
+
+                <p
+                    style="
+                        font-size:26px;
+                        color:#0284c7;
+                        font-weight:700;
+                        margin:8px 0 0;
+                    "
+                >
+                    Sometimes, you just have to do something better.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 5 — BEYOND CERTIFICATION -->
+<!-- ========================================================= -->
+
+<div class="slide-container purple-overlay">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            04
+            <span>
+                Beyond the Certification
+            </span>
+        </div>
+
+        <div
+            style="
+                height:535px;
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+            "
+        >
+
+            <div class="two-column">
+
+                <div class="glass">
+
+                    <div
+                        class="eyebrow"
+                        style="color:#c4b5fd;"
+                    >
+                        <span class="eyebrow-dot"
+                              style="background:#a78bfa;">
+                        </span>
+
+                        A certification says...
+                    </div>
+
+                    <div
+                        class="big-quote"
+                        style="
+                            margin-top:15px;
+                            color:#f5f3ff;
+                        "
+                    >
+                        “I have learned something.”
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="glass"
+                    style="border-color:rgba(45,212,191,.25);"
+                >
+
+                    <div
+                        class="eyebrow"
+                        style="color:#5eead4;"
+                    >
+                        <span class="eyebrow-dot"
+                              style="background:#2dd4bf;">
+                        </span>
+
+                        Impact says...
+                    </div>
+
+                    <div
+                        class="big-quote"
+                        style="
+                            margin-top:15px;
+                            color:#f0fdfa;
+                        "
+                    >
+                        “I know how to create value with what
+                        I've learned.”
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="dark-highlight"
+                style="
+                    margin-top:42px;
+                    text-align:center;
+                "
+            >
+
+                <p
+                    style="
+                        font-size:22px;
+                        margin:0 0 18px;
+                    "
+                >
+                    <strong>
+                        The real question isn't:
+                    </strong>
+
+                    How many certifications do you have?
+                </p>
+
+                <p
+                    style="
+                        font-size:28px;
+                        color:#2dd4bf;
+                        font-family:'Poppins';
+                        font-weight:700;
+                        margin:0;
+                    "
+                >
+                    What have you done with the knowledge
+                    those certifications gave you?
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 6 — VALUE -->
+<!-- ========================================================= -->
+
+<div class="slide-container light-overlay">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            05
+            <span style="color:#0284c7;">
+                Turn Knowledge Into Value
+            </span>
+        </div>
+
+        <div
+            style="
+                height:535px;
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+            "
+        >
+
+            <div class="three-column">
+
+                <div class="white-glass">
+
+                    <div class="icon blue-icon">
+                        <i class="fa-solid fa-puzzle-piece"></i>
+                    </div>
+
+                    <h3>
+                        Can you solve?
+                    </h3>
+
+                    <p
+                        style="
+                            font-size:13px;
+                            color:#64748b;
+                        "
+                    >
+                        Can you solve a real problem,
+                        not just answer an exam question?
+                    </p>
+
+                </div>
+
+
+                <div class="white-glass">
+
+                    <div class="icon purple-icon">
+                        <i class="fa-solid fa-gears"></i>
+                    </div>
+
+                    <h3>
+                        Can you build?
+                    </h3>
+
+                    <p
+                        style="
+                            font-size:13px;
+                            color:#64748b;
+                        "
+                    >
+                        Can you build, automate, improve
+                        or simplify a process?
+                    </p>
+
+                </div>
+
+
+                <div class="white-glass">
+
+                    <div class="icon green-icon">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                    </div>
+
+                    <h3>
+                        Can you teach?
+                    </h3>
+
+                    <p
+                        style="
+                            font-size:13px;
+                            color:#64748b;
+                        "
+                    >
+                        Can you explain complexity clearly
+                        and help someone else grow?
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="three-column"
+                style="margin-top:22px;"
+            >
+
+                <div class="white-glass">
+
+                    <div class="icon amber-icon">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+
+                    <h3>
+                        Can you create value?
+                    </h3>
+
+                    <p
+                        style="
+                            font-size:13px;
+                            color:#64748b;
+                        "
+                    >
+                        Can you help a business make better
+                        decisions and achieve better outcomes?
+                    </p>
+
+                </div>
+
+
+                <div class="white-glass">
+
+                    <div class="icon blue-icon">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+
+                    <h3>
+                        Can you create opportunity?
+                    </h3>
+
+                    <p
+                        style="
+                            font-size:13px;
+                            color:#64748b;
+                        "
+                    >
+                        Can you open a door for someone
+                        who is where you once were?
+                    </p>
+
+                </div>
+
+
+                <div class="white-glass">
+
+                    <div class="icon pink-icon">
+                        <i class="fa-solid fa-arrow-up-right-dots"></i>
+                    </div>
+
+                    <h3>
+                        Can you create impact?
+                    </h3>
+
+                    <p
+                        style="
+                            font-size:13px;
+                            color:#64748b;
+                        "
+                    >
+                        Can your knowledge produce something
+                        people can actually use?
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 7 — INSPIRATION -->
+<!-- ========================================================= -->
+
+<div class="slide-container dark-overlay">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            06
+            <span>
+                Don't Confuse Inspiration With Imitation
+            </span>
+        </div>
+
+        <div
+            style="
+                height:535px;
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+            "
+        >
+
+            <div class="two-column">
+
+                <div class="dark-highlight">
+
+                    <div
+                        class="kicker"
+                        style="color:#38bdf8;"
+                    >
+                        Learn from people
+                    </div>
+
+                    <ul
+                        class="bullet-list"
+                        style="margin-top:18px;"
+                    >
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            <span>
+                                Copy their discipline.
+                            </span>
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            <span>
+                                Copy their consistency.
+                            </span>
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            <span>
+                                Copy their willingness to learn.
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <div
+                    class="dark-highlight"
+                    style="
+                        border-color:rgba(45,212,191,.35);
+                    "
+                >
+
+                    <div
+                        class="kicker"
+                        style="color:#2dd4bf;"
+                    >
+                        Then add your own
+                    </div>
+
+                    <ul
+                        class="bullet-list"
+                        style="margin-top:18px;"
+                    >
+
+                        <li>
+                            <i
+                                class="fa-solid fa-plus"
+                                style="color:#2dd4bf;"
+                            ></i>
+
+                            <span>
+                                Your perspective.
+                            </span>
+                        </li>
+
+                        <li>
+                            <i
+                                class="fa-solid fa-plus"
+                                style="color:#2dd4bf;"
+                            ></i>
+
+                            <span>
+                                Your experience.
+                            </span>
+                        </li>
+
+                        <li>
+                            <i
+                                class="fa-solid fa-plus"
+                                style="color:#2dd4bf;"
+                            ></i>
+
+                            <span>
+                                Your solution.
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="center"
+                style="margin-top:45px;"
+            >
+
+                <p
+                    style="
+                        font-size:29px;
+                        font-family:'Poppins';
+                        font-weight:600;
+                        margin:0;
+                    "
+                >
+                    The Salesforce ecosystem doesn't need
+                    another version of someone else.
+                </p>
+
+                <p
+                    style="
+                        font-size:38px;
+                        color:#38bdf8;
+                        font-family:'Poppins';
+                        font-weight:800;
+                        margin:12px 0 0;
+                    "
+                >
+                    It needs you.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 8 — INNOVATION -->
+<!-- ========================================================= -->
+
+<div class="slide-container teal-overlay">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            07
+            <span>
+                Innovation Is Often a Better Question
+            </span>
+        </div>
+
+        <div
+            style="
+                height:535px;
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                text-align:center;
+            "
+        >
+
+            <p
+                style="
+                    font-size:21px;
+                    color:#cbd5e1;
+                "
+            >
+                Innovation doesn't always mean inventing
+                something that has never existed.
+            </p>
+
+            <div
+                class="dark-highlight"
+                style="
+                    max-width:760px;
+                    margin:10px auto 0;
+                "
+            >
+
+                <p
+                    style="
+                        font-family:'Poppins';
+                        font-size:34px;
+                        color:#2dd4bf;
+                        margin:0;
+                        font-weight:800;
+                    "
+                >
+                    “Can this be done better?”
+                </p>
+
+            </div>
+
+
+            <div
+                class="four-column"
+                style="margin-top:42px;"
+            >
+
+                <div>
+
+                    <i
+                        class="fa-solid fa-bolt"
+                        style="
+                            font-size:34px;
+                            color:#38bdf8;
+                        "
+                    ></i>
+
+                    <p style="margin-top:12px;">
+                        <strong>
+                            Faster?
+                        </strong>
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <i
+                        class="fa-solid fa-wand-magic-sparkles"
+                        style="
+                            font-size:34px;
+                            color:#a78bfa;
+                        "
+                    ></i>
+
+                    <p style="margin-top:12px;">
+                        <strong>
+                            Easier?
+                        </strong>
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <i
+                        class="fa-solid fa-coins"
+                        style="
+                            font-size:34px;
+                            color:#f59e0b;
+                        "
+                    ></i>
+
+                    <p style="margin-top:12px;">
+                        <strong>
+                            Cheaper?
+                        </strong>
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <i
+                        class="fa-solid fa-universal-access"
+                        style="
+                            font-size:34px;
+                            color:#2dd4bf;
+                        "
+                    ></i>
+
+                    <p style="margin-top:12px;">
+                        <strong>
+                            More accessible?
+                        </strong>
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <p
+                style="
+                    margin-top:40px;
+                    font-size:24px;
+                    font-family:'Poppins';
+                    font-weight:600;
+                "
+            >
+                Sometimes innovation is simply
+                <span style="color:#2dd4bf;">
+                    seeing something familiar differently.
+                </span>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 9 — AFRICA -->
+<!-- ========================================================= -->
+
+<div class="slide-container light-overlay">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            08
+            <span style="color:#0284c7;">
+                Africa Gives Us Problems Worth Solving
+            </span>
+        </div>
+
+        <div
+            style="
+                height:535px;
+                display:grid;
+                grid-template-columns:.9fr 1.1fr;
+                gap:45px;
+                align-items:center;
+            "
+        >
+
+            <div>
+
+                <div
+                    class="eyebrow"
+                    style="color:#0284c7;"
+                >
+                    <span
+                        class="eyebrow-dot"
+                        style="background:#0284c7;"
+                    ></span>
+
+                    Our context matters
+                </div>
+
+                <h3
+                    style="
+                        margin-top:18px;
+                        font-size:32px;
+                        line-height:1.25;
+                    "
+                >
+                    Our businesses.
+                    <br>
+                    Our communities.
+                    <br>
+                    Our realities.
+                </h3>
+
+                <p
+                    style="
+                        margin-top:20px;
+                        font-size:18px;
+                        color:#475569;
+                    "
+                >
+                    Those realities create opportunities for people
+                    who are willing to build, experiment and improve.
+                </p>
+
+            </div>
+
+
+            <div
+                class="dark-glass"
+                style="
+                    background:rgba(3,27,51,.88);
+                "
+            >
+
+                <ul class="bullet-list">
+
+                    <li>
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                        <span>
+                            Don't always wait for someone somewhere else
+                            to solve our problems.
+                        </span>
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                        <span>
+                            Use technology in ways that fit our realities.
+                        </span>
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                        <span>
+                            Turn local problems into opportunities
+                            for innovation.
+                        </span>
+                    </li>
+
+                </ul>
+
+
+                <div
+                    class="highlight"
+                    style="
+                        margin-top:25px;
+                        background:rgba(56,189,248,.10);
+                    "
+                >
+
+                    <p
+                        style="
+                            margin:0;
+                            color:#e0f2fe;
+                            font-family:'Poppins';
+                            font-size:18px;
+                        "
+                    >
+                        <strong>
+                            Innovation can be global in ambition
+                            and local in application.
+                        </strong>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 10 — COMMUNITY -->
+<!-- ========================================================= -->
+
+<div class="slide-container purple-overlay">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            09
+            <span>
+                Community Is Not Just What You Get
+            </span>
+        </div>
+
+        <div
+            style="
+                height:535px;
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+            "
+        >
+
+            <div class="flow">
+
+                <div
+                    class="flow-node"
+                    style="background:#0284c7;"
+                >
+                    Ask
+                </div>
+
+                <div class="arrow" style="color:#c4b5fd;">
+                    →
+                </div>
+
+                <div
+                    class="flow-node"
+                    style="background:#8b5cf6;"
+                >
+                    Learn
+                </div>
+
+                <div class="arrow" style="color:#c4b5fd;">
+                    →
+                </div>
+
+                <div
+                    class="flow-node"
+                    style="background:#14b8a6;"
+                >
+                    Contribute
+                </div>
+
+                <div class="arrow" style="color:#c4b5fd;">
+                    →
+                </div>
+
+                <div
+                    class="flow-node"
+                    style="background:#f59e0b;"
+                >
+                    Multiply
+                </div>
+
+            </div>
+
+
+            <div
+                class="two-column"
+                style="margin-top:50px;"
+            >
+
+                <div class="dark-highlight">
+
+                    <h3>
+                        At first, you may be the person asking.
+                    </h3>
+
+                    <p
+                        style="
+                            font-size:13px;
+                            color:#cbd5e1;
+                        "
+                    >
+                        Ask questions. Find mentors. Learn.
+                        Build relationships. Take advantage of
+                        opportunities.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="dark-highlight"
+                    style="
+                        border-color:rgba(45,212,191,.35);
+                    "
+                >
+
+                    <h3 style="color:#2dd4bf;">
+                        But don't stay there forever.
+                    </h3>
+
+                    <p
+                        style="
+                            font-size:13px;
+                            color:#cbd5e1;
+                        "
+                    >
+                        At some point, someone else should be able
+                        to come into the community and benefit from
+                        <strong>you</strong>.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="center"
+                style="margin-top:35px;"
+            >
+
+                <p
+                    style="
+                        font-size:28px;
+                        font-family:'Poppins';
+                        font-weight:700;
+                    "
+                >
+                    Beneficiary
+                    →
+                    Contributor
+                    →
+                    <span style="color:#2dd4bf;">
+                        Multiplier
+                    </span>
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 11 — BE BETTER -->
+<!-- ========================================================= -->
+
+<div class="slide-container light-overlay">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            10
+            <span style="color:#0284c7;">
+                Be Better
+            </span>
+        </div>
+
+        <div
+            style="
+                height:535px;
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                text-align:center;
+            "
+        >
+
+            <p
+                style="
+                    font-size:23px;
+                    margin-bottom:30px;
+                    color:#475569;
+                "
+            >
+                Don't make your goal simply to be different.
+            </p>
+
+            <div
+                class="big-word"
+                style="
+                    color:#0284c7;
+                    font-size:76px;
+                "
+            >
+                BE BETTER.
+            </div>
+
+            <p
+                style="
+                    font-size:20px;
+                    margin-top:20px;
+                    color:#475569;
+                "
+            >
+                Better than yesterday.
+                Better at solving problems.
+                Better at creating value.
+            </p>
+
+
+            <div
+                class="three-column"
+                style="
+                    margin-top:45px;
+                    text-align:left;
+                "
+            >
+
+                <div class="white-glass center">
+
+                    <div class="icon blue-icon"
+                         style="margin:0 auto 15px;">
+                        <i class="fa-solid fa-user-gear"></i>
+                    </div>
+
+                    <h3>
+                        Administrator?
+                    </h3>
+
+                    <p style="font-size:13px;">
+                        Be a better Administrator.
+                    </p>
+
+                </div>
+
+
+                <div class="white-glass center">
+
+                    <div class="icon purple-icon"
+                         style="margin:0 auto 15px;">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+
+                    <h3>
+                        Developer?
+                    </h3>
+
+                    <p style="font-size:13px;">
+                        Be a better Developer.
+                    </p>
+
+                </div>
+
+
+                <div class="white-glass center">
+
+                    <div class="icon green-icon"
+                         style="margin:0 auto 15px;">
+                        <i class="fa-solid fa-briefcase"></i>
+                    </div>
+
+                    <h3>
+                        Consultant?
+                    </h3>
+
+                    <p style="font-size:13px;">
+                        Understand the business better.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 12 — CHALLENGE -->
+<!-- ========================================================= -->
+
+<div class="slide-container dark-overlay">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            11
+            <span>
+                Your Challenge
+            </span>
+        </div>
+
+        <div
+            style="
+                height:535px;
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+            "
+        >
+
+            <div class="three-column">
+
+                <div class="dark-highlight center">
+
+                    <div
+                        class="number"
+                        style="color:#38bdf8;"
+                    >
+                        01
+                    </div>
+
+                    <h3 style="margin-top:15px;">
+                        What am I learning?
+                    </h3>
+
+                    <p
+                        style="
+                            font-size:13px;
+                            color:#cbd5e1;
+                        "
+                    >
+                        Because if you're not learning,
+                        you're standing still.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="dark-highlight center"
+                    style="
+                        border-color:rgba(167,139,250,.30);
+                    "
+                >
+
+                    <div
+                        class="number"
+                        style="color:#a78bfa;"
+                    >
+                        02
+                    </div>
+
+                    <h3 style="margin-top:15px;">
+                        What am I creating?
+                    </h3>
+
+                    <p
+                        style="
+                            font-size:13px;
+                            color:#cbd5e1;
+                        "
+                    >
+                        Because knowledge without application
+                        has limited impact.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="dark-highlight center"
+                    style="
+                        border-color:rgba(45,212,191,.30);
+                    "
+                >
+
+                    <div
+                        class="number"
+                        style="color:#2dd4bf;"
+                    >
+                        03
+                    </div>
+
+                    <h3 style="margin-top:15px;">
+                        Who am I helping?
+                    </h3>
+
+                    <p
+                        style="
+                            font-size:13px;
+                            color:#cbd5e1;
+                        "
+                    >
+                        Because success is more meaningful when
+                        it creates success for someone else.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="dark-highlight center"
+                style="
+                    margin:30px auto 0;
+                    max-width:650px;
+                    border-color:rgba(245,158,11,.35);
+                "
+            >
+
+                <div
+                    class="number"
+                    style="color:#f59e0b;"
+                >
+                    04
+                </div>
+
+                <h3 style="margin-top:12px;">
+                    What can I do better?
+                </h3>
+
+                <p
+                    style="
+                        color:#cbd5e1;
+                        margin-bottom:0;
+                    "
+                >
+                    Not necessarily revolutionary.
+                    Just better.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 13 — JOHN'S STORY -->
+<!-- ========================================================= -->
+
+<div class="slide-container teal-overlay">
+
+    <div class="lagos-background"></div>
+
+    <div class="content">
+
+        <div class="slide-title">
+            12
+            <span>
+                The Story I Want to Continue
+            </span>
+        </div>
+
+        <div
+            style="
+                height:535px;
+                display:flex;
+                align-items:center;
+            "
+        >
+
+            <div class="two-column">
+
+                <div class="dark-highlight">
+
+                    <div
+                        class="kicker"
+                        style="color:#38bdf8;"
+                    >
+                        Where my story began
+                    </div>
+
+                    <p
+                        style="
+                            margin-top:14px;
+                            font-size:23px;
+                            font-family:'Poppins';
+                            font-weight:600;
+                        "
+                    >
+                        “The community helped John.”
+                    </p>
+
+                    <ul
+                        class="bullet-list"
+                        style="margin-top:18px;"
+                    >
+
+                        <li>
+                            <i class="fa-solid fa-certificate"></i>
+
+                            <span>
+                                Someone invested in my first certification.
+                            </span>
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-door-open"></i>
+
+                            <span>
+                                People opened doors for me.
+                            </span>
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-user-check"></i>
+
+                            <span>
+                                People believed in me.
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <div
+                    class="dark-highlight"
+                    style="
+                        border-color:rgba(45,212,191,.35);
+                    "
+                >
+
+                    <div
+                        class="kicker"
+                        style="color:#2dd4bf;"
+                    >
+                        Where I want it to go
+                    </div>
+
+                    <p
+                        style="
+                            margin-top:14px;
+                            font-size:23px;
+                            font-family:'Poppins';
+                            font-weight:600;
+                        "
+                    >
+                        “John became someone who helped others.”
+                    </p>
+
+                    <ul
+                        class="bullet-list"
+                        style="margin-top:18px;"
+                    >
+
+                        <li>
+                            <i
+                                class="fa-solid fa-chalkboard-user"
+                                style="color:#2dd4bf;"
+                            ></i>
+
+                            <span>
+                                Training and mentoring.
+                            </span>
+                        </li>
+
+                        <li>
+                            <i
+                                class="fa-solid fa-share-nodes"
+                                style="color:#2dd4bf;"
+                            ></i>
+
+                            <span>
+                                Sharing knowledge.
+                            </span>
+                        </li>
+
+                        <li>
+                            <i
+                                class="fa-solid fa-people-group"
+                                style="color:#2dd4bf;"
+                            ></i>
+
+                            <span>
+                                Creating opportunities.
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 14 — FINAL HERO -->
+<!-- ========================================================= -->
+
+<div class="slide-container hero">
+
+    <div class="lagos-background"></div>
+
+    <div class="hero-line"></div>
+
+    <img
+        src="SoftCode Logo.png"
+        alt="SoftCode Logo"
+        style="
+            position:absolute;
+            left:55px;
+            top:42px;
+            width:145px;
+            height:auto;
+            z-index:7;
+            filter:
+                drop-shadow(
+                    0 8px 18px rgba(0,0,0,.45)
+                );
+        "
+    >
+
+    <div
+        style="
+            position:absolute;
+            inset:0;
+            z-index:4;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            text-align:center;
+        "
+    >
+
+        <div
+            style="
+                max-width:850px;
+                padding:40px;
+            "
+        >
+
+            <p
+                style="
+                    margin:0;
+
+                    color:#cbd5e1;
+
+                    font-family:'Poppins';
+
+                    font-size:24px;
+                    line-height:1.5;
+                "
+            >
+                The community can open the door.
+            </p>
+
+            <h1
+                style="
+                    margin:18px 0 0;
+
+                    font-size:72px;
+                    line-height:1.05;
+                    font-weight:800;
+                    letter-spacing:-.04em;
+                "
+            >
+                What you do after
+                <span>the door opens</span>
+                is up to you.
+            </h1>
+
+            <div
+                style="
+                    width:90px;
+                    height:5px;
+
+                    margin:30px auto 28px;
+
+                    background:#38bdf8;
+                    border-radius:999px;
+                "
+            ></div>
+
+            <div
+                class="big-word"
+                style="
+                    font-size:82px;
+                    color:#38bdf8;
+                "
+            >
+                BE BETTER.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        style="
+            position:absolute;
+
+            left:0;
+            right:0;
+            bottom:30px;
+
+            z-index:6;
+
+            text-align:center;
+
+            color:#bae6fd;
+
+            font-size:10px;
+            font-weight:700;
+
+            letter-spacing:.14em;
+
+            text-transform:uppercase;
+        "
+    >
+        Salesforce User Group Lagos · Annual Community Conference
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SLIDE 15 — THANK YOU -->
+<!-- ========================================================= -->
+
+<div class="slide-container hero">
+
+    <div class="lagos-background"></div>
+
+    <div class="hero-line"></div>
+
+    <img
+        src="SoftCode Logo.png"
+        alt="SoftCode Logo"
+        style="
+            position:absolute;
+            left:55px;
+            top:42px;
+            width:145px;
+            height:auto;
+            z-index:7;
+            filter:
+                drop-shadow(
+                    0 8px 18px rgba(0,0,0,.45)
+                );
+        "
+    >
+
+    <div
+        style="
+            position:absolute;
+            inset:0;
+            z-index:4;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            text-align:center;
+        "
+    >
+
+        <div
+            style="
+                max-width:1000px;
+                padding:40px;
+            "
+        >
+
+            <div
+                style="
+                    font-family:'Poppins';
+
+                    font-size:118px;
+                    line-height:1;
+
+                    font-weight:800;
+
+                    letter-spacing:-.055em;
+
+                    color:#ffffff;
+
+                    text-shadow:
+                        0 10px 35px rgba(0,0,0,.35);
+                "
+            >
+                THANK YOU
+            </div>
+
+            <div
+                style="
+                    width:100px;
+                    height:5px;
+
+                    margin:35px auto 28px;
+
+                    background:#38bdf8;
+                    border-radius:999px;
+                "
+            ></div>
+
+            <div
+                style="
+                    font-family:'Poppins';
+
+                    font-size:24px;
+                    font-weight:600;
+
+                    color:#ffffff;
+
+                    letter-spacing:.02em;
+                "
+            >
+                Innovate. Contribute. Create. Be Better.
+            </div>
+
+            <div
+                style="
+                    margin-top:18px;
+
+                    font-size:18px;
+
+                    color:rgba(255,255,255,.78);
+                "
+            >
+                John Ajayi
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        style="
+            position:absolute;
+
+            left:0;
+            right:0;
+            bottom:30px;
+
+            z-index:6;
+
+            text-align:center;
+
+            color:#bae6fd;
+
+            font-size:10px;
+            font-weight:700;
+
+            letter-spacing:.14em;
+
+            text-transform:uppercase;
+        "
+    >
+        Salesforce User Group Lagos · Annual Community Conference
+    </div>
+
+</div>
+
+
+</body>
+</html>

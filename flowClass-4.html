@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoftCode Salesforce Flow Masterclass - Class 4</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; }
+        p { margin: 0 0 12px; }
+        body {
+            background:#cbd5e1; display:grid; gap:30px; grid-template-columns:1fr;
+            margin:0; min-height:100vh; padding:40px 0; place-items:center;
+        }
+        .slide-container {
+            align-items:center; background:#fff; border-radius:12px;
+            box-shadow:0 25px 50px rgba(0,0,0,.15); display:flex; flex-direction:column;
+            font-family:'Inter',sans-serif; height:720px; justify-content:flex-start;
+            overflow:hidden; padding:50px 80px; position:relative; width:1280px;
+        }
+        .slide-logo { position:absolute; top:35px; right:50px; height:155px; width:auto; z-index:10; object-fit:contain; }
+        .decor-blob { position:absolute; border-radius:50%; filter:blur(80px); opacity:.15; z-index:0; }
+        h1 { font-family:'Poppins',sans-serif; font-size:48px; font-weight:700; line-height:1.1; margin:0; text-align:center; }
+        .slide-title {
+            font-family:'Poppins',sans-serif; font-size:34px; font-weight:700;
+            margin-bottom:25px; text-align:left; width:100%; border-left:10px solid currentColor;
+            padding-left:20px;
+        }
+        h3 { font-family:'Poppins',sans-serif; font-size:20px; font-weight:600; margin-bottom:10px; }
+        p, li { font-size:17px; line-height:1.5; }
+        .content-area { display:flex; flex-direction:column; flex-grow:1; width:100%; justify-content:center; z-index:2; position:relative; }
+        .two-column { display:grid; grid-template-columns:1fr 1fr; gap:35px; width:100%; }
+        .tile-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; width:100%; }
+        .tile-grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; width:100%; }
+        .tile-grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:15px; width:100%; }
+        .tile { border-radius:12px; padding:22px; border:1px solid rgba(0,0,0,.1); background:rgba(255,255,255,.05); }
+        .bullet-list { list-style:none; padding:0; margin:0; }
+        .bullet-list li { position:relative; padding-left:32px; margin-bottom:10px; }
+        .bullet-list i { position:absolute; left:0; top:4px; font-size:18px; }
+        .table-layout table { width:100%; border-collapse:collapse; margin-top:10px; }
+        .table-layout th { background:rgba(255,255,255,.1); color:#fff; padding:12px; text-align:left; font-family:'Poppins',sans-serif; border-bottom:3px solid #00a1e0; }
+        .table-layout td { padding:12px; border-bottom:1px solid rgba(255,255,255,.1); }
+        .flow-layout { display:flex; align-items:center; justify-content:space-around; width:100%; margin:15px 0; }
+        .flow-node { background:#00a1e0; color:#fff; font-weight:700; padding:10px 18px; border-radius:8px; font-family:'Poppins'; text-align:center; font-size:15px; }
+        .flow-arrow { font-size:18px; color:#94a3b8; }
+        .highlight-box { background:rgba(0,161,224,.1); border-radius:12px; border-left:6px solid #00a1e0; padding:18px; margin:15px 0; }
+        .code-badge { font-family:'Courier New',monospace; background:rgba(0,0,0,.15); padding:2px 6px; border-radius:4px; font-weight:bold; }
+        .theme-sf-blue { background:#031b33; color:#f1f5f9; }
+        .theme-sf-blue .slide-title { color:#38bdf8; border-left-color:#00a1e0; }
+        .theme-sf-blue h3 { color:#38bdf8; }
+        .theme-sf-blue .bullet-list i { color:#38bdf8; }
+        .theme-sf-light { background:#f0f9ff; color:#0c4a6e; }
+        .theme-sf-light .slide-title { color:#0284c7; border-left-color:#00a1e0; }
+        .theme-sf-light h3 { color:#0284c7; }
+        .theme-sf-light .tile { background:#fff; border-color:#bae6fd; box-shadow:0 4px 6px rgba(0,0,0,.02); }
+        .theme-sf-light .bullet-list i { color:#0284c7; }
+        .theme-flow-teal { background:#042f2e; color:#f0fdfa; }
+        .theme-flow-teal .slide-title { color:#2dd4bf; border-left-color:#14b8a6; }
+        .theme-flow-teal h3 { color:#2dd4bf; }
+        .theme-flow-teal .bullet-list i { color:#2dd4bf; }
+        .theme-purple-dark { background:#1e1b4b; color:#f5f3ff; }
+        .theme-purple-dark .slide-title { color:#a78bfa; border-left-color:#8b5cf6; }
+        .theme-purple-dark h3 { color:#a78bfa; }
+        .theme-purple-dark .tile { background:rgba(255,255,255,.05); border-color:#4c1d95; }
+        .theme-purple-dark .bullet-list i { color:#a78bfa; }
+        .theme-clean-slate { background:#f8fafc; color:#0f172a; }
+        .theme-clean-slate .slide-title { color:#334155; border-left-color:#00a1e0; }
+        .theme-clean-slate h3 { color:#0f172a; }
+        .theme-clean-slate .tile { background:#fff; border-color:#e2e8f0; }
+        .theme-clean-slate .bullet-list i { color:#00a1e0; }
+        @media print {
+            body { background:transparent!important; padding:0!important; display:block!important; }
+            .slide-container {
+                page-break-after:always!important; page-break-inside:avoid!important;
+                margin:0 auto!important; box-shadow:none!important; border:none!important;
+                -webkit-print-color-adjust:exact!important; print-color-adjust:exact!important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- SLIDE 1 -->
+<div class="slide-container theme-sf-blue" id="slide1">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <div class="decor-blob" style="width:600px;height:600px;background:#00a1e0;top:-200px;right:-200px;"></div>
+    <div class="decor-blob" style="width:500px;height:500px;background:#8b5cf6;bottom:-200px;left:-200px;"></div>
+    <div class="content-area" style="align-items:center;">
+        <div style="display:flex;gap:20px;align-items:center;margin-bottom:25px;">
+            <i class="fa-solid fa-layer-group" style="font-size:70px;color:#38bdf8;"></i>
+            <i class="fa-solid fa-repeat" style="font-size:50px;color:#a78bfa;"></i>
+            <i class="fa-solid fa-bolt" style="font-size:70px;color:#2dd4bf;"></i>
+        </div>
+        <h1 style="color:#fff;">SoftCode Salesforce Flow Masterclass</h1>
+        <p style="font-size:24px;color:#cbd5e1;font-family:'Poppins';margin-top:20px;">Class 4 — Loops, Collections & Record-Triggered Flow</p>
+        <div style="margin-top:40px;border:2px solid #38bdf8;padding:12px 35px;border-radius:50px;color:#38bdf8;font-weight:600;">
+            Format: Theory + 3 Hands-On Exercises | Duration: 1 Hour | Beginner → Intermediate
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide-container theme-sf-light" id="slide2">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">1. Class Overview</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile" style="border-top:6px solid #64748b;">
+                <h3>Previous Classes: Flow Fundamentals</h3>
+                <div class="flow-layout" style="flex-direction:column;gap:6px;margin:10px 0;">
+                    <div class="flow-node" style="width:100%;font-size:11px;background:#64748b;">Record / Trigger</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size:10px;"></i>
+                    <div class="flow-node" style="width:100%;font-size:11px;background:#64748b;">Decision</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size:10px;"></i>
+                    <div class="flow-node" style="width:100%;font-size:11px;background:#64748b;">Assignment</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size:10px;"></i>
+                    <div class="flow-node" style="width:100%;font-size:11px;background:#64748b;">Action / Update</div>
+                </div>
+            </div>
+            <div class="tile" style="border-top:6px solid #0284c7;">
+                <h3>Class 4: Multi-Record Automation</h3>
+                <p style="font-size:13px;">Today we move beyond a flow that reacts to one record.</p>
+                <ul class="bullet-list" style="font-size:12px;margin-top:8px;">
+                    <li><i class="fa-solid fa-circle-check"></i>Understand Record Collections.</li>
+                    <li><i class="fa-solid fa-circle-check"></i>Loop through related records.</li>
+                    <li><i class="fa-solid fa-circle-check"></i>Use Current Item inside the Loop.</li>
+                    <li><i class="fa-solid fa-circle-check"></i>Build scalable record-triggered automation.</li>
+                </ul>
+                <p style="font-size:12px;margin-top:10px;font-weight:bold;color:#0284c7;">The trigger starts with one record; the automation can then work with many related records.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide-container theme-clean-slate" id="slide3">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">2. Learning Objectives</h2>
+    <div class="content-area">
+        <div class="tile-grid">
+            <div class="tile">
+                <h3>Core Theoretical Concepts</h3>
+                <ul class="bullet-list" style="font-size:13px;">
+                    <li><i class="fa-solid fa-bullseye"></i>Explain what a Salesforce Flow collection is.</li>
+                    <li><i class="fa-solid fa-bullseye"></i>Explain why a Loop is needed for multiple records.</li>
+                    <li><i class="fa-solid fa-bullseye"></i>Understand the Current Item resource.</li>
+                    <li><i class="fa-solid fa-bullseye"></i>Understand why DML should happen outside the Loop.</li>
+                </ul>
+            </div>
+            <div class="tile">
+                <h3>Practical Flow Builder Skills</h3>
+                <ul class="bullet-list" style="font-size:13px;">
+                    <li><i class="fa-solid fa-bullseye"></i>Build a Record-Triggered Flow.</li>
+                    <li><i class="fa-solid fa-bullseye"></i>Retrieve related records with Get Records.</li>
+                    <li><i class="fa-solid fa-bullseye"></i>Loop through a related record collection.</li>
+                    <li><i class="fa-solid fa-bullseye"></i>Modify and bulk-update records safely.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide-container theme-sf-blue" id="slide4">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">3. From Single-Record Logic to Multi-Record Automation</h2>
+    <div class="content-area">
+        <div class="tile-grid-4">
+            <div class="tile" style="background:rgba(255,255,255,.05);border-top:4px solid #94a3b8;">
+                <h3 style="font-size:14px;">Class 1: Trigger</h3>
+                <div style="font-size:11px;color:#cbd5e1;line-height:1.7;margin-top:8px;">Record Changes<br>↓<br>Flow Starts</div>
+            </div>
+            <div class="tile" style="background:rgba(255,255,255,.05);border-top:4px solid #a78bfa;">
+                <h3 style="font-size:14px;">Class 2: Decision</h3>
+                <div style="font-size:11px;color:#cbd5e1;line-height:1.7;margin-top:8px;">Trigger<br>↓<br>Decision<br>↓<br>Different Paths</div>
+            </div>
+            <div class="tile" style="background:rgba(255,255,255,.05);border-top:4px solid #2dd4bf;">
+                <h3 style="font-size:14px;">Class 3: State & Action</h3>
+                <div style="font-size:11px;color:#cbd5e1;line-height:1.7;margin-top:8px;">Trigger → Decision<br>↓<br>Assignment<br>↓<br>Action</div>
+            </div>
+            <div class="tile" style="background:rgba(255,255,255,.08);border-top:4px solid #38bdf8;">
+                <h3 style="font-size:14px;color:#38bdf8;">Class 4: Collections</h3>
+                <div style="font-size:10px;color:#38bdf8;line-height:1.6;margin-top:8px;">Trigger Record<br>↓<br>Get Related Records<br>↓<br>Collection<br>↓<br>Loop → Current Item</div>
+            </div>
+        </div>
+        <div class="highlight-box" style="margin-top:20px;background:rgba(56,189,248,.1);border-left-color:#38bdf8;">
+            <p style="margin:0;font-size:14px;"><strong>The key shift:</strong> A Record-Triggered Flow can start from one record and then orchestrate work across many related records.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 5 -->
+<div class="slide-container theme-sf-light" id="slide5">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">4. What Is a Collection?</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile" style="border-top:6px solid #0284c7;">
+                <h3><i class="fa-solid fa-basket-shopping" style="color:#0284c7;"></i> The Shopping Basket Analogy</h3>
+                <p style="font-size:13px;">A collection is a group of values or records stored together.</p>
+                <div style="background:#f0f9ff;padding:12px;border-radius:8px;font-size:12px;border:1px solid #bae6fd;margin-top:8px;">
+                    <strong>Single Record:</strong> Campaign Member A<br>
+                    <strong>Collection:</strong> [ Member A, Member B, Member C, Member D ]
+                </div>
+                <p style="font-size:12px;margin-top:10px;">The collection gives the Loop multiple records to work through.</p>
+            </div>
+            <div class="tile" style="border-top:6px solid #8b5cf6;">
+                <h3><i class="fa-solid fa-database" style="color:#8b5cf6;"></i> Where Collections Come From</h3>
+                <p style="font-size:13px;">The most common source is a Get Records element configured to return <em>All records</em>.</p>
+                <div class="flow-layout" style="flex-direction:column;gap:4px;margin:8px 0;">
+                    <div class="flow-node" style="width:100%;font-size:11px;background:#0284c7;">Record-Triggered Flow</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size:10px;"></i>
+                    <div class="flow-node" style="width:100%;font-size:11px;background:#8b5cf6;">Get Related Records</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size:10px;"></i>
+                    <div class="flow-node" style="width:100%;font-size:11px;background:#14b8a6;">Record Collection</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 6 -->
+<div class="slide-container theme-purple-dark" id="slide6">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">5 & 6. Why Do We Need a Loop?</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile" style="background:rgba(255,255,255,.05);">
+                <h3 style="color:#a78bfa;"><i class="fa-solid fa-arrows-spin"></i> The Problem</h3>
+                <p style="font-size:13px;">Get Records may return many records. But Flow needs a way to process each record individually.</p>
+                <div class="highlight-box" style="background:rgba(167,139,250,.1);border-left-color:#a78bfa;padding:12px;">
+                    <p style="margin:0;font-size:12px;">Collection = many records.<br>Current Item = one record being processed right now.</p>
+                </div>
+            </div>
+            <div class="tile" style="background:rgba(255,255,255,.05);border-color:#a78bfa;">
+                <h3 style="color:#a78bfa;"><i class="fa-solid fa-list-ol"></i> Sequential Execution</h3>
+                <div style="font-family:monospace;font-size:11px;color:#a78bfa;line-height:1.8;margin-top:5px;background:rgba(0,0,0,.3);padding:10px;border-radius:6px;">
+                    Collection: [ A, B, C, D ]<br><br>
+                    A → Process → B → Process →<br>
+                    C → Process → D → Process → Done!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 7 -->
+<div class="slide-container theme-sf-blue" id="slide7">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">7 & 8. Current Item & Loop Architecture</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile" style="background:rgba(255,255,255,.05);border-left:6px solid #38bdf8;">
+                <h3><i class="fa-solid fa-hand-pointer" style="color:#38bdf8;"></i> Current Item</h3>
+                <p style="font-size:13px;">Inside a Loop, Salesforce exposes a dynamic resource representing the record currently being processed.</p>
+                <ul class="bullet-list" style="font-size:12px;margin-top:8px;">
+                    <li><i class="fa-solid fa-arrow-right"></i>Iteration 1 → Current Item = Record A</li>
+                    <li><i class="fa-solid fa-arrow-right"></i>Iteration 2 → Current Item = Record B</li>
+                    <li><i class="fa-solid fa-arrow-right"></i>Iteration 3 → Current Item = Record C</li>
+                </ul>
+                <div class="highlight-box" style="background:rgba(56,189,248,.1);border-left-color:#38bdf8;padding:8px;margin-top:10px;">
+                    <p style="margin:0;font-size:12px;color:#38bdf8;"><strong>Current Item</strong> = the one record the Loop is handling now.</p>
+                </div>
+            </div>
+            <div class="tile" style="background:rgba(255,255,255,.05);border-color:#38bdf8;">
+                <h3><i class="fa-solid fa-diagram-project" style="color:#38bdf8;"></i> Loop Paths</h3>
+                <div class="flow-layout" style="flex-direction:column;gap:4px;margin:4px 0;">
+                    <div class="flow-node" style="font-size:10px;padding:4px 10px;background:#0284c7;">Get Records → Collection</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size:10px;"></i>
+                    <div class="flow-node" style="font-size:10px;padding:4px 10px;background:#8b5cf6;">Loop Element</div>
+                    <div style="display:flex;gap:15px;margin-top:4px;">
+                        <div style="font-size:10px;background:rgba(45,212,191,.2);border:1px solid #2dd4bf;padding:6px;border-radius:6px;color:#2dd4bf;">
+                            <strong>For Each Item:</strong><br>Process Current Item → Next Item
+                        </div>
+                        <div style="font-size:10px;background:rgba(239,68,68,.2);border:1px solid #ef4444;padding:6px;border-radius:6px;color:#fca5a5;">
+                            <strong>After Last Item:</strong><br>Exit Loop → Continue Flow
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 9 -->
+<div class="slide-container theme-sf-light" id="slide9">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">10. Hands-On #1: Review Campaign Members</h2>
+    <div class="content-area">
+        <div class="highlight-box" style="background:rgba(2,132,199,.1);border-left-color:#0284c7;">
+            <p style="margin:0;font-weight:600;color:#0284c7;">Business Requirement</p>
+            <p style="margin:0;font-size:14px;">When a <strong>Campaign</strong> is updated, automatically retrieve its Campaign Members and process each member one at a time. Then update Status to Responded for each member. </p>
+        </div>
+        <div class="tile-grid-3" style="margin-top:10px;">
+            <div class="tile">
+                <h3>1. Create the Trigger</h3>
+                <p style="font-size:12px;">Flow Type: <strong>Record-Triggered Flow</strong></p>
+                <p style="font-size:12px;">Object: <strong>Campaign</strong></p>
+                <p style="font-size:12px;">Trigger: <strong>When record is updated</strong></p>
+                <p style="font-size:12px;">Entry Condition: Campaign meets the selected exercise condition.</p>
+            </div>
+            <div class="tile">
+                <h3>2. Get Campaign Members</h3>
+                <p style="font-size:12px;">Object: <strong>Campaign Member</strong></p>
+                <p style="font-size:12px;">Condition: <span class="code-badge">CampaignId Equals {!$Record.Id}</span></p>
+                <p style="font-size:12px;">How Many Records: <strong>All records</strong></p>
+            </div>
+            <div class="tile">
+                <h3>3. Loop Through Members</h3>
+                <p style="font-size:12px;">Label: <strong>Loop Through Campaign Members</strong></p>
+                <p style="font-size:12px;">Collection: <strong>Campaign Members from Get Campaign Members</strong></p>
+                <p style="font-size:12px;">Inside the loop, inspect <span class="code-badge">Current Item</span>.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 10 -->
+<div class="slide-container theme-flow-teal" id="slide10">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">11. Hands-On #1: Flow Build & Debugging</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile" style="background:rgba(255,255,255,.05);border-color:#2dd4bf;">
+                <h3 style="color:#2dd4bf;">Execution Architecture</h3>
+                <div class="flow-layout" style="flex-direction:column;gap:4px;margin-top:5px;">
+                    <div class="flow-node" style="font-size:10px;padding:4px 8px;width:100%;background:#14b8a6;">Campaign Record Updated → $Record</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size:8px;"></i>
+                    <div class="flow-node" style="font-size:10px;padding:4px 8px;width:100%;background:#0d9488;">Get Campaign Members → Collection</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size:8px;"></i>
+                    <div class="flow-node" style="font-size:10px;padding:4px 8px;width:100%;background:#0f766e;">Loop → Current Campaign Member</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size:8px;"></i>
+                    <div class="flow-node" style="font-size:10px;padding:4px 8px;width:100%;background:#134e4a;">After Last Item → Continue / End</div>
+                </div>
+            </div>
+            <div class="tile" style="background:rgba(255,255,255,.05);">
+                <h3 style="color:#2dd4bf;">Debug Questions</h3>
+                <ul class="bullet-list" style="font-size:12px;">
+                    <li><i class="fa-solid fa-circle-question"></i>Which Campaign triggered the Flow?</li>
+                    <li><i class="fa-solid fa-circle-question"></i>How many Campaign Members were returned?</li>
+                    <li><i class="fa-solid fa-circle-question"></i>What does Current Item contain during iteration 1?</li>
+                    <li><i class="fa-solid fa-circle-question"></i>What happens after the last member?</li>
+                </ul>
+                <div class="highlight-box" style="background:rgba(45,212,191,.1);border-left-color:#2dd4bf;padding:8px;margin-top:10px;">
+                    <p style="margin:0;font-size:12px;color:#2dd4bf;"><strong>Pattern:</strong> Trigger → $Record → Get Related Records → Collection → Loop → Current Item.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 11 -->
+<div class="slide-container theme-sf-blue" id="slide11">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">12. Hands-On #2: Calculate Total Product Quantity</h2>
+    <div class="content-area">
+        <div class="highlight-box" style="background:rgba(56,189,248,.1);border-left-color:#38bdf8;">
+            <p style="margin:0;font-weight:600;color:#38bdf8;">Business Requirement</p>
+            <p style="margin:0;font-size:14px;">When a <strong>Quote</strong> is updated, retrieve all Quote Line Items and calculate the overall quantity using Loop + Assignment. This exercise introduces accumulation inside a Record-Triggered Flow.</p>
+        </div>
+        <div class="two-column" style="margin-top:10px;">
+            <div class="tile" style="background:rgba(255,255,255,.05);">
+                <h3>Flow Architecture</h3>
+                <div class="flow-layout" style="flex-direction:column;gap:4px;margin:4px 0;">
+                    <div class="flow-node" style="font-size:10px;padding:4px 8px;width:100%;background:#0284c7;">Quote Updated → $Record.Id</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size:8px;"></i>
+                    <div class="flow-node" style="font-size:10px;padding:4px 8px;width:100%;background:#8b5cf6;">Get Quote Line Items → Collection</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size:8px;"></i>
+                    <div class="flow-node" style="font-size:10px;padding:4px 8px;width:100%;background:#0d9488;">Loop → Assignment: TotalQuantity + CurrentItem.Quantity</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size:8px;"></i>
+                    <div class="flow-node" style="font-size:10px;padding:4px 8px;width:100%;background:#0284c7;">After Last Item → Update Quote</div>
+                </div>
+            </div>
+            <div class="tile" style="background:rgba(255,255,255,.05);">
+                <h3>Accumulation Logic</h3>
+                <div class="table-layout">
+                    <table style="font-size:11px;">
+                        <thead>
+                            <tr style="background:#38bdf8;color:#031b33;">
+                                <th>Line Item</th><th>Quantity</th><th>Running Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Start</td><td>-</td><td>0</td></tr>
+                            <tr><td>Product A</td><td>5</td><td>0 + 5 = 5</td></tr>
+                            <tr><td>Product B</td><td>10</td><td>5 + 10 = 15</td></tr>
+                            <tr><td>Product C</td><td>3</td><td><strong>15 + 3 = 18</strong></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 12 -->
+<div class="slide-container theme-clean-slate" id="slide12">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">13. Hands-On #2: Build Steps & Output</h2>
+    <div class="content-area">
+        <div class="tile-grid-4">
+            <div class="tile">
+                <h3 style="font-size:13px;">1. Start</h3>
+                <p style="font-size:11px;">Flow: <strong>Record-Triggered Flow</strong></p>
+                <p style="font-size:11px;">Object: <strong>Quote</strong></p>
+                <p style="font-size:11px;">Trigger: <strong>Updated</strong></p>
+            </div>
+            <div class="tile">
+                <h3 style="font-size:13px;">2. Get Records</h3>
+                <p style="font-size:11px;">Object: Quote Line Item</p>
+                <p style="font-size:11px;">Filter: <span class="code-badge">QuoteId = {!$Record.Id}</span></p>
+                <p style="font-size:11px;">Records: <strong>All records</strong></p>
+            </div>
+            <div class="tile">
+                <h3 style="font-size:13px;">3. Loop + Assignment</h3>
+                <p style="font-size:11px;">Variable: <span class="code-badge">TotalQuantity</span></p>
+                <p style="font-size:11px;">Default: <strong>0</strong></p>
+                <p style="font-size:11px;">Add <span class="code-badge">{!CurrentQuoteLineItem.Quantity}</span> each iteration.</p>
+            </div>
+            <div class="tile">
+                <h3 style="font-size:13px;">4. Update Quote</h3>
+                <p style="font-size:11px;">After Last Item → Update Records.</p>
+                <p style="font-size:11px;">Target: triggering Quote.</p>
+                <p style="font-size:11px;">Field: <strong>Total Quantity</strong> = {!TotalQuantity}</p>
+            </div>
+        </div>
+        <div class="highlight-box" style="margin-top:15px;background:rgba(0,161,224,.08);">
+            <p style="margin:0;font-size:13px;"><strong>Key Lesson:</strong> The triggering record is <span class="code-badge">{!$Record}</span>. Related records are retrieved, processed, accumulated, and then the triggering record is updated.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 13 -->
+<div class="slide-container theme-purple-dark" id="slide13">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">14. Hands-On #3: Bulk Update Related Assets</h2>
+    <div class="content-area">
+        <div class="highlight-box" style="background:rgba(167,139,250,.1);border-left-color:#a78bfa;">
+            <p style="margin:0;font-weight:600;color:#a78bfa;">Business Requirement</p>
+            <p style="margin:0;font-size:14px;">When an <strong>Account</strong> is updated, find all Active Assets related to that Account, modify each Asset's Description, collect the modified records, and perform one bulk update after the Loop.</p>
+        </div>
+        <div class="two-column" style="margin-top:10px;">
+            <div class="tile" style="background:rgba(255,255,255,.05);border-top:4px solid #ef4444;">
+                <h3 style="color:#fca5a5;">❌ Anti-Pattern: Update Inside Loop</h3>
+                <div class="flow-layout" style="flex-direction:column;gap:4px;margin:4px 0;">
+                    <div class="flow-node" style="font-size:10px;padding:3px 6px;background:#991b1b;width:100%;">Loop → Current Asset</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size:8px;"></i>
+                    <div class="flow-node" style="font-size:10px;padding:3px 6px;background:#dc2626;width:100%;">Update Records</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size:8px;"></i>
+                    <div class="flow-node" style="font-size:10px;padding:3px 6px;background:#991b1b;width:100%;">Next Item</div>
+                </div>
+                <p style="font-size:11px;color:#fca5a5;">Creates repeated database operations and is a poor scalable pattern.</p>
+            </div>
+            <div class="tile" style="background:rgba(255,255,255,.05);border-top:4px solid #2dd4bf;">
+                <h3 style="color:#2dd4bf;">✅ Best Practice: Collection Pattern</h3>
+                <div class="flow-layout" style="flex-direction:column;gap:4px;margin:4px 0;">
+                    <div class="flow-node" style="font-size:10px;padding:3px 6px;background:#0f766e;width:100%;">Loop → Modify Current Asset</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size:8px;"></i>
+                    <div class="flow-node" style="font-size:10px;padding:3px 6px;background:#0d9488;width:100%;">Add Current Asset to Update Collection</div>
+                    <i class="fa-solid fa-arrow-down flow-arrow" style="font-size:8px;"></i>
+                    <div class="flow-node" style="font-size:10px;padding:3px 6px;background:#14b8a6;width:100%;">After Last Item → Update Records</div>
+                </div>
+                <p style="font-size:11px;color:#2dd4bf;">One collection of changes → one bulk update action.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 14 -->
+<div class="slide-container theme-sf-blue" id="slide14">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">15. Hands-On #3: Configuration Details</h2>
+    <div class="content-area">
+        <div class="tile-grid-3">
+            <div class="tile" style="background:rgba(255,255,255,.05);">
+                <h3>1. Start & Get</h3>
+                <p style="font-size:11px;">Flow: <strong>Record-Triggered Flow</strong></p>
+                <p style="font-size:11px;">Object: <strong>Account</strong></p>
+                <p style="font-size:11px;">Trigger: <strong>Updated</strong></p>
+                <p style="font-size:11px;">Get Records: Asset</p>
+                <p style="font-size:11px;"><span class="code-badge">AccountId = {!$Record.Id}</span></p>
+                <p style="font-size:11px;"><span class="code-badge">Status = Active</span></p>
+                <p style="font-size:11px;">Return <strong>All records</strong>.</p>
+            </div>
+            <div class="tile" style="background:rgba(255,255,255,.05);">
+                <h3>2. Loop & Assignment</h3>
+                <p style="font-size:11px;">Loop: Active Assets Collection</p>
+                <p style="font-size:11px;"><strong>Assignment 1:</strong> Modify Current Item</p>
+                <p style="font-size:11px;"><span class="code-badge">{!CurrentAsset.Description} = "Reviewed by Automation"</span></p>
+                <p style="font-size:11px;"><strong>Assignment 2:</strong> Add Current Item to <span class="code-badge">AssetsToUpdate</span></p>
+            </div>
+            <div class="tile" style="background:rgba(255,255,255,.05);">
+                <h3>3. Bulk Update</h3>
+                <p style="font-size:11px;">Connect Assignment → <strong>Next Item</strong>.</p>
+                <p style="font-size:11px;">From <strong>After Last Item</strong>:</p>
+                <p style="font-size:11px;">→ Update Records</p>
+                <p style="font-size:11px;">Record Source: <span class="code-badge">{!AssetsToUpdate}</span></p>
+                <p style="font-size:11px;">Do not place the Update Records element inside the Loop.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 15 -->
+<div class="slide-container theme-sf-light" id="slide15">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">16. Collection Types & Three Master Patterns</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile" style="border-top:6px solid #0284c7;">
+                <h3>Collection Types</h3>
+                <p style="font-size:12px;"><strong>Retrieved Collection:</strong> Created from Get Records returning multiple records.</p>
+                <p style="font-size:12px;margin-top:10px;"><strong>Record Collection Variable:</strong> A custom collection used to stage records for later bulk processing.</p>
+                <p style="font-size:12px;margin-top:10px;"><strong>Current Item:</strong> A single record extracted from the collection during one Loop iteration.</p>
+            </div>
+            <div class="tile" style="border-top:6px solid #8b5cf6;">
+                <h3>Three Master Patterns</h3>
+                <div style="font-size:11px;line-height:1.7;">
+                    <p style="margin-bottom:5px;"><strong>Hands-On 1:</strong> Trigger → Get → Loop → Current Item <em>(Inspection)</em></p>
+                    <p style="margin-bottom:5px;"><strong>Hands-On 2:</strong> Trigger → Get → Loop → Assignment → Update <em>(Accumulation)</em></p>
+                    <p style="margin-bottom:0;"><strong>Hands-On 3:</strong> Trigger → Get → Loop → Modify → Collection → Bulk Update <em>(Batch Processing)</em></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 16 -->
+<div class="slide-container theme-clean-slate" id="slide16">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">17. Beginner Mistakes & Debugging Checklist</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile" style="border-left:6px solid #ef4444;">
+                <h3 style="color:#dc2626;">Top Mistakes</h3>
+                <ul class="bullet-list" style="font-size:11px;">
+                    <li><i class="fa-solid fa-xmark" style="color:#ef4444;"></i>Using the wrong triggering object.</li>
+                    <li><i class="fa-solid fa-xmark" style="color:#ef4444;"></i>Referencing the trigger incorrectly instead of <span class="code-badge">$Record</span>.</li>
+                    <li><i class="fa-solid fa-xmark" style="color:#ef4444;"></i>Configuring Get Records to return only one record.</li>
+                    <li><i class="fa-solid fa-xmark" style="color:#ef4444;"></i>Confusing the collection with Current Item.</li>
+                    <li><i class="fa-solid fa-xmark" style="color:#ef4444;"></i>Forgetting to connect back to Next Item.</li>
+                    <li><i class="fa-solid fa-xmark" style="color:#ef4444;"></i>Placing Update Records inside the Loop.</li>
+                    <li><i class="fa-solid fa-xmark" style="color:#ef4444;"></i>Failing to initialize accumulation variables.</li>
+                </ul>
+            </div>
+            <div class="tile" style="border-left:6px solid #00a1e0;">
+                <h3>Debug Checklist</h3>
+                <p style="font-size:11px;"><strong>1.</strong> Did the Record-Triggered Flow fire?</p>
+                <p style="font-size:11px;"><strong>2.</strong> Is <span class="code-badge">$Record</span> the expected record?</p>
+                <p style="font-size:11px;"><strong>3.</strong> Did Get Records return the expected collection?</p>
+                <p style="font-size:11px;"><strong>4.</strong> Is the Loop using the correct collection?</p>
+                <p style="font-size:11px;"><strong>5.</strong> Is Current Item the expected record?</p>
+                <p style="font-size:11px;"><strong>6.</strong> Is the Update Records action outside the Loop?</p>
+                <div class="highlight-box" style="margin-top:8px;padding:10px;background:rgba(0,161,224,.08);">
+                    <p style="margin:0;font-size:11px;color:#00a1e0;"><strong>Golden Rule:</strong> The Loop is the iteration engine. It does not decide what happens to each record. Decision and Assignment provide the logic; the final DML action belongs outside the Loop.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 17 -->
+<div class="slide-container theme-sf-blue" id="slide17">
+    <img src="SoftCode Logo.png" alt="SoftCode Logo" class="slide-logo">
+    <h2 class="slide-title">18. Class 4 Summary</h2>
+    <div class="content-area">
+        <div class="tile-grid-3">
+            <div class="tile" style="background:rgba(255,255,255,.05);border-top:5px solid #38bdf8;">
+                <h3>Remember</h3>
+                <p style="font-size:12px;">A Record-Triggered Flow starts with one record. Related-record queries can produce collections containing many records.</p>
+            </div>
+            <div class="tile" style="background:rgba(255,255,255,.05);border-top:5px solid #a78bfa;">
+                <h3>Understand</h3>
+                <p style="font-size:12px;">A Loop moves through the collection one record at a time and exposes each record as the Current Item.</p>
+            </div>
+            <div class="tile" style="background:rgba(255,255,255,.05);border-top:5px solid #2dd4bf;">
+                <h3>Apply</h3>
+                <p style="font-size:12px;">Use Assignment and Record Collections to accumulate changes, then perform bulk updates after the Loop.</p>
+            </div>
+        </div>
+        <div class="highlight-box" style="margin-top:25px;background:rgba(56,189,248,.1);border-left-color:#38bdf8;text-align:center;">
+            <p style="margin:0;font-size:18px;color:#38bdf8;"><strong>Record Trigger → Related Records → Collection → Loop → Current Item → Logic → Bulk Action</strong></p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

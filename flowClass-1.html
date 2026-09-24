@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoftCode Salesforce Flow Masterclass - Class 1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* 1. RESET & CORE ARCHITECTURE */
+* { box-sizing: border-box; }
+p { margin: 0; margin-bottom: 12px; }
+body {
+  background-color: #cbd5e1;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 1fr;
+  margin: 0;
+  min-height: 100vh;
+  padding: 40px 0;
+  place-items: center;
+}
+
+.slide-container {
+  align-items: center;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+  height: 720px;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding: 50px 80px;
+  position: relative;
+  width: 1280px;
+}
+
+/* 2. BACKGROUND DECORATIONS */
+.decor-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.15; z-index: 0; }
+
+/* 3. TYPOGRAPHY */
+h1 { font-family: 'Poppins', sans-serif; font-size: 52px; font-weight: 700; line-height: 1.1; margin: 0; text-align: center; }
+.slide-title { font-family: 'Poppins', sans-serif; font-size: 36px; font-weight: 700; margin-bottom: 25px; text-align: left; width: 100%; border-left: 10px solid currentColor; padding-left: 20px; }
+h3 { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 600; margin-bottom: 12px; }
+p, li { font-size: 18px; line-height: 1.5; }
+
+/* 4. CONTENT WRAPPERS */
+.content-area { display: flex; flex-direction: column; flex-grow: 1; width: 100%; justify-content: center; z-index: 2; position: relative; }
+.two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; width: 100%; }
+.tile-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 100%; }
+.tile-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
+.tile-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; width: 100%; }
+.tile { border-radius: 12px; padding: 22px; border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.05); }
+
+/* 5. COMPONENTS */
+.bullet-list { list-style: none; padding: 0; margin: 0; }
+.bullet-list li { position: relative; padding-left: 32px; margin-bottom: 10px; }
+.bullet-list i { position: absolute; left: 0; top: 4px; font-size: 18px; }
+
+.table-layout table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+.table-layout th { background: rgba(255, 255, 255, 0.1); color: #fff; padding: 12px; text-align: left; font-family: 'Poppins', sans-serif; border-bottom: 3px solid #00a1e0; }
+.table-layout td { padding: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+
+.flow-layout { display: flex; align-items: center; justify-content: space-around; width: 100%; margin: 15px 0; }
+.flow-node { background: #00a1e0; color: #fff; font-weight: 700; padding: 10px 18px; border-radius: 8px; font-family: 'Poppins'; text-align: center; font-size: 15px; }
+.flow-arrow { font-size: 18px; color: #94a3b8; }
+
+.highlight-box { background: rgba(0, 161, 224, 0.1); border-radius: 12px; border-left: 6px solid #00a1e0; padding: 18px; margin: 15px 0; }
+
+/* 6. THEMES (5 DISTINCT VARIATIONS) */
+.theme-sf-blue { background: #031b33; color: #f1f5f9; }
+.theme-sf-blue .slide-title { color: #38bdf8; border-left-color: #00a1e0; }
+.theme-sf-blue h3 { color: #38bdf8; }
+.theme-sf-blue .bullet-list i { color: #38bdf8; }
+
+.theme-sf-light { background: #f0f9ff; color: #0c4a6e; }
+.theme-sf-light .slide-title { color: #0284c7; border-left-color: #00a1e0; }
+.theme-sf-light h3 { color: #0284c7; }
+.theme-sf-light .tile { background: #ffffff; border-color: #bae6fd; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+.theme-sf-light .bullet-list i { color: #0284c7; }
+
+.theme-flow-teal { background: #042f2e; color: #f0fdfa; }
+.theme-flow-teal .slide-title { color: #2dd4bf; border-left-color: #14b8a6; }
+.theme-flow-teal h3 { color: #2dd4bf; }
+.theme-flow-teal .bullet-list i { color: #2dd4bf; }
+
+.theme-purple-dark { background: #1e1b4b; color: #f5f3ff; }
+.theme-purple-dark .slide-title { color: #a78bfa; border-left-color: #8b5cf6; }
+.theme-purple-dark h3 { color: #a78bfa; }
+.theme-purple-dark .tile { background: rgba(255,255,255,0.05); border-color: #4c1d95; }
+.theme-purple-dark .bullet-list i { color: #a78bfa; }
+
+.theme-clean-slate { background: #f8fafc; color: #0f172a; }
+.theme-clean-slate .slide-title { color: #334155; border-left-color: #00a1e0; }
+.theme-clean-slate h3 { color: #0f172a; }
+.theme-clean-slate .tile { background: #ffffff; border-color: #e2e8f0; }
+.theme-clean-slate .bullet-list i { color: #00a1e0; }
+
+/* 7. Preserving The Print Styles */
+@media print {
+  body {
+    background-color: transparent !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+
+  .slide-container {
+    page-break-after: always !important;
+    page-break-inside: avoid !important;
+    margin: 0 auto 0 auto !important;
+    box-shadow: none !important;
+    border: none !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+    </style>
+</head>
+<body>
+
+<!-- SLIDE 1: TITLE SLIDE -->
+<div class="slide-container theme-sf-blue" id="slide1">
+    <div class="decor-blob" style="width: 600px; height: 600px; background: #00a1e0; top: -200px; right: -200px;"></div>
+    <div class="decor-blob" style="width: 500px; height: 500px; background: #14b8a6; bottom: -200px; left: -200px;"></div>
+    <div class="content-area" style="align-items: center;">
+        <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 25px;">
+            <i class="fa-solid fa-cloud" style="font-size: 70px; color: #38bdf8;"></i>
+            <i class="fa-solid fa-bolt" style="font-size: 40px; color: #38bdf8;"></i>
+            <i class="fa-solid fa-diagram-project" style="font-size: 70px; color: #2dd4bf;"></i>
+        </div>
+        <h1 style="color: #ffffff;">SoftCode Salesforce Flow Masterclass</h1>
+        <p style="font-size: 24px; color: #cbd5e1; font-family: 'Poppins'; margin-top: 20px;">Class 1: Introduction to Salesforce Flow & Your First Automation</p>
+        <div style="margin-top: 40px; border: 2px solid #38bdf8; padding: 12px 35px; border-radius: 50px; color: #38bdf8; font-weight: 600;">
+            Format: Theory + Hands-on | Duration: 1 Hour | Level: Beginner
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 2: LEARNING OBJECTIVES -->
+<div class="slide-container theme-sf-light" id="slide2">
+    <h2 class="slide-title">1. Learning Objectives</h2>
+    <div class="content-area">
+        <div class="tile-grid">
+            <div class="tile">
+                <h3>Core Theoretical Concepts</h3>
+                <ul class="bullet-list">
+                    <li><i class="fa-solid fa-bullseye"></i> Explain what Salesforce Flow is and its strategic necessity.</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Identify common operational bottlenecks solved by Flow.</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Differentiate Flow from Apex, Workflows, and Process Builder.</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Master the core relationship between Triggers, Elements, and Actions.</li>
+                </ul>
+            </div>
+            <div class="tile">
+                <h3>Practical & Hands-On Skills</h3>
+                <ul class="bullet-list">
+                    <li><i class="fa-solid fa-bullseye"></i> Navigate and build inside the visual Flow Builder.</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Construct Record-Triggered Flows from scratch.</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Apply entry conditions and business decision logic.</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Activate, test, and troubleshoot automations with real data.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 3: WHAT IS SALESFORCE FLOW & WHY AUTOMATE? -->
+<div class="slide-container theme-sf-blue" id="slide3">
+    <h2 class="slide-title">2 & 3. What is Salesforce Flow & Business Need</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Declarative Automation Engine</h3>
+                <p>Salesforce Flow allows administrators and developers to build complex business logic visually—without writing code.</p>
+                <div class="highlight-box" style="background: rgba(56, 189, 248, 0.1); border-left-color: #38bdf8;">
+                    <p style="margin: 0; font-size: 15px;"><strong>Capabilities:</strong> Create, update, delete, or fetch records; route decisions; post notifications; call external APIs; guide screen users.</p>
+                </div>
+            </div>
+            <div class="tile" style="background: rgba(255,255,255,0.05);">
+                <h3>The Cost of Manual Work</h3>
+                <p style="font-size: 14px; color: #cbd5e1;">Consider 500 new Accounts created monthly. Manual task logging requires 3,000+ repetitive clicks.</p>
+                <ul class="bullet-list" style="font-size: 15px;">
+                    <li><i class="fa-solid fa-clock-rotate-left"></i> Eliminates human latency and error rates.</li>
+                    <li><i class="fa-solid fa-handshake-angle"></i> Enforces standardized business processes.</li>
+                    <li><i class="fa-solid fa-chart-line"></i> Frees staff to focus on high-value human judgment.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 4: FLOW IN A REAL BUSINESS ENVIRONMENT & FLOW VS MANUAL -->
+<div class="slide-container theme-clean-slate" id="slide4">
+    <h2 class="slide-title">4 & 5. Flow in Action: Manual vs. Automated</h2>
+    <div class="content-area">
+        <p style="margin-bottom: 20px;">Flow serves as the underlying orchestration engine linking business events to downstream tasks.</p>
+        <div class="flow-layout">
+            <div class="flow-node" style="background: #0284c7;">1. Event Occurs</div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div class="flow-node" style="background: #0d9488;">2. Flow Evaluates Logic</div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div class="flow-node" style="background: #8b5cf6;">3. Automated Actions</div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div class="flow-node" style="background: #16a34a;">4. Records Updated / Team Notified</div>
+        </div>
+        <div class="two-column" style="margin-top: 15px;">
+            <div class="tile" style="border-left: 6px solid #ef4444;">
+                <h3 style="color: #dc2626;"><i class="fa-solid fa-xmark"></i> Manual Process</h3>
+                <p style="font-size: 13px;">Record created &rarr; Employee notices &rarr; Employee creates Task &rarr; Employee sets due date &rarr; Employee updates status.</p>
+            </div>
+            <div class="tile" style="border-left: 6px solid #16a34a;">
+                <h3 style="color: #16a34a;"><i class="fa-solid fa-check"></i> Flow Automated Process</h3>
+                <p style="font-size: 13px;">Record created &rarr; <strong>Flow triggers</strong> &rarr; Logic evaluates &rarr; Task instantly generated & assigned in milliseconds.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 5: FLOW VS APEX VS WORKFLOWS & PROCESS BUILDER -->
+<div class="slide-container theme-flow-teal" id="slide5">
+    <h2 class="slide-title">6 & 7. Flow Positioning: Apex & Legacy Tools</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile" style="background: rgba(255,255,255,0.05);">
+                <h3>Flow vs. Apex Code</h3>
+                <p style="font-size: 14px;"><strong>Flow (Declarative):</strong> Clicks-not-code visual builder. Faster time-to-market, easier maintainability.<br><br><strong>Apex (Programmatic):</strong> Code language used when complex algorithms, high-volume batch processing, or non-supported actions are required.</p>
+                <div class="highlight-box" style="background: rgba(45, 212, 191, 0.1); border-left-color: #2dd4bf; margin-top: 10px; padding: 10px;">
+                    <p style="margin: 0; font-size: 13px;"><strong>Golden Rule:</strong> <em>"Flow first, code only when necessary."</em></p>
+                </div>
+            </div>
+            <div class="tile" style="background: rgba(255,255,255,0.05);">
+                <h3>Legacy Tools Retirement</h3>
+                <ul class="bullet-list" style="font-size: 14px;">
+                    <li><i class="fa-solid fa-box-archive" style="color: #f87171;"></i> <strong>Workflow Rules:</strong> Deprecated / Retire state.</li>
+                    <li><i class="fa-solid fa-box-archive" style="color: #f87171;"></i> <strong>Process Builder:</strong> Deprecated / Retire state.</li>
+                    <li><i class="fa-solid fa-circle-check" style="color: #2dd4bf;"></i> <strong>Salesforce Flow:</strong> The single, unified declarative automation standard for modern Salesforce professionals.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 6: FLOW BUILDER & THE THREE FUNDAMENTAL QUESTIONS -->
+<div class="slide-container theme-purple-dark" id="slide6">
+    <h2 class="slide-title">8 & 9. Flow Architecture & Design Mindset</h2>
+    <div class="content-area">
+        <p style="margin-bottom: 15px;">Before touching Flow Builder, translate business requirements into three architectural questions:</p>
+        <div class="tile-grid-3">
+            <div class="tile">
+                <i class="fa-solid fa-bolt" style="font-size: 30px; color: #a78bfa; margin-bottom: 10px;"></i>
+                <h3>1. What starts it?</h3>
+                <p style="font-size: 14px;"><strong>The Trigger:</strong> An Account record is created, a field updates, or a schedule hits.</p>
+            </div>
+            <div class="tile">
+                <i class="fa-solid fa-filter" style="font-size: 30px; color: #a78bfa; margin-bottom: 10px;"></i>
+                <h3>2. Is there logic?</h3>
+                <p style="font-size: 14px;"><strong>Conditions & Decisions:</strong> Only run if Account Type = Customer.</p>
+            </div>
+            <div class="tile">
+                <i class="fa-solid fa-gears" style="font-size: 30px; color: #a78bfa; margin-bottom: 10px;"></i>
+                <h3>3. What should it do?</h3>
+                <p style="font-size: 14px;"><strong>The Actions:</strong> Create a Task, update a related contact, or send an email.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 7: TYPES OF SALESFORCE FLOW -->
+<div class="slide-container theme-sf-light" id="slide7">
+    <h2 class="slide-title">10. Types of Salesforce Flows</h2>
+    <div class="content-area">
+        <div class="tile-grid">
+            <div class="tile">
+                <h3><i class="fa-solid fa-database" style="color: #0284c7;"></i> Record-Triggered Flow</h3>
+                <p style="font-size: 14px;">Runs automatically behind the scenes when a record is created, updated, or deleted.<br><em>Focus of today's class.</em></p>
+            </div>
+            <div class="tile">
+                <h3><i class="fa-solid fa-desktop" style="color: #0284c7;"></i> Screen Flow</h3>
+                <p style="font-size: 14px;">Provides a guided user interface with forms, wizards, and interactive screens for users to complete.</p>
+            </div>
+            <div class="tile">
+                <h3><i class="fa-solid fa-clock" style="color: #0284c7;"></i> Schedule-Triggered Flow</h3>
+                <p style="font-size: 14px;">Executes automatically at specified recurring times/dates for a batch of matching records.</p>
+            </div>
+            <div class="tile">
+                <h3><i class="fa-solid fa-robot" style="color: #0284c7;"></i> Autolaunched Flow</h3>
+                <p style="font-size: 14px;">Runs headlessly without a UI; invoked by Apex, REST APIs, or parent Flows.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 8: SCENARIO 1 & HANDS-ON #1 -->
+<div class="slide-container theme-sf-blue" id="slide8">
+    <h2 class="slide-title">11 & 12. Hands-on #1: Your First Automation</h2>
+    <div class="content-area">
+        <div class="highlight-box" style="background: rgba(56, 189, 248, 0.1); border-left-color: #38bdf8;">
+            <p style="margin: 0; font-weight: 600; color: #38bdf8;">Business Requirement 1:</p>
+            <p style="margin: 0; font-size: 15px;">Whenever a new Account is created, automatically create a Task for the Account Owner reminding them to follow up.</p>
+        </div>
+        <div class="table-layout" style="margin-top: 15px;">
+            <table style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;">
+                <thead>
+                    <tr style="background: #0284c7; color: #fff;">
+                        <th>Step</th>
+                        <th>Configuration Element</th>
+                        <th>Target Setting / Mapping</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size: 13px; color: #f8fafc;">
+                    <tr><td>1. Trigger</td><td>Object: Account</td><td>A record is created (No entry criteria)</td></tr>
+                    <tr><td>2. Action</td><td>Create Records Element</td><td>Object: Task</td></tr>
+                    <tr><td>3. Mapping</td><td>Subject</td><td>"Follow up with new Account"</td></tr>
+                    <tr><td>4. Mapping</td><td>Assigned To ID & Related To ID</td><td><code>$Record.OwnerId</code> & <code>$Record.Id</code></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 9: WHAT JUST HAPPENED? (HANDS-ON 1 DECONSTRUCTION) -->
+<div class="slide-container theme-clean-slate" id="slide9">
+    <h2 class="slide-title">13. Deconstructing Hands-on #1</h2>
+    <div class="content-area">
+        <p style="margin-bottom: 20px;">Here is the exact execution timeline that occurred within Salesforce when you saved that test record:</p>
+        <div class="flow-layout">
+            <div class="flow-node" style="background: #00a1e0;">1. User saves Account "SoftCode"</div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div class="flow-node" style="background: #0284c7;">2. Salesforce fires Event</div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div class="flow-node" style="background: #0d9488;">3. Flow engine executes</div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div class="flow-node" style="background: #16a34a;">4. Task created on Activity tab</div>
+        </div>
+        <div class="tile" style="margin-top: 20px; border-left: 6px solid #00a1e0;">
+            <h3><i class="fa-solid fa-lightbulb" style="color: #00a1e0;"></i> Key Takeaway</h3>
+            <p style="font-size: 15px; margin: 0;">The entire operation executed automatically in the background within milliseconds, guaranteeing that 100% of newly created Accounts receive follow-up tasks without manual intervention.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 10: SCENARIO 2 & HANDS-ON #2 -->
+<div class="slide-container theme-sf-light" id="slide10">
+    <h2 class="slide-title">14 & 15. Hands-on #2: Adding Entry Logic</h2>
+    <div class="content-area">
+        <div class="highlight-box" style="background: rgba(2, 132, 199, 0.1); border-left-color: #0284c7;">
+            <p style="margin: 0; font-weight: 600; color: #0284c7;">Business Requirement 2:</p>
+            <p style="margin: 0; font-size: 15px;">Whenever a new Account is created, create a follow-up Task <strong>ONLY IF</strong> the Account Type equals "Customer".</p>
+        </div>
+        <div class="two-column" style="margin-top: 15px;">
+            <div class="tile" style="border-left: 6px solid #16a34a;">
+                <h3 style="color: #16a34a;">Test 1: Type = "Customer"</h3>
+                <p style="font-size: 14px;"><strong>Entry Filter:</strong> Matches condition.<br><strong>Flow Result:</strong> <i class="fa-solid fa-circle-check" style="color: #16a34a;"></i> Task created successfully.</p>
+            </div>
+            <div class="tile" style="border-left: 6px solid #ef4444;">
+                <h3 style="color: #dc2626;">Test 2: Type = "Prospect"</h3>
+                <p style="font-size: 14px;"><strong>Entry Filter:</strong> Fails condition.<br><strong>Flow Result:</strong> <i class="fa-solid fa-circle-xmark" style="color: #ef4444;"></i> Flow bypasses; no Task created.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 11: SCENARIO 3 & HANDS-ON #3 -->
+<div class="slide-container theme-purple-dark" id="slide11">
+    <h2 class="slide-title">16 & 17. Hands-on #3: Opportunity Object Sync</h2>
+    <div class="content-area">
+        <div class="highlight-box" style="background: rgba(167, 139, 250, 0.1); border-left-color: #a78bfa;">
+            <p style="margin: 0; font-weight: 600; color: #a78bfa;">Business Requirement 3:</p>
+            <p style="margin: 0; font-size: 15px;">Whenever a new Opportunity is created, automatically create a Task for the Opportunity Owner to follow up with the prospect.</p>
+        </div>
+        <div class="tile-grid" style="margin-top: 15px;">
+            <div class="tile">
+                <h3>Flow Configuration</h3>
+                <ul class="bullet-list" style="font-size: 13px;">
+                    <li><i class="fa-solid fa-cube"></i> <strong>Object:</strong> Opportunity</li>
+                    <li><i class="fa-solid fa-bolt"></i> <strong>Trigger:</strong> Record Created</li>
+                    <li><i class="fa-solid fa-plus"></i> <strong>Element:</strong> Create Records (Task)</li>
+                </ul>
+            </div>
+            <div class="tile">
+                <h3>Field Mapping Values</h3>
+                <ul class="bullet-list" style="font-size: 13px;">
+                    <li><i class="fa-solid fa-tag"></i> <strong>Subject:</strong> "Follow up on new Opportunity"</li>
+                    <li><i class="fa-solid fa-user"></i> <strong>Assigned To ID:</strong> <code>$Record.OwnerId</code></li>
+                    <li><i class="fa-solid fa-link"></i> <strong>Related To ID:</strong> <code>$Record.Id</code></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 12: WHAT WE HAVE LEARNED & IMPORTANT CONCEPTS -->
+<div class="slide-container theme-flow-teal" id="slide12">
+    <h2 class="slide-title">18 & 19. Summary & Essential Terminology</h2>
+    <div class="content-area">
+        <div class="tile-grid-4">
+            <div class="tile" style="background: rgba(255,255,255,0.05); text-align: center;">
+                <i class="fa-solid fa-bolt" style="color: #2dd4bf; font-size: 28px; margin-bottom: 8px;"></i>
+                <p style="font-size: 13px; font-weight: 600; color: #2dd4bf;">TRIGGER</p>
+                <p style="font-size: 12px;">What event starts the automation workflow?</p>
+            </div>
+            <div class="tile" style="background: rgba(255,255,255,0.05); text-align: center;">
+                <i class="fa-solid fa-cubes" style="color: #2dd4bf; font-size: 28px; margin-bottom: 8px;"></i>
+                <p style="font-size: 13px; font-weight: 600; color: #2dd4bf;">ELEMENT</p>
+                <p style="font-size: 12px;">Building blocks (Create, Update, Decision, Get).</p>
+            </div>
+            <div class="tile" style="background: rgba(255,255,255,0.05); text-align: center;">
+                <i class="fa-solid fa-play" style="color: #2dd4bf; font-size: 28px; margin-bottom: 8px;"></i>
+                <p style="font-size: 13px; font-weight: 600; color: #2dd4bf;">ACTION</p>
+                <p style="font-size: 12px;">The operation executed (Create Task, Send Email).</p>
+            </div>
+            <div class="tile" style="background: rgba(255,255,255,0.05); text-align: center;">
+                <i class="fa-solid fa-filter" style="color: #2dd4bf; font-size: 28px; margin-bottom: 8px;"></i>
+                <p style="font-size: 13px; font-weight: 600; color: #2dd4bf;">CONDITION</p>
+                <p style="font-size: 12px;">Filter rules governing execution logic.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 13: COMMON BEGINNER MISTAKES -->
+<div class="slide-container theme-sf-light" id="slide13">
+    <h2 class="slide-title">20. Common Beginner Mistakes</h2>
+    <div class="content-area">
+        <div class="tile-grid">
+            <div class="tile" style="border-left: 6px solid #ef4444;">
+                <h3 style="color: #dc2626;"><i class="fa-solid fa-toggle-off"></i> 1. Forgetting to Activate</h3>
+                <p style="font-size: 13px;">Saving a Flow does NOT make it run. You must explicitly click <strong>Activate</strong> in Flow Builder.</p>
+            </div>
+            <div class="tile" style="border-left: 6px solid #ef4444;">
+                <h3 style="color: #dc2626;"><i class="fa-solid fa-vial-circle-xmark"></i> 2. Testing with Mismatched Data</h3>
+                <p style="font-size: 13px;">Testing with Type = "Prospect" when your filter requires "Customer" will bypass the Flow correctly—don't mistake this for a bug!</p>
+            </div>
+            <div class="tile" style="border-left: 6px solid #ef4444;">
+                <h3 style="color: #dc2626;"><i class="fa-solid fa-sitemap"></i> 3. Mismapping ID Fields</h3>
+                <p style="font-size: 13px;">Mapping <code>Assigned To ID</code> to <code>$Record.Id</code> instead of <code>$Record.OwnerId</code> causes tasks to fail or attach to wrong records.</p>
+            </div>
+            <div class="tile" style="border-left: 6px solid #ef4444;">
+                <h3 style="color: #dc2626;"><i class="fa-solid fa-hammer"></i> 4. Building Without Planning</h3>
+                <p style="font-size: 13px;">Opening Flow Builder before defining "When, What, and Under what conditions" leads to messy logic and rework.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 14: THE FLOW DESIGN MINDSET -->
+<div class="slide-container theme-clean-slate" id="slide14">
+    <h2 class="slide-title">21. The Flow Design Mindset Framework</h2>
+    <div class="content-area">
+        <p style="margin-bottom: 15px;">Always structure requirements into this exact 5-question formula prior to building:</p>
+        <div class="table-layout">
+            <table>
+                <thead>
+                    <tr style="background: #00a1e0; color: #fff;">
+                        <th>Question</th>
+                        <th>Architecture Mapping</th>
+                        <th>Example Scenario Value</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size: 13px;">
+                    <tr><td><strong>1. When?</strong></td><td>Trigger Event</td><td>When a record is created</td></tr>
+                    <tr><td><strong>2. On what?</strong></td><td>Salesforce Object</td><td>Account Object</td></tr>
+                    <tr><td><strong>3. Under what conditions?</strong></td><td>Entry Criteria</td><td>Account Type Equals "Customer"</td></tr>
+                    <tr><td><strong>4. What should happen?</strong></td><td>Flow Action / Element</td><td>Create a Task Record</td></tr>
+                    <tr><td><strong>5. Who/what is affected?</strong></td><td>Field Assignment Mapping</td><td>Assign Task to Account Owner ID</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 15: CHALLENGE & TAKEAWAY -->
+<div class="slide-container theme-sf-blue" id="slide15">
+    <h2 class="slide-title">22 & 23. Class Challenge & Core Takeaway</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile" style="border-left: 6px solid #2dd4bf; background: rgba(255,255,255,0.05);">
+                <h3 style="color: #2dd4bf;"><i class="fa-solid fa-trophy"></i> End-of-Class Independent Challenge</h3>
+                <p style="font-size: 14px;"><strong>Requirement:</strong> When a new Contact is created, automatically create a Task for the Contact Owner ("Follow up with new Contact").</p>
+                <div class="highlight-box" style="background: rgba(45, 212, 191, 0.1); border-left-color: #2dd4bf; padding: 10px; margin-top: 10px;">
+                    <p style="margin: 0; font-size: 12px; color: #2dd4bf;"><strong>Bonus Challenge:</strong> Create the Task ONLY IF the Contact's <code>Email</code> field is populated!</p>
+                </div>
+            </div>
+            <div class="tile" style="border-left: 6px solid #38bdf8; background: rgba(255,255,255,0.05); align-self: center;">
+                <h3 style="color: #38bdf8;"><i class="fa-solid fa-brain"></i> The Core Takeaway</h3>
+                <p style="font-size: 15px; margin: 0;">Flow is not just a tool for clicking buttons.<br><br>It is the process of translating complex business requirements into structured, reliable automation logic.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
